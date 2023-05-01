@@ -1,6 +1,7 @@
 package com.ssafy.trip.attraction.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.trip.attraction.model.dto.AttractionInfoDto;
@@ -47,13 +45,23 @@ public class AttractionApiController {
 		}
 	}
 	
-	@PostMapping(value = "/list")
-	public ResponseEntity<?> attractionList(@RequestBody Map<String, Object> map) {
-		logger.debug("attractionList map : {}", map);
+	@GetMapping(value = "/list/{sidoCode}/{gugunCode}/{contentTypeId}")
+	public ResponseEntity<?> attractionList(@PathVariable("sidoCode") int sidoCode, @PathVariable("gugunCode") int gugunCode, @PathVariable("contentTypeId") int contentTypeId) {
+		logger.debug("attractionList map : {} {} {}", sidoCode, gugunCode, contentTypeId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("sidoCode", sidoCode);
+		map.put("gugunCode", gugunCode);
+		map.put("contentTypeId", contentTypeId);
 		try {
-			List<AttractionInfoDto> list = attractionService.listAttraction(map);
-			logger.debug("attractionList list : {}", list);
-			return new ResponseEntity<List<AttractionInfoDto>>(list, HttpStatus.OK);
+			if(contentTypeId == 0) {
+				List<AttractionInfoDto> list = attractionService.listAttractionAll(map);
+				logger.debug("attractionList listAll : {}", list);
+				return new ResponseEntity<List<AttractionInfoDto>>(list, HttpStatus.OK);
+			} else {
+				List<AttractionInfoDto> list = attractionService.listAttraction(map);
+				logger.debug("attractionList list : {}", list);
+				return new ResponseEntity<List<AttractionInfoDto>>(list, HttpStatus.OK);
+			}
 		} catch (SQLException e) {
 			return exceptionHandling(e);
 		}

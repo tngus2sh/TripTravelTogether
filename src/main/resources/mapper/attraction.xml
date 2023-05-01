@@ -55,9 +55,10 @@
 		where sido_code=${sidoCode} and gugun_name=#{gugunName}
 	</select>
 	
-	<select id="listAttractionAll" resultMap="attraction">
+	<select id="listAttractionAll" parameterType="map" resultMap="attraction">
 		select *
 		from attraction_info
+		where sido_code=${sidoCode} and gugun_code=${gugunCode}
 	</select>
 	
 	<select id="listAttraction" parameterType="map" resultMap="attraction">

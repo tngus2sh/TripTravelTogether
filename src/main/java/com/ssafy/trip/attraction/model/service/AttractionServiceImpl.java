@@ -42,8 +42,8 @@ public class AttractionServiceImpl implements AttractionService {
 	}
 
 	@Override
-	public List<AttractionInfoDto> listAttractionAll() throws SQLException {
-		return attractionMapper.listAttractionAll();
+	public List<AttractionInfoDto> listAttractionAll(Map<String, Object> map) throws SQLException {
+		return attractionMapper.listAttractionAll(map);
 	}
 
 	@Override

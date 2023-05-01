@@ -18,7 +18,7 @@ public interface AttractionMapper {
     List<GunguDto> listGungu(int sidoCode) throws SQLException;
     // String gugunName, int sidoCode
     int getGunguCode(Map<String, Object> map) throws SQLException;
-    List<AttractionInfoDto> listAttractionAll() throws SQLException;
+    List<AttractionInfoDto> listAttractionAll(Map<String, Object> map) throws SQLException;
     // int sidoCode, int gugunCode, int contentTypeId
     List<AttractionInfoDto> listAttraction(Map<String, Object> map) throws SQLException;
 

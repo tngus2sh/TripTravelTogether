@@ -71,7 +71,7 @@ function initSubAreaOption(sidoCode, gugunCode) {
 
 // 마커 표시 함수
 function displayMarker(positions) {
-	var imageSrc = "./assets/img/icon/location.png"; // 마커 이미지의 이미지 주소
+	var imageSrc = "/assets/img/icon/location.png"; // 마커 이미지의 이미지 주소
 	
 	for(let i = 0; i < positions.length; i++) {
 		var imageSize = new kakao.maps.Size(30, 35); // 마커 이미지의 이미지 크기

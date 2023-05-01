@@ -19,9 +19,6 @@
 <div class='container'>
     <!-- 관광지 검색 하는 영역 start -->
     <form id="search-form" class="d-flex my-3" onsubmit="return false;" role="search" method="POST">
-    	<input type="hidden" id="sidoCode" name="sidoCode">
-    	<input type="hidden" id="gugunCode" name="gugunCode">
-    	<input type="hidden" id="contentTypeId" name="contentTypeId">
         <!-- 지역 리스트 -->
         <select id="search-sido" class="form-select me-2">
             <option value="0" selected>검색 할 지역 선택</option>
@@ -76,18 +73,30 @@
 		if(sidoCode == 0)
 			alert("검색 지역을 선택하세요");
 		else if(gugunCode == 0)
-			alert("구/군을 선택하세요.");
-		else if(contentTypeId == 0){
-			let form = document.querySelector("#search-form");
-			form.setAttribute("action", "${root}/attraction/listall");
-			form.submit();
-		}			
+			alert("구/군을 선택하세요.");			
 		else {
-			let form = document.querySelector("#search-form");
-			form.setAttribute("action", "${root}/attraction/list");
-			form.submit();
+			fetch("${root}/attraction/list/" + sidoCode + "/" + gugunCode + "/" + contentTypeId)
+			.then(response => response.json())
+			.then(data => makeArea(data));
 		}
 	});
+	
+	function makeArea(data) {
+		let positions = [];
+		for(let i = 1; i < data.length; i++) {
+			markerInfo = {
+					title: data[i]["title"],
+					latlng: new kakao.maps.LatLng(data[i]["latitude"], data[i]["longitude"]),
+					image: data[i]["first_image"],
+					addr: data[i]["addr1"],
+					zipcode: data[i]["zipcode"],
+					tel: data[i]["tel"]
+				};
+				positions.push(markerInfo);
+		}
+		if(positions.length > 0)
+			displayMarker(positions);
+	}
 
 	<c:if test="${not empty attractions}">
 		$("#search-sido").val("${param.sidoCode}").prop("selected", true);
