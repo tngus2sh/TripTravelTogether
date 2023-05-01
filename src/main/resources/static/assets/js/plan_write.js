@@ -25,13 +25,13 @@ document.getElementById("plan-add-btn").addEventListener("click", () => {
                           </div>`;
   
   let info = 
-	  		`<input type="hidden" name='place_id' value=${placeId} />` +
+	  		`<input type="hidden" name='placeId' value=${placeId} />` +
   			`<input type="hidden" name='name' value= "${placeName}"/>` +
   			`<input type="hidden" name='address' value= "${placeAddr}"/>` +
   			`<input type="hidden" name='tel' value= ${placeTel} />` +
   			`<input type="hidden" name='lat' value=${placeLat} />` +
   			`<input type="hidden" name='lng' value=${placeLng} />` +
-  			`<input type="hidden" name='image_url' value= ${placeImageUrl} />` +
+  			`<input type="hidden" name='imageUrl' value= ${placeImageUrl} />` +
   			`</div>`; 
 
   document.getElementById("plan-content").innerHTML += makeDiv;  
@@ -67,7 +67,7 @@ document.getElementById("plan-add-btn").addEventListener("click", () => {
 document.getElementById("plan-save-btn").addEventListener("click", () => {
 	console.log("add-btn");
 	let form = document.getElementById("plan-form");
-	form.setAttribute("action", "plan");
+	form.setAttribute("action", "../plan/write");
 	form.submit();
 });
 
@@ -174,7 +174,7 @@ function makeOption(data) {
 // 지도에 마커를 표시하는 함수입니다
 function displayMarker(place) {
 	// 마커 이미지의 이미지 주소입니다
-	  var imageSrc = "./assets/img/icon/location.png";
+	  var imageSrc = "/assets/img/icon/location.png";
 
     // 마커 이미지의 이미지 크기 입니다
     var imageSize = new kakao.maps.Size(30, 35);

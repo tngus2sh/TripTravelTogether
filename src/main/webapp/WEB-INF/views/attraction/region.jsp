@@ -97,28 +97,6 @@
 		if(positions.length > 0)
 			displayMarker(positions);
 	}
-
-	<c:if test="${not empty attractions}">
-		$("#search-sido").val("${param.sidoCode}").prop("selected", true);
-		$("#search-content-id").val("${param.contentTypeId}").prop("selected", true);
-		initSubAreaOption("${param.sidoCode}", "${param.gugunCode}");
-		
-		let positions = [];
-		<c:forEach var="area" items="${attractions}">
-			markerInfo = {
-				title: "${area.title}",
-				latlng: new kakao.maps.LatLng("${area.latitude}", "${area.longitude}"),
-				image: "${area.first_image}",
-				addr: "${area.addr1}",
-				zipcode: "${area.zipcode}",
-				tel: "${area.tel}"
-			};
-			positions.push(markerInfo);
-		</c:forEach>
-		
-		if(positions.length > 0)
-			displayMarker(positions);
-	</c:if>
 	
 	
 </script>

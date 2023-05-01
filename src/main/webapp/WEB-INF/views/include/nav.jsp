@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="${root}/plan?action=mvplanlist">
+            <a class="nav-link active" href="${root}/plan/list?pgno=1&key=&word=">
                        여행경로 보기
             </a>
           </li>

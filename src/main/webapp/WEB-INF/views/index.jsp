@@ -68,7 +68,7 @@
                 여행에 방문할 새로운 관광지를 추가하고 여행 경로를 확인합니다.<br />
                 나만의 Trip or Trip!을 함께 떠나볼까요?
               </p>
-              <a href="${root}/plan?action=mvplanlist">
+              <a href="${root}/plan/list?pgno=1&key=&word=">
                 <span>Learn More</span><i class="bi bi-arrow-right"></i>
               </a>
             </div>
