@@ -37,6 +37,11 @@
                        핫플레이스 보기
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="${root}/board/list">
+                    자유 게시판
+            </a>
+          </li>          
         </ul>
 
 		<c:if test="${not empty userinfo}">

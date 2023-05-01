@@ -77,7 +77,6 @@ public class PlanController {
 		map.put("title", planDto.getTitle());		
 		int planId = planService.getPlanId(map);
 
-		System.out.println("testsetse");
 		List<PlaceDto> list = placeDtoList.getPlaceList();
 		logger.debug("test {}", list);
 		for (PlaceDto placeDto : list) {
