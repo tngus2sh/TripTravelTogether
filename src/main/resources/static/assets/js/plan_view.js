@@ -61,7 +61,7 @@ function displayMarker(place) {
   markers.push(marker);
 
   var content = "";
-  var noimg = "./assets/img/noimage.png";
+  var noimg = "/assets/img/noimage.png";
 
 // 마커에 클릭이벤트를 등록합니다
 kakao.maps.event.addListener(marker, "click", function () {

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.trip.user.model.mapper.UserMapper">
+	<resultMap type="userDto" id="user">
+		<result column="id" property="id"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="email_id" property="emailId"/>
+		<result column="email_domain" property="emailDomain"/>
+		<result column="grade" property="grade"/>
+	</resultMap>
+	
+	<select id="idCheck" parameterType="string" resultType="int">
+		select count(id)
+		from user
+		where id = #{id}
+	</select>
+	
+	<insert id="joinUser" parameterType="userDto">
+		insert into user (id, password, name, email_id, email_domain)
+		values (#{id}, #{password}, #{name}, #{emailId}, #{emailDomain})
+	</insert>
+	
+	<select id="loginUser" parameterType="map" resultMap="user">
+		select id, password, name, email_id, email_domain, grade
+		from user
+		where id=#{id} and password=#{password}
+	</select>
+	
+	<update id="modifyUser" parameterType="userDto">
+		update user 
+		set password = #{password}, email_id = #{emailId}, email_domain = #{emailDomain}
+		where id = #{id}
+	</update>
+	
+</mapper>

@@ -1,6 +1,7 @@
 var latitude;
 var longitude;
 var idxs = [];
+var index = 0;
 
 /** 추가 버튼 클릭하면 여행 계획란으로 정보 복사 됨 */
 document.getElementById("plan-add-btn").addEventListener("click", () => {
@@ -25,13 +26,13 @@ document.getElementById("plan-add-btn").addEventListener("click", () => {
                           </div>`;
   
   let info = 
-	  		`<input type="hidden" name='placeId' value=${placeId} />` +
-  			`<input type="hidden" name='name' value= "${placeName}"/>` +
-  			`<input type="hidden" name='address' value= "${placeAddr}"/>` +
-  			`<input type="hidden" name='tel' value= ${placeTel} />` +
-  			`<input type="hidden" name='lat' value=${placeLat} />` +
-  			`<input type="hidden" name='lng' value=${placeLng} />` +
-  			`<input type="hidden" name='imageUrl' value= ${placeImageUrl} />` +
+	  		`<input type="hidden" name='placeList[${index}].placeId' value=${placeId} />` +
+  			`<input type="hidden" name='placeList[${index}].name' value= "${placeName}"/>` +
+  			`<input type="hidden" name='placeList[${index}].address' value= "${placeAddr}"/>` +
+  			`<input type="hidden" name='placeList[${index}].tel' value= ${placeTel} />` +
+  			`<input type="hidden" name='placeList[${index}].lat' value=${placeLat} />` +
+  			`<input type="hidden" name='placeList[${index}].lng' value=${placeLng} />` +
+  			`<input type="hidden" name='placeList[${index}].imageUrl' value= ${placeImageUrl} />` +
   			`</div>`; 
 
   document.getElementById("plan-content").innerHTML += makeDiv;  
@@ -61,6 +62,7 @@ document.getElementById("plan-add-btn").addEventListener("click", () => {
       markers.splice(i, 1);
     }
   }
+  index++;
 });
 
 /** 저장 버튼 누르면 DB에 여행 계획 정보 저장 */

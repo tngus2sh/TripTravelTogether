@@ -90,7 +90,7 @@
 					</div>
 					<c:if test="${!status.last}">
 						<div class="d-flex align-items-center">
-							<img src="./assets/img/icon/arrows.png" alt="화살표" style="width: 3em; height: 3em;">
+							<img src="/assets/img/icon/arrows.png" alt="화살표" style="width: 3em; height: 3em;">
 						</div>
 					</c:if>
 					</c:forEach>
@@ -103,7 +103,7 @@
 					<c:when test="${status.index%2==0}">
 					<div class="mb-2 container row" style="margin:100 auto;">
 						<div class="col-md-8 p-3 travel-box d-flex flex-row align-content-center border border-4 rounded" style="width: 50%; margin:0 auto;">
-							<img src="./assets/img/noimage.png" alt="${place.name}" style="width: 50%" class="me-2">
+							<img src="/assets/img/noimage.png" alt="${place.name}" style="width: 50%" class="me-2">
 							<div class="travel-info">
 								<h2 class="place_name">${place.name}</h2>
 								<p class="address">${place.address}</p>
@@ -118,7 +118,7 @@
 					<div class="mb-2 row">
 						<div style="width: 10em;" class="col-md-4"></div>
 						<div class="col-md-8 p-3 travel-box d-flex flex-row align-content-center border border-4 rounded" style="width: 50%; margin:0 auto;">
-							<img src="./assets/img/noimage.png" alt="${place.name}" style="width: 50%" class="me-2">
+							<img src="/assets/img/noimage.png" alt="${place.name}" style="width: 50%" class="me-2">
 							<div class="travel-info">
 								<h2 class="place_name">${place.name}</h2>
 								<p class="address">${place.address}</p>
@@ -170,5 +170,5 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
 	crossorigin="anonymous"></script>
-<script src="/assets/js/planView.js"></script>
+<script src="/assets/js/plan_view.js"></script>
 </html>

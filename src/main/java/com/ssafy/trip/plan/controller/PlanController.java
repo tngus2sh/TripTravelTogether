@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.trip.plan.model.dto.PlaceDto;
+import com.ssafy.trip.plan.model.dto.PlaceDtoList;
 import com.ssafy.trip.plan.model.dto.PlanDto;
 import com.ssafy.trip.plan.model.service.PlanService;
 import com.ssafy.trip.user.model.dto.UserDto;
@@ -62,9 +64,11 @@ public class PlanController {
 	}
 	
 	@PostMapping("/write")
-	public String writePlan(PlanDto planDto, PlaceDto[] placeArray, HttpSession session, RedirectAttributes redirectAttributes) throws SQLException {
-		logger.debug("plan write post parameter : {}", planDto);
+	public String writePlan(PlanDto planDto, @ModelAttribute PlaceDtoList placeDtoList, HttpSession session, RedirectAttributes redirectAttributes) throws SQLException {
+		logger.debug("writePlan Post parameter : {} {}", planDto, placeDtoList);
+		
 		UserDto userDto = (UserDto) session.getAttribute("userinfo");
+		System.out.println("sjfkd");
 		planDto.setUserId(userDto.getId());
 		planService.insertPlan(planDto);
 		
@@ -72,12 +76,14 @@ public class PlanController {
 		map.put("userId", userDto.getId());
 		map.put("title", planDto.getTitle());		
 		int planId = planService.getPlanId(map);
-		
-		for (int i = 0; i < placeArray.length; i++) {
-			PlaceDto placeDto = new PlaceDto();
-			placeDto = placeArray[i];
+
+		System.out.println("testsetse");
+		List<PlaceDto> list = placeDtoList.getPlaceList();
+		logger.debug("test {}", list);
+		for (PlaceDto placeDto : list) {
+			logger.debug("placeDto : {}", placeDto);
 			placeDto.setPlanId(planId);
-			planService.insertPlace(placeDto);			
+			planService.insertPlace(placeDto);
 		}
 		
 		redirectAttributes.addAttribute("pgno", "1");
