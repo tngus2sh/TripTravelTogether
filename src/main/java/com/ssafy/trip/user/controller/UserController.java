@@ -49,16 +49,10 @@ public class UserController {
 	}
 	
 	@PostMapping("join")
-	public String join(UserDto userDto, Model model) {
-		try {
-			userService.joinUser(userDto);
-			model.addAttribute("msg", "회원 가입이 완료되었습니다.");
-			return "redirect:/user/login";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("msg", "회원 가입 중 문제 발생");
-			return "error/error";
-		}
+	public String join(UserDto userDto, RedirectAttributes redirect) throws Exception {
+		userService.joinUser(userDto);
+		redirect.addFlashAttribute("msg", "회원 가입이 완료되었습니다.");
+		return "redirect:/user/login";
 	}
 
 	@GetMapping("/login")
@@ -69,42 +63,36 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@RequestParam Map<String, String> map,
 			@RequestParam(name = "saveid", required = false) String saveid, Model model, HttpSession session,
-			HttpServletResponse response) {
-		try {
-			UserDto userDto = userService.loginUser(map);
-			if (userDto != null) {
-				session.setAttribute("userinfo", userDto);
+			HttpServletResponse response) throws Exception {
+		UserDto userDto = userService.loginUser(map);
+		if (userDto != null) {
+			session.setAttribute("userinfo", userDto);
 
-				Cookie cookie = new Cookie("user_id", map.get("id"));
-				cookie.setPath("/");
-				if ("ok".equals(saveid)) {
-					cookie.setMaxAge(60 * 60 * 24 * 365 * 40);
-				} else {
-					cookie.setMaxAge(0);
-				}
-
-				response.addCookie(cookie);
-				return "redirect:/";
+			Cookie cookie = new Cookie("user_id", map.get("id"));
+			cookie.setPath("/");
+			if ("ok".equals(saveid)) {
+				cookie.setMaxAge(60 * 60 * 24 * 365 * 40);
 			} else {
-				model.addAttribute("msg", "아이디 또는 비밀번호 확인 후 다시 로그인하세요!");
-				return "user/login";
+				cookie.setMaxAge(0);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("msg", "로그인 중 문제 발생!!!");
-			return "error/error";
+
+			response.addCookie(cookie);
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg", "아이디 또는 비밀번호 확인 후 다시 로그인하세요!");
+			return "user/login";
 		}
 	}
 
-	@GetMapping("logout")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
 	
-	@PostMapping("modify")
+	@PostMapping("/modify")
 	@Transactional
-	public String modifyUser(@RequestParam Map<String, String> map, RedirectAttributes rttr) {
+	public String modifyUser(@RequestParam Map<String, String> map, RedirectAttributes rttr) throws Exception {
 		logger.debug("user modify map : {}", map);
 		UserDto userDto  = new UserDto();
 		userDto.setId(map.get("update-id"));
@@ -114,14 +102,18 @@ public class UserController {
 		userDto.setEmailId(map.get("update-email-id"));
 		userDto.setEmailDomain(map.get("update-email-domain"));
 		logger.debug("user modify userDto {}", userDto);
+
+		userService.modifyUser(userDto);
 		
-		try {
-			userService.modifyUser(userDto);
-			
-			rttr.addFlashAttribute("msg", "회원정보가 수정 되었습니다.");
-			return "redirect:/";
-		} catch (Exception e) {
-			return "error/error";
-		}
+		rttr.addFlashAttribute("msg", "회원정보가 수정 되었습니다.");
+		return "redirect:/";
+	}
+	
+	@GetMapping("/delete")
+	public String deleteUser(HttpSession session) throws Exception {
+		UserDto userDto = (UserDto) session.getAttribute("userinfo");
+		session.invalidate();
+		userService.deleteUser(userDto.getId());
+		return "redirect:/";
 	}
 }

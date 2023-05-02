@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="${root}/hotplace?action=list">
+            <a class="nav-link active" href="${root}/hotplace/list">
                        핫플레이스 보기
             </a>
           </li>

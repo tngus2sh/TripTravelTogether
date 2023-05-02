@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.trip.hotplace.model.mapper.HotplaceMapper">
+	<resultMap type="hotplaceDto" id="hotplace">
+		<result column="user_id" property="userId"/>
+		<result column="num" property="num"/>
+		<result column="image" property="image"/>
+		<result column="title" property="title"/>
+		<result column="join_date" property="joinDate"/>
+		<result column="desc" property="desc"/>
+		<result column="tag1" property="tag1"/>
+		<result column="tag2" property="tag2"/>
+		<result column="latitude" property="latitude"/>
+		<result column="longitude" property="longitude"/>
+		<result column="map_url" property="mapUrl"/>
+	</resultMap>
+	
+	<select id="listHotplace" parameterType="map" resultMap="hotplace">
+		select *
+		from hotplace
+		order by num desc
+		limit #{start}, #{listsize}
+	</select>
+	
+	<select id="getTotalHotplaceCount" parameterType="map" resultType="int">
+		select count(*)
+		from hotplace
+	</select>
+	
+	<select id="findLatestNum" resultType="int">
+		select num
+		from hotplace
+		order by num desc
+		limit 1
+	</select>
+	
+	<insert id="insertHotplace" parameterType="hotplaceDto">
+		insert into hotplace (user_id, image, title, join_date, desc, tag1, tag2, latitude, longitude, map_url)
+		values (#{userId}, #{image}, #{title}, #{joinDate}, #{desc}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
+	</insert>
+	
+</mapper>

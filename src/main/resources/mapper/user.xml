@@ -35,4 +35,10 @@
 		where id = #{id}
 	</update>
 	
+	<delete id="deleteUser" parameterType="string">
+		delete
+		from user
+		where id = #{id}
+	</delete>
+	
 </mapper>

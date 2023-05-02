@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService {
 		userMapper.modifyUser(userDto);
 	}
 
+	@Override
+	public void deleteUser(String id) throws Exception {
+		userMapper.deleteUser(id);
+	}
+
 }
