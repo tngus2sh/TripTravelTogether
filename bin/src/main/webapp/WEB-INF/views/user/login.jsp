@@ -62,9 +62,81 @@
 	                <div class="col-5">
 	                	<button type="button" id="signin-btn" class="btn submit-btn" style="width: 100%">로그인</button>
 	                </div>
+                  <div>
+		              <a class="nav-link active" id="pw-search" data-bs-toggle="modal" data-bs-target="#pwModal">
+		               	비밀번호 찾기
+		              </a>
+	            </div>
 	            </div>
         	</form>
         </div>
+        
+        <!-- 비밀번호 찾기 modal -->
+        <form class="d-flex" id="pw-search-form" method="POST" role="search">
+        <div
+          class="modal fade mt-5"
+          id="pwModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">비밀번호 찾기</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="login-container text-center">
+                  <div style="display: inline-block; text-align:left; width: 25rem">
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-10 mb-3">
+                        <span>아이디</span>
+                        <input
+                          type="text"
+                          class="form-control my-3 px-3 py-2"
+                          id="search-id"
+                          name="search-id"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-10">
+                        <span>이메일</span>
+                        <input
+                          type="text"
+                          class="form-control my-3 px-3 py-2"
+                          id="search-email-id"
+                          name="search-email-id"
+                          value=""
+                        />
+                        <span>@</span>
+                        <input
+                          type="text"
+                          class="form-control my-3 px-3 py-2"
+                          id="search-email-domain"
+                          name="search-email-domain"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="pw-search-btn" class="btn submit-btn me-2">메일 보내기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+        <!-- 비밀번호 찾기 modal end -->
     </div>
     
     
@@ -92,6 +164,21 @@
 		        
 			  let form = document.querySelector("#signin-form");
 			  form.setAttribute("action", "${root}/user/login");
+			  form.submit();
+		  }
+	  });
+	  
+	  document.querySelector("#pw-search-btn").addEventListener("click", function() {
+		  // 입력값 검증
+		  if(!document.querySelector("#search-id").value) {
+			  alert("아이디를 입력해주세요.");
+		  }
+		  else if(!document.querySelector("#search-email-id").value || !document.querySelector("#search-email-domain")) {
+			  alert("이메일을 입력해주세요.");
+		  }
+		  else {
+			  let form = document.querySelector("#pw-search-form");
+			  form.setAttribute("action", "${root}/user/mail");
 			  form.submit();
 		  }
 	  });

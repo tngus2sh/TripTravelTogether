@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.trip.board.model.mapper.BoardMapper">
+	<resultMap type="boardDto" id="board">
+		<result column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>		
+		<result column="hit" property="hit"/>
+	</resultMap>
+	
+	<sql id="search">
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				and title like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'subject'">
+				and ${key} = #{word}
+			</if>
+		</if>
+	</sql>
+	
+	<select id="listBoard" parameterType="map" resultMap="board">
+		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, u.name user_name
+		from board b, user u
+		where b.user_id = u.id
+		<include refid="search"></include>
+		order by b.id desc
+		limit #{start}, #{listsize}
+	</select>
+	
+	<select id="getTotalBoardCount" parameterType="map" resultType="int">
+		select count(id)
+		from board
+	</select>
+	
+	<select id="viewBoard" resultMap="board">
+		select *
+		from board
+		where id = #{id}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update board
+		set hit = hit + 1
+		where id = #{id}
+	</update>
+	
+	<insert id="writeBoard" parameterType="boardDto">
+		insert into board(title, content, created_at, user_id, hit)
+		values(#{title}, #{content}, now(), #{userId}, 0);
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<update id="modifyBoard" parameterType="boardDto">
+		update board
+		set title = #{title}, content = #{content}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board
+		where id = #{id}
+	</delete>
+</mapper>

@@ -3,7 +3,7 @@
 <header>
   <nav id="navbar" class="navbar navbar-expand-lg bg-nav shadow py-3">
     <div class="container-fluid mx-5">
-      <a class="navbar-brand fw-bold fs-4 mr-5" href="${root}/">Trip or Trip!</a>
+      <a class="navbar-brand fw-bold fs-4 mr-5" href="${root}/">TTT</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -33,10 +33,20 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="${root}/hotplace?action=list">
+            <a class="nav-link active" href="${root}/hotplace/list?pgno=1">
                        핫플레이스 보기
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="${root}/board/list?pgno=1&key=&word=">
+                    자유 게시판
+            </a>
+          </li>   
+          <li class="nav-item">
+            <a class="nav-link active" href="${root}/notification/list?pgno=1&key=&word=">
+                    공지
+            </a>
+          </li>      
         </ul>
 
 		<c:if test="${not empty userinfo}">

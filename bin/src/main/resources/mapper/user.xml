@@ -34,5 +34,24 @@
 		set password = #{password}, email_id = #{emailId}, email_domain = #{emailDomain}
 		where id = #{id}
 	</update>
+
+	<update id="modifyUserPw" parameterType="map">
+		update user
+		set password=#{password}
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="string">
+		delete
+		from user
+		where id = #{id}
+	</delete>
+	
+	<select id="getPassword" parameterType="string" resultType="string">
+		select password
+		from user
+		where id=#{id}
+	</select>
+	
 	
 </mapper>

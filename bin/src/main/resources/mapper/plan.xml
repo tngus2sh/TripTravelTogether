@@ -36,9 +36,10 @@
 		value(#{planId}, #{placeId}, #{name}, #{address}, #{lat}, #{lng}, #{imageUrl})
 	</insert>
 	
-	<delete id="deletePlan" parameterType="string">
-		delete from plan
-		where id = #{id}
+	<delete id="deletePlan" parameterType="int">
+		delete 
+		from plan
+		where id = ${id}
 	</delete>
 	
 	<sql id="search">
@@ -61,7 +62,7 @@
 	</select>
 
 	<select id="selectPlanOne" parameterType="int" resultMap="plan">
-		select title, description, created_at, updated_at, start_date, end_date, user_id, hit
+		select id, title, description, created_at, updated_at, start_date, end_date, user_id, hit
 		from plan
 		where id = #{planId}
 	</select>

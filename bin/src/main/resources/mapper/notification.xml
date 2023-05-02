@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.trip.notification.model.mapper.NotificationMapper">
+	<resultMap type="notificationDto" id="notification">
+		<result column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="hit" property="hit"/>
+	</resultMap>
+	
+	<sql id="search">
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				and title like concat('%', #{word}, '%')
+			</if>
+		</if>
+	</sql>
+	
+	<select id="listNotification" parameterType="map" resultMap="notification">
+		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit, u.name user_name
+		from notification n, user u
+		where n.user_id = u.id
+		<include refid="search"></include>
+		order by n.id desc
+		limit #{start}, #{listsize}
+	</select>
+	
+	<select id="getTotalNotificationCount" parameterType="map" resultType="int">
+		select count(id)
+		from notification
+	</select>
+	
+	<select id="viewNotification" resultMap="notification">
+		select *
+		from notification
+		where id = #{id}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update notification
+		set hit = hit + 1
+		where id = #{id}
+	</update>
+	
+	<insert id="writeNotification" parameterType="notificationDto">
+		insert into notification(title, content, created_at, user_id, hit)
+		values(#{title}, #{content}, now(), #{userId}, 0)
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<update id="modifyNotification" parameterType="notificationDto">
+		update notification
+		set title = #{title}, content = #{content}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteNotification" parameterType="int">
+		delete from notification
+		where id = #{id}
+	</delete>
+</mapper>

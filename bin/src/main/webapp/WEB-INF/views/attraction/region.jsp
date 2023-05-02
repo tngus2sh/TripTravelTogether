@@ -47,8 +47,39 @@
     <!-- kakao map start -->
     <div id="map" class="mt-3" style="width: 100%; height: 550px"></div>
     <!-- kakao map end -->
+    
+	<!-- 관광지 검색 결과 테이블 start-->
+	<table class="table table-striped">
+		<thead>
+    		<tr>
+      			<th scope="col">#</th>
+      			<th scope="col">관광지명</th>
+      			<th scope="col">이미지</th>
+      			<th scope="col">주소</th>
+      			<th scope="col">길 찾기</th>
+    		</tr>
+  		</thead>
+ 	 	<tbody>
+ 	 		<tr>
+      			<th scope="row">1</th>
+     			<td>Mark</td>
+      			<td>Otto</td>
+      			<td>@mdo</td>
+      			<td>ddd</td>
+    		</tr>
+			<c:forEach var="attraction" items="${list}">
+				<tr>
+					<th scope="row">1</th>
+					<td>${attraction.title}</td>
+				</tr>
+			</c:forEach>
+  		</tbody>
+	</table>
+	<!-- 관광지 검색 결과 테이블 end -->
+	
 </div>
 <!-- 관광지 검색 end -->
+
 
 
 <script type="text/javascript"
@@ -81,8 +112,11 @@
 		}
 	});
 	
+	console.log("list" + ${list});
+	
 	function makeArea(data) {
 		let positions = [];
+		console.log(data.length);
 		for(let i = 1; i < data.length; i++) {
 			markerInfo = {
 					title: data[i]["title"],
@@ -93,6 +127,8 @@
 					tel: data[i]["tel"]
 				};
 				positions.push(markerInfo);
+				console.log(markerInfo);
+			// 테이블 생성
 		}
 		if(positions.length > 0)
 			displayMarker(positions);
