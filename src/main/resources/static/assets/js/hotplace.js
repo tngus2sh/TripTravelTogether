@@ -20,7 +20,7 @@ document.getElementById("hotplace-btn").addEventListener("click", function() {
 //		console.log(mapUrl);
 		postFormData();
 //		let form = document.querySelector("#hotplace-form");
-//		form.setAttribute("action", "${root}/hotplace");
+//		form.setAttribute("action", "../hotplace/write");
 //		form.submit();
 	}
 });
@@ -34,7 +34,7 @@ document.querySelector("#hotplace-title").addEventListener("click", function() {
 	let popupX = (window.screen.width / 2) - (popupWidth / 2);
 	let popupY= (window.screen.height / 2) - (popupHeight / 2);
 	
-	oepnWin = window.open("hotplace/keyword.jsp", "keywordSearchForm", "width=" + popupWidth + ", height=" + popupHeight + ", left=" + popupX + ", top=" + popupY + ", scrollbars=yes");
+	oepnWin = window.open("../hotplace/keyword", "keywordSearchForm", "width=" + popupWidth + ", height=" + popupHeight + ", left=" + popupX + ", top=" + popupY + ", scrollbars=yes");
 });
 
 function makeMapUrl(title) {

@@ -9,7 +9,7 @@
 		<result column="image" property="image"/>
 		<result column="title" property="title"/>
 		<result column="join_date" property="joinDate"/>
-		<result column="desc" property="desc"/>
+		<result column="description" property="description"/>
 		<result column="tag1" property="tag1"/>
 		<result column="tag2" property="tag2"/>
 		<result column="latitude" property="latitude"/>
@@ -21,7 +21,6 @@
 		select *
 		from hotplace
 		order by num desc
-		limit #{start}, #{listsize}
 	</select>
 	
 	<select id="getTotalHotplaceCount" parameterType="map" resultType="int">
@@ -37,8 +36,8 @@
 	</select>
 	
 	<insert id="insertHotplace" parameterType="hotplaceDto">
-		insert into hotplace (user_id, image, title, join_date, desc, tag1, tag2, latitude, longitude, map_url)
-		values (#{userId}, #{image}, #{title}, #{joinDate}, #{desc}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
+		insert into hotplace (user_id, image, title, join_date, description, tag1, tag2, latitude, longitude, map_url)
+		values (#{userId}, #{image}, #{title}, #{joinDate}, #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
 	</insert>
 	
 </mapper>

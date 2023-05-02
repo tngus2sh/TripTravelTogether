@@ -13,4 +13,5 @@ public interface HotplaceMapper {
 	int getTotalHotplaceCount(Map<String, Object> param) throws Exception;
 	int findLatestNum() throws Exception;
 	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
+	void registerFile(HotplaceDto hotplaceDto) throws Exception;
 }	

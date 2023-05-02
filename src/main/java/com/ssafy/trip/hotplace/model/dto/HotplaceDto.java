@@ -1,12 +1,14 @@
 package com.ssafy.trip.hotplace.model.dto;
 
+import java.util.List;
+
 public class HotplaceDto {
 	private String userId;
 	private int num;
 	private String image;
 	private String title;
 	private String joinDate;
-	private String desc;
+	private String description;
 	private String tag1;
 	private String tag2;
 	private double latitude;
@@ -44,11 +46,11 @@ public class HotplaceDto {
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public String getTag1() {
 		return tag1;
@@ -80,34 +82,11 @@ public class HotplaceDto {
 	public void setMapUrl(String mapUrl) {
 		this.mapUrl = mapUrl;
 	}
-	
-	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("[userId=");
-		builder.append(userId);
-		builder.append(", num=");
-		builder.append(num);
-		builder.append(", image=");
-		builder.append(image);
-		builder.append(", title=");
-		builder.append(title);
-		builder.append(", joinDate=");
-		builder.append(joinDate);
-		builder.append(", desc=");
-		builder.append(desc);
-		builder.append(", tag1=");
-		builder.append(tag1);
-		builder.append(", tag2=");
-		builder.append(tag2);
-		builder.append(", latitude=");
-		builder.append(latitude);
-		builder.append(", longitude=");
-		builder.append(longitude);
-		builder.append(", mapUrl=");
-		builder.append(mapUrl);
-		builder.append("]");
-		return builder.toString();
+		return "HotplaceDto [userId=" + userId + ", num=" + num + ", image=" + image + ", title=" + title
+				+ ", joinDate=" + joinDate + ", description=" + description + ", tag1=" + tag1 + ", tag2=" + tag2
+				+ ", latitude=" + latitude + ", longitude=" + longitude + ", mapUrl=" + mapUrl + "]";
 	}
+	
 }

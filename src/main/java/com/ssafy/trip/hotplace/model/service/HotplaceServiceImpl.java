@@ -24,7 +24,7 @@ public class HotplaceServiceImpl implements HotplaceService {
 	@Override
 	public List<HotplaceDto> listHotplace(Map<String, String> map) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
-		int page = Integer.parseInt(map.get("page"));
+		int page = Integer.parseInt(map.get("pgno"));
 		int start = page * SizeConstant.LIST_SIZE - SizeConstant.LIST_SIZE;
 		param.put("start", start);
 		param.put("listsize", SizeConstant.LIST_SIZE);
@@ -37,7 +37,7 @@ public class HotplaceServiceImpl implements HotplaceService {
 
 		int naviSize = SizeConstant.NAVIGATION_SIZE;
 		int sizePerPage = SizeConstant.LIST_SIZE;
-		int currentPage = Integer.parseInt(map.get("page"));
+		int currentPage = Integer.parseInt(map.get("pgno"));
 
 		pageNavigation.setCurrentPage(currentPage);
 		pageNavigation.setNaviSize(naviSize);
@@ -62,6 +62,8 @@ public class HotplaceServiceImpl implements HotplaceService {
 
 	@Override
 	public void insertHotplace(HotplaceDto hotplaceDto) throws Exception {
+		System.out.println("글입력 전 dto : " + hotplaceDto);
 		hotplaceMapper.insertHotplace(hotplaceDto);
+		System.out.println("글입력 후 dto : " + hotplaceDto);
 	}
 }
