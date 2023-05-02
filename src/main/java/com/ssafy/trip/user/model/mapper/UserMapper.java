@@ -14,6 +14,7 @@ public interface UserMapper {
 	void joinUser(UserDto userDto) throws SQLException;
 	UserDto loginUser(Map<String, String> map) throws SQLException;
 	void modifyUser(UserDto userDto) throws SQLException;
+	void modifyUserPw(Map<String, String> map) throws SQLException;
 	void deleteUser(String id) throws SQLException;
 	String getPassword(String id) throws SQLException;
 	

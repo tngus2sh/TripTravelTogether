@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void modifyUserPw(Map<String, String> map) throws Exception {
+		userMapper.modifyUserPw(map);
+	}
+	
+	@Override
 	public void deleteUser(String id) throws Exception {
 		userMapper.deleteUser(id);
 	}
@@ -48,5 +53,6 @@ public class UserServiceImpl implements UserService {
 	public String getPassword(String id) throws Exception {
 		return userMapper.getPassword(id);
 	}
+
 
 }

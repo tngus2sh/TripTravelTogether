@@ -1,5 +1,6 @@
 package com.ssafy.trip.user.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ssafy.trip.attraction.controller.AttractionApiController;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.user.model.service.UserService;
+import com.ssafy.trip.util.TempKey;
 
 @Controller
 @RequestMapping("/user")
@@ -130,6 +131,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/mail")
+	@Transactional
 	public String sendMail(@RequestParam Map<String, String> map, RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("sendmail parameter : {}", map);
 		System.out.println(map.toString());
@@ -141,11 +143,17 @@ public class UserController {
 		String password = userService.getPassword(userId);
 		
 		if(password != null) {
+			String tempPw = new TempKey().getKey(10, false); // 임시 비밀번호 발급
+			Map<String, String> userMap = new HashMap<>();
+			userMap.put("id", userId);
+			userMap.put("password", tempPw);
+			userService.modifyUserPw(userMap);
+			
 			SimpleMailMessage simpleMessage = new SimpleMailMessage();
 			simpleMessage.setFrom(from);
 			simpleMessage.setTo(to);
 			simpleMessage.setSubject(" [TTT] 비밀번호 발급 ");			
-			simpleMessage.setText(" 비밀번호 : " + password);
+			simpleMessage.setText(" 임시 비밀번호 : " + tempPw);
 			javaMailSender.send(simpleMessage);
 		} else {
 			redirectAttributes.addFlashAttribute("msg", "아이디를 다시 설정해주세요.");
