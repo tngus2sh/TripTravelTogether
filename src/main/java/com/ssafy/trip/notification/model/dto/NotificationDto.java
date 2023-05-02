@@ -8,7 +8,6 @@ public class NotificationDto {
 	private String createdAt;
 	private String userId;
 	private int hit;
-	
 	public int getId() {
 		return id;
 	}
@@ -48,7 +47,7 @@ public class NotificationDto {
 	
 	@Override
 	public String toString() {
-		return "BoardDto [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
+		return "NotificationDto [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
 				+ ", userId=" + userId + ", hit=" + hit + "]";
 	}
 	

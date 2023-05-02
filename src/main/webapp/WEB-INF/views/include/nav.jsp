@@ -38,10 +38,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="${root}/board/list">
+            <a class="nav-link active" href="${root}/board/list?pgno=1&key=&word=">
                     자유 게시판
             </a>
-          </li>          
+          </li>   
+          <li class="nav-item">
+            <a class="nav-link active" href="${root}/notification/list?pgno=1&key=&word=">
+                    공지
+            </a>
+          </li>      
         </ul>
 
 		<c:if test="${not empty userinfo}">
