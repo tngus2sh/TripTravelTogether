@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.trip.notification.model.mapper.NotificationMapper">
+	<resultMap type="boardDto" id="notification">
+		<result column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="user_id" property="userId"/>
+		<result column="hit" property="hit"/>
+	</resultMap>
+	
+	<select id="listNotification" resultMap="notification">
+		select *
+		from board
+	</select>
+	
+	<select id="viewNotification" resultMap="notification">
+		select *
+		from board
+		where id = #{id}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update board
+		set hit = hit + 1
+		where id = #{id}
+	</update>
+	
+	<insert id="writeNotification" parameterType="notificationDto">
+		insert into board(title, content, created_at, user_id, hit)
+		values(#{title}, #{content}, now(), #{userId}, 0);
+	</insert>
+	
+	<update id="modifyNotification" parameterType="notificationDto">
+		update board
+		set title = #{title}, content = #{content}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteNotification" parameterType="int">
+		delete from board
+		where id = #{id}
+	</delete>
+</mapper>
