@@ -40,4 +40,16 @@
 		values (#{userId}, #{image}, #{title}, #{joinDate}, #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
 	</insert>
 	
+	<update id="modifyHotplace" parameterType="hotplaceDto">
+		update hotplace
+		set image = #{image}, title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=#{latitude}, longitude=#{longitude}, map_url=#{mapUrl}
+		where user_id = #{userId} and num = ${num}
+	</update>
+	
+	<delete id="deleteHotplace" parameterType="int">
+		delete
+		from hotplace
+		where num=${num}
+	</delete>
+	
 </mapper>

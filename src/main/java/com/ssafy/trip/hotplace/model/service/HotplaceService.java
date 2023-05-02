@@ -11,4 +11,6 @@ public interface HotplaceService {
 	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 	int findLatestNum() throws Exception;
 	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
+	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
+	void deleteHotplace(int num) throws Exception;
 }

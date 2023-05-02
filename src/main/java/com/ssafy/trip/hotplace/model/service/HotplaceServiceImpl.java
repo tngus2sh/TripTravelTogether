@@ -66,4 +66,15 @@ public class HotplaceServiceImpl implements HotplaceService {
 		hotplaceMapper.insertHotplace(hotplaceDto);
 		System.out.println("글입력 후 dto : " + hotplaceDto);
 	}
+
+	@Override
+	public void modifyHotplace(HotplaceDto hotplaceDto) throws Exception {
+		hotplaceMapper.modifyHotplace(hotplaceDto);
+	}
+
+	@Override
+	public void deleteHotplace(int num) throws Exception {
+		hotplaceMapper.deleteHotplace(num);
+	}
+
 }

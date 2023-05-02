@@ -1,6 +1,7 @@
 package com.ssafy.trip.hotplace.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,6 +93,47 @@ public class HotplaceController {
 	@GetMapping("/keyword")
 	public String showKeyword() {
 		return "hotplace/keyword";
+	}
+	
+	@PostMapping("/modify")
+	@Transactional
+	public String modify(HotplaceDto hotplaceDto, @RequestParam("upfile") MultipartFile file, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
+		logger.debug("modify parameter : {}", hotplaceDto);
+		logger.debug("MultipartFile.isEmpty : {}", file.isEmpty());
+		UserDto userDto = (UserDto) session.getAttribute("userinfo");
+		hotplaceDto.setUserId(userDto.getId());
+
+		// FileUpload
+		if(!file.isEmpty()) {
+			String saveFolder = uploadPath;
+			logger.debug("저장 폴더 : {}", saveFolder);
+			File folder = new File(saveFolder);
+			if (!folder.exists())
+				folder.mkdirs();
+			String originalFileName = file.getOriginalFilename();
+			if (!originalFileName.isEmpty()) {
+				String saveFileName = UUID.randomUUID().toString()
+						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
+				// 파일 저장하기
+				file.transferTo(new File(folder, saveFileName));
+				hotplaceDto.setImage(saveFileName);				
+			}
+		}
+
+		hotplaceService.modifyHotplace(hotplaceDto);
+		
+		redirectAttributes.addAttribute("pgno", "1");
+		return "redirect:/hotplace/list";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam String num, RedirectAttributes redirectAttributes) throws Exception {
+		logger.debug("delete param : {}", num);
+		int id = Integer.parseInt(num);
+		hotplaceService.deleteHotplace(id);
+		
+		redirectAttributes.addAttribute("pgno", "1");
+		return "redirect:/hotplace/list";
 	}
 	
 }

@@ -14,4 +14,6 @@ public interface HotplaceMapper {
 	int findLatestNum() throws Exception;
 	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
 	void registerFile(HotplaceDto hotplaceDto) throws Exception;
+	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
+	void deleteHotplace(int num) throws Exception;
 }	

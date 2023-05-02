@@ -4,7 +4,7 @@
 <html>
 <head>
   <%@ include file="/WEB-INF/views/include/head.jsp" %>
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
   
   <style>
     .bg-nav {
@@ -82,8 +82,68 @@
           </div>
         </form>
         <!-- 핫플레이스 추가 modal end -->
+        
+        <!-- 핫플레이스 수정 modal start -->
+        <form class="d-flex" id="hotplace-modify-form" method="POST" role="search" enctype="multipart/form-data">
+          <div class="modal fade mt-5" id="hotplaceModifyModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModifyModalLabel">핫플 수정하기</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="login-container text-center">
+                    <div style="display: inline-block; width: 25rem;">
+                      <input type="hidden" id="hotplace-modify-latitude" name="latitude">
+                      <input type="hidden" id="hotplace-modify-longitude" name="longitude">
+                      <input type="hidden" id="hotplace-modify-map-url" name="mapUrl">
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                          <input type='file' class="form-control my-3 px-3 py-2" accept="image/jpeg, image/png, image/jpg" id="hotplace-modify-image" name="upfile" multiple="multiple" placeholder="이미지" required>
+                        </div>
+                      </div>
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                          <input type='text' class="form-control my-3 py-2" id="hotplace-modify-title" name="title" placeholder="장소명" required>
+                        </div>
+                      </div>
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                          <input type="date" class="form-control my-3 px-3 py-2" id="hotplace-modify-join-date" name="joinDate" placeholder="방문 날짜">
+                        </div>
+                      </div>
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                          <textarea rows="4" class="form-control my-3 px-3 py-2 h-20" id="hotplace-modify-desc" name="description" placeholder="설명"></textarea>
+                        </div>
+                      </div>
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                          <input type="text" class="form-control my-3 px-3 py-2" id="hotplace-modify-tag1" name="tag1" placeholder="해시태그1">
+                        </div>
+                      </div>
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                          <input type="text" class="form-control my-3 px-3 py-2" id="hotplace-modify-tag2" name="tag2" placeholder="해시태그2">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id='hotplace-modify-btn' class="btn submit-btn">수정</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- 핫플레이스 수정 modal end -->
       </div>
     </div>
+    
+    
 
     <div style='height: 70px;'></div>
 
@@ -126,6 +186,12 @@
 		              </div>
 		            </div>
 		          </div>
+		          
+		          <div class="d-flex justify-content-end">
+					<button class='btn submit-btn mb-3 me-2' data-bs-toggle="modal" data-bs-target="#hotplaceModifyModal">수정하기</button>
+					<button type="button" id="${hotplace.num}"
+						class="hotplace-delete-btn btn submit-btn mb-3" value="${hotplace.num}">삭제하기</button>
+				  </div>
 		        </div>
 		      </div>
         </c:forEach>
@@ -152,6 +218,19 @@
 		form.setAttribute("action", "${root}/hotplace/write");
 		form.submit();
 	}
+     
+     document.querySelector("#hotplace-modify-btn").addEventListener("click", function() {
+    	 let form = document.querySelector("#hotplace-modify-form");
+    	 form.setAttribute("action", "${root}/hotplace/modify");
+    	 form.submit();
+     });
+     
+     let deleteBtns = document.querySelectorAll(".hotplace-delete-btn");
+     deleteBtns.forEach(function (btn) {
+    	btn.addEventListener("click", function() {
+    		location.href = "${root}/hotplace/delete?num=" + this.value;
+    	}); 
+     });
   </script>
   <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
