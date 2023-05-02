@@ -25,7 +25,7 @@
           <div class="row align-self-center mb-2">
             <div class="col-md-2 text-start">
               <button type="button" id="btn-mv-register" class="btn btn-outline-primary btn-sm">
-                등 록
+                글쓰기
               </button>
             </div>
             <div class="col-md-7 offset-3">
@@ -90,6 +90,9 @@
       		<input type="hidden" name="word" value="${word}">
    		</form>
      	<form id="form-no-param" method="get" action="${root}/board/view">
+      		<input type="hidden" name="pgno" value="${pgno}">
+      		<input type="hidden" name="key" value="${key}">
+      		<input type="hidden" name="word" value="${word}">
       		<input type="hidden" id="id" name="id" value="">
     	</form>
     
@@ -107,6 +110,23 @@
             form.setAttribute("action", "${root}/board/write");
             form.submit();
         });
+        
+        document.querySelector("#btn-search").addEventListener("click", function () {
+      	  let form = document.querySelector("#form-search");
+            form.setAttribute("action", "${root}/board/list");
+            form.submit();
+        });
+        
+        let pages = document.querySelectorAll(".page-link");
+        pages.forEach(function (page) {
+          page.addEventListener("click", function () {
+         	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
+            let form = document.querySelector("#form-param");
+            form.setAttribute("action", "${root}/board/list");
+            form.submit();
+          });
+        });
+        
     </script>
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>

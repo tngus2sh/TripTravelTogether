@@ -12,8 +12,28 @@
 		<result column="hit" property="hit"/>
 	</resultMap>
 	
-	<select id="listBoard" resultMap="board">
-		select *
+	<sql id="search">
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				and title like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'subject'">
+				and ${key} = #{word}
+			</if>
+		</if>
+	</sql>
+	
+	<select id="listBoard" parameterType="map" resultMap="board">
+		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit
+		from board b, user u
+		where b.user_id = u.id
+		<include refid="search"></include>
+		order by b.id
+		limit #{start}, #{listsize}
+	</select>
+	
+	<select id="getTotalBoardCount" parameterType="map" resultType="int">
+		select count(id)
 		from board
 	</select>
 	
@@ -32,6 +52,9 @@
 	<insert id="writeBoard" parameterType="boardDto">
 		insert into board(title, content, created_at, user_id, hit)
 		values(#{title}, #{content}, now(), #{userId}, 0);
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			select last_insert_id()
+		</selectKey>
 	</insert>
 	
 	<update id="modifyBoard" parameterType="boardDto">

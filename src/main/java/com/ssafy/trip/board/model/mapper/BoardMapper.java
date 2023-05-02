@@ -17,4 +17,5 @@ public interface BoardMapper {
 	void writeBoard(BoardDto boardDto) throws SQLException;
 	void modifyBoard(BoardDto boardDto) throws SQLException;
 	void deleteBoard(int id) throws SQLException;
+	int getTotalBoardCount(Map<String, Object> param) throws SQLException;
 }

@@ -24,7 +24,7 @@
 	<div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-sm-12">
           <h2 class="my-3 py-3 shadow-sm bg-light text-center">
-            <mark class="sky">공지 사항</mark>
+            <mark class="sky">자유 게시판</mark>
           </h2>
         </div>
         <div class="col-lg-8 col-md-10 col-sm-12">
@@ -44,7 +44,6 @@
                 </p>
               </div>
             </div>
-            <div class="col-md-4 align-self-center text-end">댓글 : 17</div>
             <div class="divider mb-3"></div>
             <div class="text-secondary">
               ${board.content}
@@ -92,12 +91,6 @@
     	<input type="hidden" id="key" name="key" value="${key}">
       	<input type="hidden" id="word" name="word" value="${word}">
       </form>
- 	<form id="form-no-param" method="get" action="${root}/board">
-		<input type="hidden" id="npgno" name="pgno" value="${pgno}">
-		<input type="hidden" id="nkey" name="key" value="${key}">
-		<input type="hidden" id="nword" name="word" value="${word}">
-		<input type="hidden" id="id" name="id" value="${board.id}">
-	</form>
 <script>
 	document.querySelector("#btn-list").addEventListener("click", function () {
 	  let form = document.querySelector("#form-param");

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ssafy.trip.board.model.dto.BoardDto;
 import com.ssafy.trip.board.model.service.BoardService;
 import com.ssafy.trip.user.model.dto.UserDto;
+import com.ssafy.trip.util.PageNavigation;
 
 @Controller
 @RequestMapping("/board")
@@ -34,13 +35,18 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public ModelAndView list(@RequestParam Map<String, Object> map) throws Exception {
+	public ModelAndView list(@RequestParam Map<String, String> map) throws Exception {
 		logger.debug("board list map : {}", map);
 		ModelAndView mav = new ModelAndView();
 		List<BoardDto> list = boardService.listBoard(map);
-		
+		PageNavigation pageNavigation = boardService.makePageNavigation(map);
+
 		logger.debug("board list list : {}", list);
 		mav.addObject("boards", list);
+		mav.addObject("navigation", pageNavigation);
+		mav.addObject("pgno", map.get("pgno"));
+		mav.addObject("key", map.get("key"));
+		mav.addObject("word", map.get("word"));
 		mav.setViewName("board/list");
 		return mav;
 	}
@@ -50,11 +56,17 @@ public class BoardController {
 		BoardDto boardDto = boardService.viewBoard(id);
 		boardService.updateHit(id);
 		model.addAttribute("board", boardDto);
+		model.addAttribute("pgno", map.get("pgno"));
+		model.addAttribute("key", map.get("key"));
+		model.addAttribute("word", map.get("word"));
 		return "/board/view";
 	}
 	
 	@GetMapping("/write")
-	public String write() {
+	public String write(@RequestParam Map<String, String> map, Model model) {
+		model.addAttribute("pgno", map.get("pgno"));
+		model.addAttribute("key", map.get("key"));
+		model.addAttribute("word", map.get("word"));
 		return "board/write";
 	}
 	
@@ -73,10 +85,10 @@ public class BoardController {
 	@GetMapping("/modify")
 	public String modify(@RequestParam("id") int id, HttpSession session, @RequestParam Map<String, String> map, Model model) throws Exception {
 		BoardDto boardDto = boardService.viewBoard(id);
-		System.out.println(11);
-		System.out.println(id);
-		System.out.println(boardDto.getId());
 		model.addAttribute("board", boardDto);
+		model.addAttribute("pgno", map.get("pgno"));
+		model.addAttribute("key", map.get("key"));
+		model.addAttribute("word", map.get("word"));
 		return "board/modify";
 	}
 	
@@ -94,6 +106,9 @@ public class BoardController {
 	public String delete(@RequestParam("id") int id, @RequestParam Map<String, String> map,
 			RedirectAttributes redirectAttributes) throws Exception {
 		boardService.deleteBoard(id);
+		redirectAttributes.addAttribute("pgno", map.get("pgno"));
+		redirectAttributes.addAttribute("key", map.get("key"));
+		redirectAttributes.addAttribute("word", map.get("word"));
 		return "redirect:/board/list";
 	}
 }
