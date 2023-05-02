@@ -112,12 +112,6 @@
           document.querySelector("#form-no-param").submit();
         });
       });
-
-/*       document.querySelector("#btn-mv-register").addEventListener("click", function () {
-    	 let form = document.querySelector("#form-param");
-          form.setAttribute("action", "${root}/notification/write");
-          form.submit();
-      }); */
       
       document.querySelector("#btn-search").addEventListener("click", function () {
     	  let form = document.querySelector("#form-search");
