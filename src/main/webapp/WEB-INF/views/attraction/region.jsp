@@ -47,8 +47,13 @@
     <!-- kakao map start -->
     <div id="map" class="mt-3" style="width: 100%; height: 550px"></div>
     <!-- kakao map end -->
+    
+	<!-- 관광지 검색 결과 테이블 start-->
+	<!-- 관광지 검색 결과 테이블 end -->
+	
 </div>
 <!-- 관광지 검색 end -->
+
 
 
 <script type="text/javascript"
@@ -93,6 +98,7 @@
 					tel: data[i]["tel"]
 				};
 				positions.push(markerInfo);
+			// 테이블 생성
 		}
 		if(positions.length > 0)
 			displayMarker(positions);
