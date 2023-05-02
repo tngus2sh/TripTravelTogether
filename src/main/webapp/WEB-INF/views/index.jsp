@@ -87,7 +87,7 @@
                 다른 사람에게 소개하고 싶은 나만의 장소가 있나요?<br>
                 핫플레이스를 공유하고, 새로운 핫플레이스를 추천받으세요!
               </p>
-              <a href="${root}/hotplace/list">
+              <a href="${root}/hotplace/list?pgno=1">
                 <span>Learn More</span><i class="bi bi-arrow-right"></i>
               </a>
             </div>
