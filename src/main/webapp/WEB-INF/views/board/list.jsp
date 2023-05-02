@@ -72,7 +72,7 @@
 	                    ${board.title}
 	                  </a>
 	                </td>
-	                <td>${board.userId}</td>
+	                <td>${board.userName}</td>
 	                <td>${board.hit}</td>
 	                <td>${board.createdAt}</td>
 	              </tr>            

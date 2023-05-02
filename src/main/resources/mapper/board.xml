@@ -9,6 +9,7 @@
 		<result column="content" property="content"/>
 		<result column="created_at" property="createdAt"/>
 		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>		
 		<result column="hit" property="hit"/>
 	</resultMap>
 	
@@ -24,7 +25,7 @@
 	</sql>
 	
 	<select id="listBoard" parameterType="map" resultMap="board">
-		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit
+		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, u.name user_name
 		from board b, user u
 		where b.user_id = u.id
 		<include refid="search"></include>

@@ -74,7 +74,7 @@
 	                    ${notification.title}
 	                  </a>
 	                </td>
-	                <td>${notification.userId}</td>
+	                <td>${notification.userName}</td>
 	                <td>${notification.hit}</td>
 	                <td>${notification.createdAt}</td>
 	              </tr>            

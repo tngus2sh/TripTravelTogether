@@ -7,6 +7,7 @@ public class BoardDto {
 	private String content;
 	private String createdAt;
 	private String userId;
+	private String userName;
 	private int hit;
 	
 	public int getId() {
@@ -45,11 +46,17 @@ public class BoardDto {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	
 	@Override
 	public String toString() {
 		return "BoardDto [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
-				+ ", userId=" + userId + ", hit=" + hit + "]";
+				+ ", userId=" + userId + ", userName=" + userName + ", hit=" + hit + "]";
 	}
 	
 }

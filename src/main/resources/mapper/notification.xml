@@ -9,6 +9,7 @@
 		<result column="content" property="content"/>
 		<result column="created_at" property="createdAt"/>
 		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
 		<result column="hit" property="hit"/>
 	</resultMap>
 	
@@ -21,7 +22,7 @@
 	</sql>
 	
 	<select id="listNotification" parameterType="map" resultMap="notification">
-		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit
+		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit, u.name user_name
 		from notification n, user u
 		where n.user_id = u.id
 		<include refid="search"></include>
