@@ -40,7 +40,7 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
-	public void deletePlan(String id) throws SQLException {
+	public void deletePlan(int id) throws SQLException {
 		planMapper.deletePlan(id);
 	}
 

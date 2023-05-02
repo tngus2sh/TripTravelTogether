@@ -54,5 +54,4 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getPassword(id);
 	}
 
-
 }

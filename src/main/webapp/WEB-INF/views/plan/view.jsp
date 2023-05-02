@@ -136,7 +136,7 @@
 					<button type="button" id="btn-list"
 						class="btn submit-btn mb-3">여행 목록</button>
 					<!-- 본인일때만 글수정, 글 삭제 버튼 보이도록 함 -->
-					<c:if test="${userinfo.id eq article.userId}">
+					<c:if test="${userinfo.id eq plan.userId}">
 						<button type="button" id="btn-mv-modify"
 							class="btn btn-outline-success mb-3 ms-1">글수정</button>
 						<button type="button" id="btn-delete"
@@ -157,8 +157,8 @@
         location.href = "${root}/article?action=mvmodify&articleno=${article.id}";
       });
       document.querySelector("#btn-delete").addEventListener("click", function () {
-        alert("글삭제하자!!!");
-        location.href = "${root}/article?action=delete&articleno=${article.id}";
+        alert("정말로 삭제하시겠습니까?");
+        location.href = "${root}/plan/delete?planid=${plan.id}";
       });
     </script>
   <%@ include file="/WEB-INF/views/include/footer.jsp" %>

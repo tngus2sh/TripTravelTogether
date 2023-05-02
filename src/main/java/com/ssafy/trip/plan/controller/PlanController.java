@@ -107,5 +107,16 @@ public class PlanController {
 		model.addAttribute("word", map.get("word"));
 		return "plan/view";
 	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam(name="planid") int planId, Model model) throws SQLException {
+		logger.debug("delete param : {}", planId);
+		planService.deletePlan(planId);
+		model.addAttribute("pgno", "1");
+		model.addAttribute("key", "");
+		model.addAttribute("word", "");
+		return "redirect:/plan/list?pgno=1&key=&word=";
+	}
+	
 
 }

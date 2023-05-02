@@ -1,6 +1,5 @@
 package com.ssafy.trip.user.model.service;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import com.ssafy.trip.user.model.dto.UserDto;
@@ -14,5 +13,4 @@ public interface UserService {
 	void modifyUserPw(Map<String, String> map) throws Exception;
 	void deleteUser(String id) throws Exception;
 	String getPassword(String id) throws Exception;
-	
 }

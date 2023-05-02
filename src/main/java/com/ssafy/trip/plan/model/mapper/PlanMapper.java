@@ -19,7 +19,7 @@ public interface PlanMapper {
 	public int insertPlace(PlaceDto placeDto) throws SQLException;
 
 	/** 여행 경로 삭제 */
-	public void deletePlan(String id) throws SQLException;
+	public void deletePlan(int id) throws SQLException;
 
 	/** 여행 경로 리스트 출력 */
 	public List<PlanDto> selectPlan(Map<String, Object> param) throws SQLException;
@@ -40,4 +40,5 @@ public interface PlanMapper {
 	public int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 	
 	public int getTotalPlaceCount(int planId) throws SQLException;
+	
 }
