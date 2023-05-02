@@ -8,6 +8,11 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -30,7 +35,14 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(AttractionApiController.class);
 
 	private UserService userService;
+	
+	@Autowired
+	public JavaMailSender javaMailSender;
+	
+	@Value("${spring.mail.username}")
+	private String from;
 
+	@Autowired
 	public UserController(UserService userService) {
 		super();
 		this.userService = userService;
@@ -116,4 +128,30 @@ public class UserController {
 		userService.deleteUser(userDto.getId());
 		return "redirect:/";
 	}
+	
+	@PostMapping("/mail")
+	public String sendMail(@RequestParam Map<String, String> map, RedirectAttributes redirectAttributes) throws Exception {
+		logger.debug("sendmail parameter : {}", map);
+		System.out.println(map.toString());
+		String userId = map.get("search-id");
+		String emailId = map.get("search-email-id");
+		String emailDomain = map.get("search-email-domain");
+		String to = emailId + "@" + emailDomain;
+		
+		String password = userService.getPassword(userId);
+		
+		if(password != null) {
+			SimpleMailMessage simpleMessage = new SimpleMailMessage();
+			simpleMessage.setFrom(from);
+			simpleMessage.setTo(to);
+			simpleMessage.setSubject(" [TTT] 비밀번호 발급 ");			
+			simpleMessage.setText(" 비밀번호 : " + password);
+			javaMailSender.send(simpleMessage);
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "아이디를 다시 설정해주세요.");
+		}
+		
+		return "redirect:/user/login";
+	}
+	
 }

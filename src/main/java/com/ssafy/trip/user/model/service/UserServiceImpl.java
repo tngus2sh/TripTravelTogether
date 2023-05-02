@@ -44,4 +44,9 @@ public class UserServiceImpl implements UserService {
 		userMapper.deleteUser(id);
 	}
 
+	@Override
+	public String getPassword(String id) throws Exception {
+		return userMapper.getPassword(id);
+	}
+
 }

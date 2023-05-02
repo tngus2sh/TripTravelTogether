@@ -12,4 +12,6 @@ public interface UserService {
 	UserDto loginUser(Map<String, String> map) throws Exception;
 	void modifyUser(UserDto userDto) throws Exception;
 	void deleteUser(String id) throws Exception;
+	String getPassword(String id) throws Exception;
+	
 }

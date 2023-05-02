@@ -41,4 +41,10 @@
 		where id = #{id}
 	</delete>
 	
+	<select id="getPassword" parameterType="string" resultType="string">
+		select password
+		from user
+		where id=#{id}
+	</select>
+	
 </mapper>
