@@ -26,7 +26,7 @@
 		from notification n, user u
 		where n.user_id = u.id
 		<include refid="search"></include>
-		order by n.id
+		order by n.id desc
 		limit #{start}, #{listsize}
 	</select>
 	

@@ -39,7 +39,7 @@
                 >
                   <option selected>검색조건</option>
                   <option value="subject">제목</option>
-                  <option value="userid">작성자</option>
+                  <option value="u.name">작성자</option>
                 </select>
                 <div class="input-group input-group-sm">
                   <input type="text" name="word" id="word" class="form-control" placeholder="검색어..." />

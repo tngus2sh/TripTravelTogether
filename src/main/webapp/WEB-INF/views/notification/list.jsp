@@ -29,6 +29,13 @@
               	<button type="button" id="btn-mv-register" class="btn btn-outline-primary btn-sm">
                 등록
               	</button>
+              	<script>
+              	document.querySelector("#btn-mv-register").addEventListener("click", function () {
+               	 let form = document.querySelector("#form-param");
+                     form.setAttribute("action", "${root}/notification/write");
+                     form.submit();
+                 });
+              	</script>
               </c:if>
             </div>
             <div class="col-md-7 offset-3">
@@ -106,11 +113,11 @@
         });
       });
 
-      document.querySelector("#btn-mv-register").addEventListener("click", function () {
-    	  let form = document.querySelector("#form-param");
+/*       document.querySelector("#btn-mv-register").addEventListener("click", function () {
+    	 let form = document.querySelector("#form-param");
           form.setAttribute("action", "${root}/notification/write");
           form.submit();
-      });
+      }); */
       
       document.querySelector("#btn-search").addEventListener("click", function () {
     	  let form = document.querySelector("#form-search");
@@ -122,12 +129,13 @@
       pages.forEach(function (page) {
         page.addEventListener("click", function () {
        	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
+       	  console.log(document.querySelector("#pgno").value);
           let form = document.querySelector("#form-param");
           form.setAttribute("action", "${root}/notification/list");
           form.submit();
         });
       });
-    </script>2
+    </script>
 <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>
