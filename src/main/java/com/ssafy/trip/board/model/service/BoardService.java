@@ -3,7 +3,6 @@ package com.ssafy.trip.board.model.service;
 import java.util.List;
 import java.util.Map;
 
-
 import com.ssafy.trip.board.model.dto.BoardDto;
 import com.ssafy.trip.util.PageNavigation;
 

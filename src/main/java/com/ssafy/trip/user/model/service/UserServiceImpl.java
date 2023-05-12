@@ -2,6 +2,8 @@ package com.ssafy.trip.user.model.service;
 
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +13,11 @@ import com.ssafy.trip.user.model.mapper.UserMapper;
 @Service
 public class UserServiceImpl implements UserService {
 
+	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private SqlSession sqlSession;
 	
 	public UserServiceImpl(UserMapper userMapper) {
 		super();
@@ -52,6 +58,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String getPassword(String id) throws Exception {
 		return userMapper.getPassword(id);
+	}
+
+	@Override
+	public UserDto login(UserDto userDto) throws Exception {
+		if (userDto.getUserid() == null || userDto.getUserpwd() == null) {
+			return null;
+		}
+		return sqlSession.getMapper(UserMapper.class).login(userDto);
+	}
+
+	@Override
+	public UserDto userInfo(String userid) throws Exception {
+		return sqlSession.getMapper(UserMapper.class).userInfo(userid);
 	}
 
 }

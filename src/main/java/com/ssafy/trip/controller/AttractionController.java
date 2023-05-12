@@ -1,4 +1,4 @@
-package com.ssafy.trip.attraction.controller;
+package com.ssafy.trip.controller;
 
 import java.sql.SQLException;
 import java.util.List;

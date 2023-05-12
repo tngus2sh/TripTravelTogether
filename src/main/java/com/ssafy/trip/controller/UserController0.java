@@ -1,4 +1,4 @@
-package com.ssafy.trip.user.controller;
+package com.ssafy.trip.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,14 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ssafy.trip.attraction.controller.AttractionApiController;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.user.model.service.UserService;
 import com.ssafy.trip.util.TempKey;
 
 @Controller
+// @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController0 {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AttractionApiController.class);
 
@@ -44,7 +44,7 @@ public class UserController {
 	private String from;
 
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController0(UserService userService) {
 		super();
 		this.userService = userService;
 	}

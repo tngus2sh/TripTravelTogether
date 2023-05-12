@@ -1,4 +1,4 @@
-package com.ssafy.trip.hotplace.controller;
+package com.ssafy.trip.controller;
 
 import java.io.File;
 import java.io.IOException;

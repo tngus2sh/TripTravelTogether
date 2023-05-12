@@ -1,31 +1,41 @@
 package com.ssafy.trip.user.model.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(value = "UserDto : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 public class UserDto {
-	private String id;
-	private String password;
-	private String name;
+	
+	@ApiModelProperty(value = "회원 아이디")
+	private String userid;
+	@ApiModelProperty(value = "회원 비밀번호")
+	private String userpwd;
+	@ApiModelProperty(value = "회원 이름")
+	private String username;
+	@ApiModelProperty(value = "회원 이메일 id")
 	private String emailId;
+	@ApiModelProperty(value = "회원 이메일 domain")
 	private String emailDomain;
+	@ApiModelProperty(value = "회원 등급")
 	private String grade;
 	
-	public String getId() {
-		return id;
+	public String getUserid() {
+		return userid;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	public String getPassword() {
-		return password;
+	public String getUserpwd() {
+		return userpwd;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUserpwd(String userpwd) {
+		this.userpwd = userpwd;
 	}
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getEmailId() {
 		return emailId;
@@ -45,9 +55,10 @@ public class UserDto {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	
 	@Override
 	public String toString() {
-		return "UserDto [id=" + id + ", password=" + password + ", name=" + name + ", emailId=" + emailId
+		return "UserDto [userid=" + userid + ", userpwd=" + userpwd + ", username=" + username + ", emailId=" + emailId
 				+ ", emailDomain=" + emailDomain + ", grade=" + grade + "]";
 	}
 }

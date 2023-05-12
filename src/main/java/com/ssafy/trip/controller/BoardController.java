@@ -1,9 +1,12 @@
-package com.ssafy.trip.notification.controller;
+package com.ssafy.trip.controller;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,94 +16,99 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ssafy.trip.notification.model.dto.NotificationDto;
-import com.ssafy.trip.notification.model.service.NotificationService;
+import com.ssafy.trip.board.model.dto.BoardDto;
+import com.ssafy.trip.board.model.service.BoardService;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.util.PageNavigation;
 
 @Controller
-@RequestMapping("/notification")
-public class NotificationController {
+@RequestMapping("/board")
+public class BoardController {
 	
-	private NotificationService notificationService;
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class); 
+	
+	private BoardService boardService;
 
-	public NotificationController(NotificationService notificationService) {
+	public BoardController(BoardService boardService) {
 		super();
-		this.notificationService = notificationService;
+		this.boardService = boardService;
 	}
 	
 	@GetMapping("/list")
 	public ModelAndView list(@RequestParam Map<String, String> map) throws Exception {
+		logger.debug("board list map : {}", map);
 		ModelAndView mav = new ModelAndView();
-		List<NotificationDto> list = notificationService.listNotification(map);
-		PageNavigation pageNavigation = notificationService.makePageNavigation(map);
-		
-		mav.addObject("notifications", list);
+		List<BoardDto> list = boardService.listBoard(map);
+		PageNavigation pageNavigation = boardService.makePageNavigation(map);
+
+		logger.debug("board list list : {}", list);
+		mav.addObject("boards", list);
 		mav.addObject("navigation", pageNavigation);
 		mav.addObject("pgno", map.get("pgno"));
 		mav.addObject("key", map.get("key"));
 		mav.addObject("word", map.get("word"));
-		mav.setViewName("notification/list");
+		mav.setViewName("board/list");
 		return mav;
 	}
 	
 	@GetMapping("/view")
-	public String view(@RequestParam("id") int id, @RequestParam Map<String, String> map, Model model) throws Exception {
-		NotificationDto notificationDto = notificationService.viewNotification(id);
-		notificationService.updateHit(id);
-		model.addAttribute("notification", notificationDto);
+	public String view(@RequestParam("id") int id,  @RequestParam Map<String, String> map, Model model) throws Exception {
+		BoardDto boardDto = boardService.viewBoard(id);
+		boardService.updateHit(id);
+		model.addAttribute("board", boardDto);
 		model.addAttribute("pgno", map.get("pgno"));
 		model.addAttribute("key", map.get("key"));
 		model.addAttribute("word", map.get("word"));
-		return "/notification/view";
+		return "/board/view";
 	}
+	
 	@GetMapping("/write")
 	public String write(@RequestParam Map<String, String> map, Model model) {
 		model.addAttribute("pgno", map.get("pgno"));
 		model.addAttribute("key", map.get("key"));
 		model.addAttribute("word", map.get("word"));
-		return "notification/write";
+		return "board/write";
 	}
 	
 	@PostMapping("/write")
-	public String write(NotificationDto notificationDto, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
+	public String write(BoardDto boardDto, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 		UserDto userDto = (UserDto) session.getAttribute("userinfo");
-		notificationDto.setUserId(userDto.getId());
+		boardDto.setUserId(userDto.getId());
 		
-		notificationService.writeNotification(notificationDto);
+		boardService.writeBoard(boardDto);
 		redirectAttributes.addAttribute("pgno", "1");
 		redirectAttributes.addAttribute("key", "");
 		redirectAttributes.addAttribute("word", "");
-		return "redirect:/notification/list";
+		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/modify")
 	public String modify(@RequestParam("id") int id, HttpSession session, @RequestParam Map<String, String> map, Model model) throws Exception {
-		NotificationDto notificationDto = notificationService.viewNotification(id);
-		model.addAttribute("notification", notificationDto);
+		BoardDto boardDto = boardService.viewBoard(id);
+		model.addAttribute("board", boardDto);
 		model.addAttribute("pgno", map.get("pgno"));
 		model.addAttribute("key", map.get("key"));
 		model.addAttribute("word", map.get("word"));
-		return "notification/modify";
+		return "board/modify";
 	}
 	
 	@PostMapping("/modify")
-	public String modify(NotificationDto notificationDto, @RequestParam Map<String, String> map,
+	public String modify(BoardDto boardDto, @RequestParam Map<String, String> map,
 			RedirectAttributes redirectAttributes) throws Exception {
-		notificationService.modifyNotification(notificationDto);
+		boardService.modifyBoard(boardDto);
 		redirectAttributes.addAttribute("pgno", map.get("pgno"));
 		redirectAttributes.addAttribute("key", map.get("key"));
 		redirectAttributes.addAttribute("word", map.get("word"));
-		return "redirect:/notification/list";
+		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/delete")
 	public String delete(@RequestParam("id") int id, @RequestParam Map<String, String> map,
 			RedirectAttributes redirectAttributes) throws Exception {
-		notificationService.deleteNotification(id);
+		boardService.deleteBoard(id);
 		redirectAttributes.addAttribute("pgno", map.get("pgno"));
 		redirectAttributes.addAttribute("key", map.get("key"));
 		redirectAttributes.addAttribute("word", map.get("word"));
-		return "redirect:/notification/list";
+		return "redirect:/board/list";
 	}
 }
