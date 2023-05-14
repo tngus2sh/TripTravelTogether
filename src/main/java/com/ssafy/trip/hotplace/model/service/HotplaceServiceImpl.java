@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ssafy.trip.hotplace.model.dto.HotplaceDto;
 import com.ssafy.trip.hotplace.model.mapper.HotplaceMapper;
@@ -72,9 +73,34 @@ public class HotplaceServiceImpl implements HotplaceService {
 		hotplaceMapper.modifyHotplace(hotplaceDto);
 	}
 
+//	@Override
+//	public void deleteHotplace(int num) throws Exception {
+//		hotplaceMapper.deleteHotplace(num);
+//	}
+
+	// **********************************************************************
+	// api
+	// **********************************************************************
+	
 	@Override
-	public void deleteHotplace(int num) throws Exception {
-		hotplaceMapper.deleteHotplace(num);
+	public List<HotplaceDto> getHotplace() throws Exception {
+		return hotplaceMapper.getHotplace();
 	}
 
+	@Override
+	public void registHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest request) throws Exception {
+		
+	}
+
+	@Override
+	public void modifyHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest requset) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteHotplace(int hotplaceId) throws Exception {
+		hotplaceMapper.deleteHotplace(hotplaceId);
+	}
+	
 }

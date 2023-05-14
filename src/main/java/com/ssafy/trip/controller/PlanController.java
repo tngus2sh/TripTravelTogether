@@ -67,13 +67,13 @@ public class PlanController {
 	public String writePlan(PlanDto planDto, @ModelAttribute PlaceDtoList placeDtoList, HttpSession session, RedirectAttributes redirectAttributes) throws SQLException {
 		logger.debug("writePlan Post parameter : {} {}", planDto, placeDtoList);
 		
-		UserDto userDto = (UserDto) session.getAttribute("userinfo");
+		UserDto userDto = (UserDto) session.getAttribute("userInfo");
 		System.out.println("sjfkd");
-		planDto.setUserId(userDto.getId());
+		planDto.setUserId(userDto.getUserId());
 		planService.insertPlan(planDto);
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("userId", userDto.getId());
+		map.put("userId", userDto.getUserId());
 		map.put("title", planDto.getTitle());		
 		int planId = planService.getPlanId(map);
 
@@ -109,7 +109,7 @@ public class PlanController {
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam(name="planid") int planId, Model model) throws SQLException {
+	public String delete(@RequestParam(name="planid") int planId, Model model) throws Exception {
 		logger.debug("delete param : {}", planId);
 		planService.deletePlan(planId);
 		model.addAttribute("pgno", "1");

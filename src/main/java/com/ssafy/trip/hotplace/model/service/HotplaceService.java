@@ -3,6 +3,8 @@ package com.ssafy.trip.hotplace.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.ssafy.trip.hotplace.model.dto.HotplaceDto;
 import com.ssafy.trip.util.PageNavigation;
 
@@ -12,5 +14,11 @@ public interface HotplaceService {
 	int findLatestNum() throws Exception;
 	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
 	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
-	void deleteHotplace(int num) throws Exception;
+//	void deleteHotplace(int num) throws Exception;
+	
+	// api
+	List<HotplaceDto> getHotplace() throws Exception;
+	void registHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest request) throws Exception;
+	void modifyHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest requset) throws Exception;
+	void deleteHotplace(int hotplaceId) throws Exception;
 }

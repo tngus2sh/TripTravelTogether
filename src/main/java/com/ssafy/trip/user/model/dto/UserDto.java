@@ -7,35 +7,34 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserDto {
 	
 	@ApiModelProperty(value = "회원 아이디")
-	private String userid;
+	private String userId;
 	@ApiModelProperty(value = "회원 비밀번호")
-	private String userpwd;
+	private String userPwd;
 	@ApiModelProperty(value = "회원 이름")
-	private String username;
+	private String userName;
 	@ApiModelProperty(value = "회원 이메일 id")
 	private String emailId;
 	@ApiModelProperty(value = "회원 이메일 domain")
 	private String emailDomain;
 	@ApiModelProperty(value = "회원 등급")
 	private String grade;
-	
-	public String getUserid() {
-		return userid;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getUserpwd() {
-		return userpwd;
+	public String getUserPwd() {
+		return userPwd;
 	}
-	public void setUserpwd(String userpwd) {
-		this.userpwd = userpwd;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getEmailId() {
 		return emailId;
@@ -55,10 +54,11 @@ public class UserDto {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-	
 	@Override
 	public String toString() {
-		return "UserDto [userid=" + userid + ", userpwd=" + userpwd + ", username=" + username + ", emailId=" + emailId
+		return "UserDto [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", emailId=" + emailId
 				+ ", emailDomain=" + emailDomain + ", grade=" + grade + "]";
 	}
+	
+	
 }

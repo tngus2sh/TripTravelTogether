@@ -10,13 +10,13 @@ import com.ssafy.trip.user.model.dto.UserDto;
 @Mapper
 public interface UserMapper {
 	
-	int idCheck(String id) throws SQLException;
+	int idCheck(String userId) throws SQLException;
 	void joinUser(UserDto userDto) throws SQLException;
 	UserDto loginUser(Map<String, String> map) throws SQLException;
 	void modifyUser(UserDto userDto) throws SQLException;
 	void modifyUserPw(Map<String, String> map) throws SQLException;
-	void deleteUser(String id) throws SQLException;
-	String getPassword(String id) throws SQLException;
+	void deleteUser(String userId) throws SQLException;
+	String getPassword(String userId) throws SQLException;
 	
 	
 	// new

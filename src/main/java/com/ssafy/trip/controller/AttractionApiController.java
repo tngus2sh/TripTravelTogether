@@ -17,11 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.trip.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.trip.attraction.model.dto.GunguDto;
+import com.ssafy.trip.attraction.model.dto.SidoDto;
 import com.ssafy.trip.attraction.model.service.AttractionService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/attraction")
 @CrossOrigin("*")
+@Api("attraction 컨트롤러 API")
 public class AttractionApiController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AttractionApiController.class);
@@ -33,8 +39,19 @@ public class AttractionApiController {
 		this.attractionService = attractionService;
 	}
 	
-	@GetMapping(value="/gungu/{sidoCode}")
-	public ResponseEntity<?> gunguList(@PathVariable("sidoCode") int sidoCode) {
+	@ApiOperation(value = "시도 불러오기", notes = "시도 리스트를 반환한다.", response = List.class)
+	@GetMapping
+	public ResponseEntity<?> sidoList() throws SQLException {
+		logger.debug("sidoList call");
+		List<SidoDto> list = attractionService.listSido();
+		logger.debug("sido list : {}", list);
+		return new ResponseEntity<List<SidoDto>>(list, HttpStatus.OK);
+	}
+	
+//	@GetMapping(value="/gungu/{sidoCode}")
+	@ApiOperation(value = "군구 불러오기", notes = "구군 리스트를 반환한다", response = List.class)
+	@GetMapping(value="/{sidoCode}")
+	public ResponseEntity<?> gunguList(@PathVariable("sidoCode") @ApiParam(value = "선택한 시도.", required = true)  int sidoCode) {
 		logger.debug("gungu list, sidoCode : {}", sidoCode);
 		try {
 			List<GunguDto> list = attractionService.listGungu(sidoCode);
@@ -45,8 +62,12 @@ public class AttractionApiController {
 		}
 	}
 	
-	@GetMapping(value = "/list/{sidoCode}/{gugunCode}/{contentTypeId}")
-	public ResponseEntity<?> attractionList(@PathVariable("sidoCode") int sidoCode, @PathVariable("gugunCode") int gugunCode, @PathVariable("contentTypeId") int contentTypeId) {
+//	@GetMapping(value = "/list/{sidoCode}/{gugunCode}/{contentTypeId}")
+	@ApiOperation(value = "관광지 검색", notes = "관광지 리스트를 불러온다", response = List.class)
+	@GetMapping(value = "/{sidoCode}/{gugunCode}/{contentTypeId}")
+	public ResponseEntity<?> attractionList(@PathVariable("sidoCode") @ApiParam(value = "선택한 시도.", required = true) int sidoCode, 
+			@PathVariable("gugunCode") @ApiParam(value = "구군 리스트.", required = true) int gugunCode, 
+			@PathVariable("contentTypeId") @ApiParam(value = "관광지 유형.", required = true) int contentTypeId) {
 		logger.debug("attractionList map : {} {} {}", sidoCode, gugunCode, contentTypeId);
 		Map<String, Object> map = new HashMap<>();
 		map.put("sidoCode", sidoCode);

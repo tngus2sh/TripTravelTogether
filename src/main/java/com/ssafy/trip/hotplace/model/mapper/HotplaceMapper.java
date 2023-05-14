@@ -16,4 +16,7 @@ public interface HotplaceMapper {
 	void registerFile(HotplaceDto hotplaceDto) throws Exception;
 	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
 	void deleteHotplace(int num) throws Exception;
+	
+	// api
+	List<HotplaceDto> getHotplace() throws Exception;
 }	

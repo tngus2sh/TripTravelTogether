@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto login(UserDto userDto) throws Exception {
-		if (userDto.getUserid() == null || userDto.getUserpwd() == null) {
+		if (userDto.getUserId() == null || userDto.getUserPwd() == null) {
 			return null;
 		}
 		return sqlSession.getMapper(UserMapper.class).login(userDto);

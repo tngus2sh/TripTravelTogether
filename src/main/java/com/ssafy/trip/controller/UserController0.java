@@ -29,7 +29,6 @@ import com.ssafy.trip.user.model.service.UserService;
 import com.ssafy.trip.util.TempKey;
 
 @Controller
-// @RestController
 @RequestMapping("/user")
 public class UserController0 {
 	
@@ -79,9 +78,9 @@ public class UserController0 {
 			HttpServletResponse response) throws Exception {
 		UserDto userDto = userService.loginUser(map);
 		if (userDto != null) {
-			session.setAttribute("userinfo", userDto);
+			session.setAttribute("userInfo", userDto);
 
-			Cookie cookie = new Cookie("user_id", map.get("id"));
+			Cookie cookie = new Cookie("user_id", map.get("userId"));
 			cookie.setPath("/");
 			if ("ok".equals(saveid)) {
 				cookie.setMaxAge(60 * 60 * 24 * 365 * 40);
@@ -108,9 +107,9 @@ public class UserController0 {
 	public String modifyUser(@RequestParam Map<String, String> map, RedirectAttributes rttr) throws Exception {
 		logger.debug("user modify map : {}", map);
 		UserDto userDto  = new UserDto();
-		userDto.setId(map.get("update-id"));
-		userDto.setPassword(map.get("update-password"));
-		userDto.setName(map.get("update-name"));
+		userDto.setUserId(map.get("update-id"));
+		userDto.setUserPwd(map.get("update-password"));
+		userDto.setUserName(map.get("update-name"));
 		userDto.setGrade(map.get("update-grade"));
 		userDto.setEmailId(map.get("update-email-id"));
 		userDto.setEmailDomain(map.get("update-email-domain"));
@@ -124,9 +123,9 @@ public class UserController0 {
 	
 	@GetMapping("/delete")
 	public String deleteUser(HttpSession session) throws Exception {
-		UserDto userDto = (UserDto) session.getAttribute("userinfo");
+		UserDto userDto = (UserDto) session.getAttribute("userInfo");
 		session.invalidate();
-		userService.deleteUser(userDto.getId());
+		userService.deleteUser(userDto.getUserId());
 		return "redirect:/";
 	}
 	

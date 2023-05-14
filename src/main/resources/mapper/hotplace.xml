@@ -52,4 +52,10 @@
 		where num=${num}
 	</delete>
 	
+	<select id="getHotplace" resultMap="hotplace">
+		select *
+		from hotplace
+		order by num desc
+	</select>
+	
 </mapper>

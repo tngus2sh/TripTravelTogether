@@ -62,8 +62,8 @@ public class HotplaceController {
 	public String writeHotplace(HotplaceDto hotplaceDto, @RequestParam("upfile") MultipartFile file, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("writeHotplace parameter : {}", hotplaceDto);
 		logger.debug("MultipartFile.isEmpty : {}", file.isEmpty());
-		UserDto userDto = (UserDto) session.getAttribute("userinfo");
-		hotplaceDto.setUserId(userDto.getId());
+		UserDto userDto = (UserDto) session.getAttribute("userInfo");
+		hotplaceDto.setUserId(userDto.getUserId());
 		
 		// FileUpload
 		if(!file.isEmpty()) {
@@ -100,8 +100,8 @@ public class HotplaceController {
 	public String modify(HotplaceDto hotplaceDto, @RequestParam("upfile") MultipartFile file, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("modify parameter : {}", hotplaceDto);
 		logger.debug("MultipartFile.isEmpty : {}", file.isEmpty());
-		UserDto userDto = (UserDto) session.getAttribute("userinfo");
-		hotplaceDto.setUserId(userDto.getId());
+		UserDto userDto = (UserDto) session.getAttribute("userInfo");
+		hotplaceDto.setUserId(userDto.getUserId());
 
 		// FileUpload
 		if(!file.isEmpty()) {

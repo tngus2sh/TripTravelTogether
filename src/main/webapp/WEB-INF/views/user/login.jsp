@@ -50,12 +50,12 @@
 				</div>
 	            <div class="row d-flex justify-content-center my-4">
 	            	<div class="col-5">
-	                	<input type="text" class="form-control" name="id" id="id" placeholder="아이디" value="${saveid}">
+	                	<input type="text" class="form-control" name="userId" id="userId" placeholder="아이디" value="${saveid}">
 					</div>
 	            </div>
 	            <div class="row d-flex justify-content-center my-4">
 	            	<div class="col-5">
-	                	<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호">
+	                	<input type="password" class="form-control" name="userPwd" id="userPwd" placeholder="비밀번호">
 	            	</div>
 	            </div>
 	            <div class="row d-flex justify-content-center my-4">
@@ -142,14 +142,14 @@
     
     <script>
 	  document.getElementById('signin-btn').addEventListener("click", function() {
-		  let id = $("#id").val();
-	      let pw = $("#password").val();
+		  let id = $("#userId").val();
+	      let pw = $("#userPwd").val();
 		  
 		  // 입력값 검증
-		  if(!document.querySelector("#id").value) {
+		  if(!document.querySelector("#userId").value) {
 			alert("아이디를 입력해주세요.");
 		  }
-		  else if(!document.querySelector("#password").value) {
+		  else if(!document.querySelector("#userPwd").value) {
 			alert("비밀번호를 입력해주세요.");
 		  }
 		  else {

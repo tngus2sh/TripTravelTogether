@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.trip.plan.model.dto.PlaceDto;
+import com.ssafy.trip.plan.model.dto.PlaceDtoList;
 import com.ssafy.trip.plan.model.dto.PlanDto;
 import com.ssafy.trip.plan.model.mapper.PlanMapper;
 import com.ssafy.trip.util.PageNavigation;
@@ -40,7 +41,7 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
-	public void deletePlan(int id) throws SQLException {
+	public void deletePlan(int id) throws Exception {
 		planMapper.deletePlan(id);
 	}
 
@@ -176,6 +177,59 @@ public class PlanServiceImpl implements PlanService {
 		pageNavigation.makeNavigator();
 
 		return pageNavigation;
+	}
+
+	// api
+	
+	/**
+	 * 여행 경로 목록 출력
+	 */
+	@Override
+	public List<PlanDto> getPlanList() throws Exception {
+		return null;
+	}
+
+	/**
+	 * 여행 계획 추가
+	 */
+	@Override
+	public void registPlan(PlanDto planDto, PlaceDtoList placeDtoList) throws Exception {
+		// plan 등록
+		planMapper.insertPlan(planDto);
+		// planId 가져와서 place의 planId로 설정하면서 등록
+		Map<String, Object> planMap = new HashMap<>();
+		planMap.put("userId", planDto.getUserId());
+		planMap.put("title", planDto.getTitle());
+		int planId = planMapper.selectPlanId(planMap);
+		
+		List<PlaceDto> list = placeDtoList.getPlaceList();
+		for (PlaceDto placeDto : list) {
+			placeDto.setPlanId(planId);
+			planMapper.insertPlace(placeDto);
+		}
+	}
+
+	@Override
+	public PlanDto getPlanOne(int planId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PlaceDto> getPlaceList(int planId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PlaceDto> getFastDistancePlace(int planId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modifyPlan(PlanDto planDto, PlaceDtoList placeDtoList) throws Exception {
+		// TODO Auto-generated method stub
 	}
 
 }
