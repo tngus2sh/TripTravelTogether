@@ -119,37 +119,6 @@ public class PlanServiceImpl implements PlanService {
 		return resultList;
 	}
 
-	public static void recur(int cnt, int n) {
-		if (cnt == n) {
-			fastSequence(n);
-			return;
-		}
-
-		for (int i = 0; i < n; i++) {
-			if (visited[i])
-				continue;
-			visited[i] = true;
-			pick[cnt] = i;
-			recur(cnt + 1, n);
-			visited[i] = false;
-		}
-	}
-
-	public static void fastSequence(int n) {
-		long sum = 0;
-		for (int i = 0; i < n - 1; i++) {
-			sum += D[pick[i]][pick[i + 1]];
-		}
-
-		if (sum < minSum) {
-			minSum = sum;
-
-			for (int i = 0; i < n; i++) {
-				resPick[i] = pick[i];
-			}
-		}
-	}
-
 	@Override
 	public PageNavigation makePageNavigation(Map<String, String> map) throws Exception {
 		PageNavigation pageNavigation = new PageNavigation();
@@ -193,43 +162,102 @@ public class PlanServiceImpl implements PlanService {
 	 * 여행 계획 추가
 	 */
 	@Override
-	public void registPlan(PlanDto planDto, PlaceDtoList placeDtoList) throws Exception {
-		// plan 등록
+	public void registPlan(PlanDto planDto) throws Exception {
 		planMapper.insertPlan(planDto);
-		// planId 가져와서 place의 planId로 설정하면서 등록
-		Map<String, Object> planMap = new HashMap<>();
-		planMap.put("userId", planDto.getUserId());
-		planMap.put("title", planDto.getTitle());
-		int planId = planMapper.selectPlanId(planMap);
-		
-		List<PlaceDto> list = placeDtoList.getPlaceList();
-		for (PlaceDto placeDto : list) {
-			placeDto.setPlanId(planId);
-			planMapper.insertPlace(placeDto);
-		}
+	}
+	
+	@Override
+	public void registPlace(PlaceDto placeDto) throws Exception {
+		planMapper.insertPlace(placeDto);
 	}
 
 	@Override
 	public PlanDto getPlanOne(int planId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return planMapper.selectPlanOne(planId);
 	}
 
 	@Override
 	public List<PlaceDto> getPlaceList(int planId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return planMapper.selectPlace(planId);
 	}
 
 	@Override
 	public List<PlaceDto> getFastDistancePlace(int planId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<PlaceDto> list = getPlace(planId);
+		List<PlaceDto> resultList = new ArrayList<>();
+		int cnt = planMapper.getTotalPlaceCount(planId);
+		// 최단 거리 알고리즘 사용 : 완전 탐색
+		D = new long[cnt][cnt];
+
+		// 서로 간의 거리 구하기
+		for (int i = 0; i < cnt; i++) {
+			for (int j = i + 1; j < cnt; j++) {
+				PlaceDto start = list.get(i);
+				PlaceDto end = list.get(j);
+
+				long startLat = (long) (start.getLat().doubleValue() * Math.pow(10, 13));
+				long endLat = (long) (end.getLat().doubleValue() * Math.pow(10, 13));
+				long startLng = (long) (start.getLng().doubleValue() * Math.pow(10, 13));
+				long endLng = (long) (end.getLng().doubleValue() * Math.pow(10, 13));
+
+				D[i][j] = Math.abs(startLat - endLat) + Math.abs(startLng - endLng);
+				D[j][i] = D[i][j];
+			}
+		}
+
+		// 초기화
+		visited = new boolean[cnt];
+		pick = new int[cnt];
+		resPick = new int[cnt];
+		minSum = Long.MAX_VALUE;
+		recur(0, cnt);
+
+		for (int i = 0; i < cnt; i++) {
+			int idx = resPick[i];
+			resultList.add(list.get(idx));
+		}
+		return resultList;
 	}
 
 	@Override
-	public void modifyPlan(PlanDto planDto, PlaceDtoList placeDtoList) throws Exception {
-		// TODO Auto-generated method stub
+	public void modifyPlan(PlanDto planDto) throws Exception {
+		planMapper.updatePlan(planDto);
 	}
 
+	@Override
+	public void modifyPlace(PlaceDto placeDto) throws Exception {
+		planMapper.updatePlace(placeDto);
+	}
+
+	
+	public static void recur(int cnt, int n) {
+		if (cnt == n) {
+			fastSequence(n);
+			return;
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (visited[i])
+				continue;
+			visited[i] = true;
+			pick[cnt] = i;
+			recur(cnt + 1, n);
+			visited[i] = false;
+		}
+	}
+
+	public static void fastSequence(int n) {
+		long sum = 0;
+		for (int i = 0; i < n - 1; i++) {
+			sum += D[pick[i]][pick[i + 1]];
+		}
+
+		if (sum < minSum) {
+			minSum = sum;
+
+			for (int i = 0; i < n; i++) {
+				resPick[i] = pick[i];
+			}
+		}
+	}
 }

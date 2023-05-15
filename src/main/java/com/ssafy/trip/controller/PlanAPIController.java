@@ -63,7 +63,20 @@ public class PlanAPIController {
 		userDto.setUserId("ssafy");
 		planDto.setUserId(userDto.getUserId());
 		
-		planService.registPlan(planDto, placeDtoList);
+		planService.registPlan(planDto);
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", planDto.getUserId());
+		map.put("title", planDto.getTitle());
+		int planId = planService.getPlanId(map);
+		
+		List<PlaceDto> list = placeDtoList.getPlaceList();
+		logger.debug("test {}", list);
+		for (PlaceDto placeDto : list) {
+			logger.debug("placeDto : {}", placeDto);
+			placeDto.setPlanId(planId);
+			planService.registPlace(placeDto);
+		}
+		
 		resultMap.put("message", SUCCESS);
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
@@ -91,7 +104,15 @@ public class PlanAPIController {
 			@RequestBody @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-		planService.modifyPlan(planDto, placeDtoList);
+		planService.modifyPlan(planDto);
+		
+		List<PlaceDto> list = placeDtoList.getPlaceList();
+		logger.debug("test {}", list);
+		for (PlaceDto placeDto : list) {
+			logger.debug("placeDto : {}", placeDto);
+			planService.modifyPlace(placeDto);
+		}
+		
 		resultMap.put("message", SUCCESS);
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
