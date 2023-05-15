@@ -28,6 +28,8 @@ import com.ssafy.trip.notification.model.service.NotificationService;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.util.PageNavigation;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 //@Controller
 @RequestMapping("/notification")
@@ -59,6 +61,7 @@ public class NotificationController {
 //		return mav;
 //	}
 	
+	@ApiOperation(value="공지사항 목록 ", notes="공지 사항 글 목록을 반환 햔다.", response=List.class)
 	@GetMapping(value = "/list")
 	public ResponseEntity<?> list(@RequestBody Map<String, String> map) {
 		logger.debug("notification list call : {}", map);
@@ -88,6 +91,7 @@ public class NotificationController {
 //		return "/notification/view";
 //	}
 	
+	@ApiOperation(value="공지사항 글 상세 보기", notes="해당 id의 글 상세보기")
 	@GetMapping(value = "/view")
 	public ResponseEntity<?> view(@RequestBody int id, Map<String, String> map){
 		logger.debug("notification view id : {}", id);
@@ -113,19 +117,19 @@ public class NotificationController {
 //		return "notification/write";
 //	}
 	
-	@GetMapping(value ="/write")
-	public ResponseEntity<?> write(@RequestBody Map<String, String> map) {
-		logger.debug("notification write call ");
-		Map<String, Object> result = new HashMap<>();
-		try {
-			result.put("pgno", map.get("pgno"));
-			result.put("key", map.get("key"));
-			result.put("word", map.get("word"));
-			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@GetMapping(value ="/write")
+//	public ResponseEntity<?> write(@RequestBody Map<String, String> map) {
+//		logger.debug("notification write call ");
+//		Map<String, Object> result = new HashMap<>();
+//		try {
+//			result.put("pgno", map.get("pgno"));
+//			result.put("key", map.get("key"));
+//			result.put("word", map.get("word"));
+//			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 	
 //	@PostMapping("/write")
 //	public String write(NotificationDto notificationDto, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
@@ -139,6 +143,7 @@ public class NotificationController {
 //		return "redirect:/notification/list";
 //	}
 	
+	@ApiOperation(value="공지사항 글 작성", notes ="새로운 공지글 작성한다.")
 	@PostMapping(value = "/write")
 	public ResponseEntity<?> write(NotificationDto notificationDto, HttpSession session){
 		logger.debug("notification write call : {} ", notificationDto);
@@ -167,23 +172,23 @@ public class NotificationController {
 //		return "notification/modify";
 //	}
 	
-	@GetMapping(value = "/modify")
-	public ResponseEntity<?> modify(@RequestBody int id, HttpSession session, @RequestBody Map<String, String> map){
-		logger.debug("notification modify call {} ", id);
-		Map<String, Object> result = new HashMap<>();
-		
-		try {
-			NotificationDto notificationDto = notificationService.viewNotification(id);
-			result.put("notificationDto", notificationDto);
-			result.put("pgno", map.get("pgno"));
-			result.put("key", map.get("key"));
-			result.put("word", map.get("word"));
-			
-			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
-		} catch(Exception e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@GetMapping(value = "/modify")
+//	public ResponseEntity<?> modify(@RequestBody int id, HttpSession session, @RequestBody Map<String, String> map){
+//		logger.debug("notification modify call {} ", id);
+//		Map<String, Object> result = new HashMap<>();
+//		
+//		try {
+//			NotificationDto notificationDto = notificationService.viewNotification(id);
+//			result.put("notificationDto", notificationDto);
+//			result.put("pgno", map.get("pgno"));
+//			result.put("key", map.get("key"));
+//			result.put("word", map.get("word"));
+//			
+//			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+//		} catch(Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 	
 //	@PostMapping("/modify")
 //	public String modify(NotificationDto notificationDto, @RequestParam Map<String, String> map,
@@ -195,6 +200,7 @@ public class NotificationController {
 //		return "redirect:/notification/list";
 //	}
 	
+	@ApiOperation(value ="공지사항 글 수정", notes="해당 id의 글 수정")
 	@PutMapping(value="/modify")
 	public ResponseEntity<?> modify(NotificationDto notificationDto, @RequestBody Map<String,String> map){
 		logger.debug("modify notification : {}", notificationDto);
@@ -220,6 +226,7 @@ public class NotificationController {
 //		return "redirect:/notification/list";
 //	}
 	
+	@ApiOperation(value ="공지사항 글 삭제", notes="해당 id의 게시판 글 삭제")
 	@DeleteMapping(value = "/delete")
 	public ResponseEntity<?> delete(@RequestBody int id, @RequestBody Map<String,String> map){
 		logger.debug("delete notification : {}", id);

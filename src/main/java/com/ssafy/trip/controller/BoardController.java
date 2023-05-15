@@ -98,6 +98,7 @@ public class BoardController {
 //		return "/board/view";
 //	}
 	
+	@ApiOperation(value="자유 게시판 글 상세 보기", notes="해당 id의 글 상세보기")
 	@GetMapping(value = "/view")
 	public ResponseEntity<?> view(@RequestBody int id, Map<String, String> map){
 		logger.debug("board view id : {}", id);
@@ -123,19 +124,19 @@ public class BoardController {
 //		return "board/write";
 //	}
 	
-	@GetMapping(value ="/write")
-	public ResponseEntity<?> write(@RequestBody Map<String, String> map) {
-		logger.debug("board write call ");
-		Map<String, Object> result = new HashMap<>();
-		try {
-			result.put("pgno", map.get("pgno"));
-			result.put("key", map.get("key"));
-			result.put("word", map.get("word"));
-			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@GetMapping(value ="/write")
+//	public ResponseEntity<?> write(@RequestBody Map<String, String> map) {
+//		logger.debug("board write call ");
+//		Map<String, Object> result = new HashMap<>();
+//		try {
+//			result.put("pgno", map.get("pgno"));
+//			result.put("key", map.get("key"));
+//			result.put("word", map.get("word"));
+//			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 	
 
 //	@PostMapping("/write")
@@ -150,6 +151,7 @@ public class BoardController {
 //		return "redirect:/board/list";
 //	}
 	
+	@ApiOperation(value="자유 게시판 글 작성", notes ="새로운 게시글 작성한다.")
 	@PostMapping(value = "/write")
 	public ResponseEntity<?> write(BoardDto boardDto, HttpSession session){
 		logger.debug("board write call : {} ", boardDto);
@@ -179,23 +181,23 @@ public class BoardController {
 //	}
 	
 	
-	@GetMapping(value = "/modify")
-	public ResponseEntity<?> modify(@RequestBody int id, HttpSession session, @RequestBody Map<String, String> map){
-		logger.debug("board modify call {} ", id);
-		Map<String, Object> result = new HashMap<>();
-		
-		try {
-			BoardDto boardDto = boardService.viewBoard(id);
-			result.put("boardDto", boardDto);
-			result.put("pgno", map.get("pgno"));
-			result.put("key", map.get("key"));
-			result.put("word", map.get("word"));
-			
-			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
-		} catch(Exception e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@GetMapping(value = "/modify")
+//	public ResponseEntity<?> modify(@RequestBody int id, HttpSession session, @RequestBody Map<String, String> map){
+//		logger.debug("board modify call {} ", id);
+//		Map<String, Object> result = new HashMap<>();
+//		
+//		try {
+//			BoardDto boardDto = boardService.viewBoard(id);
+//			result.put("boardDto", boardDto);
+//			result.put("pgno", map.get("pgno"));
+//			result.put("key", map.get("key"));
+//			result.put("word", map.get("word"));
+//			
+//			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+//		} catch(Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 
 	
 //	@PostMapping("/modify")
@@ -208,6 +210,7 @@ public class BoardController {
 //		return "redirect:/board/list";
 //	}
 	
+	@ApiOperation(value ="자유 게시판 글 수정", notes="해당 id의 글 수정")
 	@PutMapping(value="/modify")
 	public ResponseEntity<?> modify(BoardDto boardDto, @RequestBody Map<String,String> map){
 		logger.debug("modify board : {}", boardDto);
@@ -233,6 +236,7 @@ public class BoardController {
 //		return "redirect:/board/list";
 //	}
 	
+	@ApiOperation(value ="자유 게시판 글 삭제", notes="해당 id의 게시판 글 삭제")
 	@DeleteMapping(value = "/delete")
 	public ResponseEntity<?> delete(@RequestBody int id, @RequestBody Map<String,String> map){
 		logger.debug("delete board : {}", id);

@@ -19,9 +19,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @Configuration
-@SuppressWarnings("unchecked") // warning 제거
+//@SuppressWarnings("unchecked") // warning 제거
 public class SwaggerConfiguration {
 
+	// 되는 부분  **************************************************
 //    Swagger-UI 2.x 확인
 //    http://localhost[:8080]/{your-app-root}/swagger-ui.html
 //    Swagger-UI 3.x 확인
@@ -90,5 +91,9 @@ public class SwaggerConfiguration {
     public UiConfiguration uiConfig() {
         return UiConfigurationBuilder.builder().displayRequestDuration(true).validatorUrl("").build();
     }
+	
+	// 되는부분 끝 **************************************************
 
+	
+	
 }
