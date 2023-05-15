@@ -32,6 +32,8 @@ import com.ssafy.trip.notification.model.dto.NotificationDto;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.util.PageNavigation;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 //@Controller
 @RequestMapping("/board")
@@ -65,6 +67,7 @@ public class BoardController {
 //		return mav;
 //	}
 	
+	@ApiOperation(value="자유 게시판 목록 ", notes="자유 게시판 목록을 반환 햔다.", response=List.class)
 	@GetMapping(value = "/list")
 	public ResponseEntity<?> list(@RequestBody Map<String, String> map) {
 		logger.debug("board list call : {}", map);
