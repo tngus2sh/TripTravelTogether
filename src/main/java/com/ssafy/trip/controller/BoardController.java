@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.trip.board.model.dto.BoardDto;
 import com.ssafy.trip.board.model.service.BoardService;
+import com.ssafy.trip.notification.model.dto.NotificationDto;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.util.PageNavigation;
 
@@ -133,7 +134,7 @@ public class BoardController {
 		}
 	}
 	
-<<<<<<< HEAD
+
 //	@PostMapping("/write")
 //	public String write(BoardDto boardDto, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 //		UserDto userDto = (UserDto) session.getAttribute("userinfo");
@@ -152,7 +153,7 @@ public class BoardController {
 		Map<String, Object> result = new HashMap<>();
 		try {
 			UserDto userDto = (UserDto) session.getAttribute("userinfo");
-			boardDto.setUserId(userDto.getUserid());
+			boardDto.setUserId(userDto.getUserId());
 			
 			boardService.writeBoard(boardDto);
 			result.put("pgno",1);
@@ -174,16 +175,11 @@ public class BoardController {
 //		return "board/modify";
 //	}
 	
+	
 	@GetMapping(value = "/modify")
 	public ResponseEntity<?> modify(@RequestBody int id, HttpSession session, @RequestBody Map<String, String> map){
 		logger.debug("board modify call {} ", id);
 		Map<String, Object> result = new HashMap<>();
-=======
-	@PostMapping("/write")
-	public String write(BoardDto boardDto, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
-		UserDto userDto = (UserDto) session.getAttribute("userInfo");
-		boardDto.setUserId(userDto.getUserId());
->>>>>>> 318f15a3c5ec58554e7a9d6b7f8ef3705161f8b2
 		
 		try {
 			BoardDto boardDto = boardService.viewBoard(id);
@@ -197,6 +193,7 @@ public class BoardController {
 			return exceptionHandling(e);
 		}
 	}
+
 	
 //	@PostMapping("/modify")
 //	public String modify(BoardDto boardDto, @RequestParam Map<String, String> map,

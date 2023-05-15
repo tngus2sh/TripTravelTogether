@@ -145,7 +145,7 @@ public class NotificationController {
 		Map<String, Object> result = new HashMap<>();
 		try {
 			UserDto userDto = (UserDto) session.getAttribute("userinfo");
-			notificationDto.setUserId(userDto.getUserid());
+			notificationDto.setUserId(userDto.getUserId());
 			
 			notificationService.writeNotification(notificationDto);
 			result.put("pgno",1);
@@ -209,8 +209,7 @@ public class NotificationController {
 			return exceptionHandling(e);
 		}
 	}
-	
-<<<<<<< HEAD
+
 //	@GetMapping("/delete")
 //	public String delete(@RequestParam("id") int id, @RequestParam Map<String, String> map,
 //			RedirectAttributes redirectAttributes) throws Exception {
@@ -234,19 +233,19 @@ public class NotificationController {
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}
-=======
-	@PostMapping("/write")
-	public String write(NotificationDto notificationDto, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
-		UserDto userDto = (UserDto) session.getAttribute("userInfo");
-		notificationDto.setUserId(userDto.getUserId());
-		
-		notificationService.writeNotification(notificationDto);
-		redirectAttributes.addAttribute("pgno", "1");
-		redirectAttributes.addAttribute("key", "");
-		redirectAttributes.addAttribute("word", "");
-		return "redirect:/notification/list";
->>>>>>> 318f15a3c5ec58554e7a9d6b7f8ef3705161f8b2
 	}
+
+//	@PostMapping("/write")
+//	public String write(NotificationDto notificationDto, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
+//		UserDto userDto = (UserDto) session.getAttribute("userInfo");
+//		notificationDto.setUserId(userDto.getUserId());
+//		
+//		notificationService.writeNotification(notificationDto);
+//		redirectAttributes.addAttribute("pgno", "1");
+//		redirectAttributes.addAttribute("key", "");
+//		redirectAttributes.addAttribute("word", "");
+//		return "redirect:/notification/list";
+//	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
