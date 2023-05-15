@@ -68,11 +68,6 @@ public class HotplaceServiceImpl implements HotplaceService {
 		System.out.println("글입력 후 dto : " + hotplaceDto);
 	}
 
-	@Override
-	public void modifyHotplace(HotplaceDto hotplaceDto) throws Exception {
-		hotplaceMapper.modifyHotplace(hotplaceDto);
-	}
-
 //	@Override
 //	public void deleteHotplace(int num) throws Exception {
 //		hotplaceMapper.deleteHotplace(num);
@@ -82,25 +77,47 @@ public class HotplaceServiceImpl implements HotplaceService {
 	// api
 	// **********************************************************************
 	
+	/**
+	 * 핫플레이스 리스트
+	 * @return List<HotplaceDto>
+	 * @throws Exception
+	 */
 	@Override
-	public List<HotplaceDto> getHotplace() throws Exception {
-		return hotplaceMapper.getHotplace();
+	public List<HotplaceDto> getHotplaceList() throws Exception {
+		return hotplaceMapper.selectHotplaceList();
 	}
 
+	/**
+	 * 핫플레이스 등록하기
+	 */
 	@Override
-	public void registHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest request) throws Exception {
-		
+	public void registHotplace(HotplaceDto hotplaceDto) throws Exception {
+		hotplaceMapper.insertHotplace(hotplaceDto);
 	}
 
+	/**
+	 * id에 해당하는 핫플레이스 글 불러오기
+	 */
 	@Override
-	public void modifyHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest requset) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public HotplaceDto getHotplace(int hotplaceId) throws Exception {
+		return hotplaceMapper.selectHotplace(hotplaceId);
 	}
 
+	/**
+	 * 핫플레이스 수정하기
+	 */
+	@Override
+	public void modifyHotplace(HotplaceDto hotplaceDto) throws Exception {
+		hotplaceMapper.modifyHotplace(hotplaceDto);
+	}
+
+	/**
+	 * id에 해당하는 핫플레이스 삭제하기
+	 */
 	@Override
 	public void deleteHotplace(int hotplaceId) throws Exception {
 		hotplaceMapper.deleteHotplace(hotplaceId);
 	}
+	
 	
 }

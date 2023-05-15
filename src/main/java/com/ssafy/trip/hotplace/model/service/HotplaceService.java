@@ -13,12 +13,13 @@ public interface HotplaceService {
 	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 	int findLatestNum() throws Exception;
 	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
-	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
+//	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
 //	void deleteHotplace(int num) throws Exception;
 	
 	// api
-	List<HotplaceDto> getHotplace() throws Exception;
-	void registHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest request) throws Exception;
-	void modifyHotplace(HotplaceDto hotplaceDto, MultipartHttpServletRequest requset) throws Exception;
+	List<HotplaceDto> getHotplaceList() throws Exception;
+	void registHotplace(HotplaceDto hotplaceDto) throws Exception;
+	HotplaceDto getHotplace(int hotplaceId) throws Exception;
+	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
 	void deleteHotplace(int hotplaceId) throws Exception;
 }
