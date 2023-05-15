@@ -53,7 +53,7 @@ public class PlanAPIController {
 	
 	@ApiOperation(value = "여행계획 작성", notes = "여행계획과 관광지를 데이터베이스에 넣는다.")
 	@PostMapping
-	public ResponseEntity<?> registPlan(
+	public ResponseEntity<Map<String, Object>> registPlan(
 			@RequestBody @ApiParam(value = "여행계획", required = true) PlanDto planDto, 
 			@RequestBody @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
 			) throws Exception {

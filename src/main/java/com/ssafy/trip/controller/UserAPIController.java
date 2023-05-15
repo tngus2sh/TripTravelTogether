@@ -135,6 +135,7 @@ public class UserAPIController {
 	
 	@ApiOperation(value = "회원가입", notes = "회원 정보 등록 후 결과 메세지를 반환한다.", response = Map.class)
 	@PostMapping("/join")
+	@Transactional
 	public ResponseEntity<Map<String, Object>> join(
 			@RequestBody @ApiParam(value = "가입할 회원 정보", required = true) UserDto userDto
 			) throws Exception {

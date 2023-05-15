@@ -36,7 +36,7 @@
 	</select>
 	
 	
-	<select id="getHotplaceList" resultMap="hotplace">
+	<select id="selectHotplaceList" resultMap="hotplace">
 		select *
 		from hotplace
 		order by num desc
@@ -47,10 +47,10 @@
 		values (#{userId}, #{image}, #{title}, #{joinDate}, #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
 	</insert>
 	
-	<select id="getHotplace" parameterType="int">
+	<select id="selectHotplace" parameterType="int" resultMap="hotplace">
 		select *
 		from hotplace
-		where id = #{hotplaceId}
+		where num = #{hotplaceId}
 	</select>
 	
 	<update id="modifyHotplace" parameterType="hotplaceDto">
