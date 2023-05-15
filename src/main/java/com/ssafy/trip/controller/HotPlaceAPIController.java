@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,8 +69,8 @@ public class HotPlaceAPIController {
 	@ApiOperation(value = "핫플레이스 글 작성", notes = "사진과 함께 핫플레이스 글 내용을 데이터베이스에 넣는다.")
 	@PostMapping
 	public ResponseEntity<?> hotplaceWrite(
-			@RequestBody @ApiParam(value = "글 내용(이미지, 해시태그, 상세 글).", required = true) HotplaceDto hotplaceDto,
-			@RequestParam("upFile") @ApiParam(value = "이미지 파일.", required = true) MultipartFile file
+			@ApiParam(value = "글 내용(이미지, 해시태그, 상세 글).", required = true) HotplaceDto hotplaceDto,
+			@ApiParam(value = "이미지 파일.", required = true) MultipartFile file
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		
@@ -111,8 +112,8 @@ public class HotPlaceAPIController {
 	@ApiOperation(value = "핫플레이스 글 수정", notes = "작성자란을 제외한 수정되어 있는 핫플레이스 글 내용을 데이터베이스에 넣는다.")
 	@PutMapping
 	public ResponseEntity<?> hotplaceModify(
-			@RequestBody @ApiParam(value = "수정된 글 내용(이미지, 해시태그, 상세 글).", required = true) HotplaceDto hotplaceDto,
-			@RequestParam @ApiParam(value = "수정된 이미지 파일.", required = true) MultipartFile file
+			@ApiParam(value = "수정된 글 내용(이미지, 해시태그, 상세 글).", required = true) HotplaceDto hotplaceDto,
+			@ApiParam(value = "수정된 이미지 파일.", required = true) MultipartFile file
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		

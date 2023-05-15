@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `hotplace` (
   `image` VARCHAR(300) NOT NULL DEFAULT 'no-pictures.png',
   `title` VARCHAR(300) NOT NULL,
   `join_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `desc` VARCHAR(1000) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
   `tag1` VARCHAR(20) NULL DEFAULT '',
   `tag2` VARCHAR(20) NULL DEFAULT '',
   `latitude` DECIMAL(20, 17) NULL,

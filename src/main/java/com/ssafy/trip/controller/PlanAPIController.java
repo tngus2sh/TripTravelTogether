@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,8 +55,8 @@ public class PlanAPIController {
 	@ApiOperation(value = "여행계획 작성", notes = "여행계획과 관광지를 데이터베이스에 넣는다.")
 	@PostMapping
 	public ResponseEntity<Map<String, Object>> registPlan(
-			@RequestBody @ApiParam(value = "여행계획", required = true) PlanDto planDto, 
-			@RequestBody @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
+			@ModelAttribute @ApiParam(value = "여행계획", required = true) PlanDto planDto, 
+			@ModelAttribute @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		// 사용자 id를 plan에 넣어주기
@@ -100,8 +101,8 @@ public class PlanAPIController {
 	@ApiOperation(value = "여행 계획 수정", notes = "해당하는 id의 여행 계획을 수정한다")
 	@PutMapping
 	public ResponseEntity<?> modifyPlan(
-			@RequestBody @ApiParam(value = "여행계획", required = true) PlanDto planDto,
-			@RequestBody @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
+			@ModelAttribute @ApiParam(value = "여행계획", required = true) PlanDto planDto,
+			@ModelAttribute @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		planService.modifyPlan(planDto);

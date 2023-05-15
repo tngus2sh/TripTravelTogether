@@ -23,6 +23,9 @@ public interface PlanMapper {
 
 	/** 여행 계획 리스트 출력 */
 	public List<PlanDto> selectPlan(Map<String, Object> param) throws SQLException;
+	
+	/** 여행 계획 리스트 출력 */
+	public List<PlanDto> selectPlanList() throws SQLException;
 
 	/** 글 번호에 맞는 여행 계획 출력 */
 	public PlanDto selectPlanOne(int planId) throws SQLException;

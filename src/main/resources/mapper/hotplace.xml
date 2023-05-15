@@ -55,7 +55,7 @@
 	
 	<update id="modifyHotplace" parameterType="hotplaceDto">
 		update hotplace
-		set image = #{image}, title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=#{latitude}, longitude=#{longitude}, map_url=#{mapUrl}
+		set image = #{image}, title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=${latitude}, longitude=${longitude}, map_url=#{mapUrl}
 		where user_id = #{userId} and num = ${num}
 	</update>
 	

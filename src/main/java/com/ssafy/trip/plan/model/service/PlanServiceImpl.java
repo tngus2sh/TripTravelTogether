@@ -155,7 +155,7 @@ public class PlanServiceImpl implements PlanService {
 	 */
 	@Override
 	public List<PlanDto> getPlanList() throws Exception {
-		return null;
+		return planMapper.selectPlanList();
 	}
 
 	/**
