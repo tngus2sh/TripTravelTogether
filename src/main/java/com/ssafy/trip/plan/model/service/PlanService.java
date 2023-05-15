@@ -45,7 +45,10 @@ public interface PlanService {
 	List<PlanDto> getPlanList() throws Exception;
 	
 	/** 여행 계획 추가 */
-	void registPlan(PlanDto planDto, PlaceDtoList placeDtoList) throws Exception;
+	void registPlan(PlanDto planDto) throws Exception;
+	
+	/** 여행지 추가 */
+	void registPlace(PlaceDto placeDto) throws Exception;
 	
 	/** 글 번호에 맞는 여행 계획 출력 */
 	PlanDto getPlanOne(int planId) throws Exception;
@@ -57,5 +60,8 @@ public interface PlanService {
 	List<PlaceDto> getFastDistancePlace(int planId) throws Exception;
 	
 	/** 여행 계획 수정 */
-	void modifyPlan(PlanDto planDto, PlaceDtoList placeDtoList) throws Exception;
+	void modifyPlan(PlanDto planDto) throws Exception;
+	
+	/** 여행지 수정 */
+	void modifyPlace(PlaceDto placeDto) throws Exception;
 }

@@ -12,11 +12,15 @@ public interface HotplaceMapper {
 	List<HotplaceDto> listHotplace(Map<String, Object> param) throws Exception;
 	int getTotalHotplaceCount(Map<String, Object> param) throws Exception;
 	int findLatestNum() throws Exception;
-	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
-	void registerFile(HotplaceDto hotplaceDto) throws Exception;
-	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
-	void deleteHotplace(int num) throws Exception;
+//	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
+//	void registerFile(HotplaceDto hotplaceDto) throws Exception;
+//	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
+//	void deleteHotplace(int num) throws Exception;
 	
 	// api
-	List<HotplaceDto> getHotplace() throws Exception;
+	List<HotplaceDto> selectHotplaceList() throws Exception;
+	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
+	HotplaceDto selectHotplace(int hotplaceId) throws Exception;
+	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
+	void deleteHotplace(int num) throws Exception;
 }	

@@ -86,6 +86,19 @@
 		where id = #{planId}
 	</update>
 	
+	<update id="updatePlan" parameterType="planDto">
+		update plan
+		set title = ${title}, description = ${description}, start_date = ${startDate}, end_date = ${endDate}
+		where id = #{planId}
+	</update>
+	
+	<update id="updatePlace" parameterType="placeDto">
+		update place
+		set name = #{name}, address = #{address}, lat = #{lat}, lng = #{lng}, image_url = #{imageUrl}
+		where plan_id = #{planId} 
+	</update>
+	
+	
 	<select id="getTotalArticleCount" parameterType="map" resultType="int">
 		select count(id)
 		from plan
