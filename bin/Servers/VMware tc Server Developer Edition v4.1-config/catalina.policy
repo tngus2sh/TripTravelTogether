@@ -161,13 +161,13 @@ grant {
     permission java.util.PropertyPermission "java.vendor", "read";
     permission java.util.PropertyPermission "java.vendor.url", "read";
     permission java.util.PropertyPermission "java.class.version", "read";
-    permission java.util.PropertyPermission "java.specification.version", "read";
-    permission java.util.PropertyPermission "java.specification.vendor", "read";
-    permission java.util.PropertyPermission "java.specification.name", "read";
+    permission java.util.PropertyPermission "java.specice.version", "read";
+    permission java.util.PropertyPermission "java.specice.vendor", "read";
+    permission java.util.PropertyPermission "java.specice.name", "read";
 
-    permission java.util.PropertyPermission "java.vm.specification.version", "read";
-    permission java.util.PropertyPermission "java.vm.specification.vendor", "read";
-    permission java.util.PropertyPermission "java.vm.specification.name", "read";
+    permission java.util.PropertyPermission "java.vm.specice.version", "read";
+    permission java.util.PropertyPermission "java.vm.specice.vendor", "read";
+    permission java.util.PropertyPermission "java.vm.specice.name", "read";
     permission java.util.PropertyPermission "java.vm.version", "read";
     permission java.util.PropertyPermission "java.vm.vendor", "read";
     permission java.util.PropertyPermission "java.vm.name", "read";

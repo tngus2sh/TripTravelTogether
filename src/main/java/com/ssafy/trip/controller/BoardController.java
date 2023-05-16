@@ -28,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.trip.board.model.dto.BoardDto;
 import com.ssafy.trip.board.model.service.BoardService;
-import com.ssafy.trip.notification.model.dto.NotificationDto;
+import com.ssafy.trip.notice.model.dto.NoticeDto;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.util.PageNavigation;
 

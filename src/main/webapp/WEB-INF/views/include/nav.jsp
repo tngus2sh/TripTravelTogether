@@ -43,7 +43,7 @@
             </a>
           </li>   
           <li class="nav-item">
-            <a class="nav-link active" href="${root}/notification/list?pgno=1&key=&word=">
+            <a class="nav-link active" href="${root}/notice/list?pgno=1&key=&word=">
                     공지
             </a>
           </li>      

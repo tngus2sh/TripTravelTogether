@@ -32,7 +32,7 @@
               	<script>
               	document.querySelector("#btn-mv-register").addEventListener("click", function () {
                	 let form = document.querySelector("#form-param");
-                     form.setAttribute("action", "${root}/notification/write");
+                     form.setAttribute("action", "${root}/notice/write");
                      form.submit();
                  });
               	</script>
@@ -68,22 +68,22 @@
               </tr>
             </thead>
             <tbody>    
-				<c:forEach var="notification" items="${notifications}">    
+				<c:forEach var="notice" items="${notices}">    
 	              <tr class="text-center">
-	                <th scope="row">${notification.id}</th>
+	                <th scope="row">${notice.id}</th>
 	                <td class="text-start">
 	                  <a
 	                    href="#"
-	                    class="notification-title link-dark"
-	                    data-no="${notification.id}"
+	                    class="notice-title link-dark"
+	                    data-no="${notice.id}"
 	                    style="text-decoration: none"
 	                  >
-	                    ${notification.title}
+	                    ${notice.title}
 	                  </a>
 	                </td>
-	                <td>${notification.userName}</td>
-	                <td>${notification.hit}</td>
-	                <td>${notification.createdAt}</td>
+	                <td>${notice.userName}</td>
+	                <td>${notice.hit}</td>
+	                <td>${notice.createdAt}</td>
 	              </tr>            
 				</c:forEach>   
             </tbody>
@@ -98,14 +98,14 @@
       <input type="hidden" name="key" value="${key}">
       <input type="hidden" name="word" value="${word}">
     </form>
-    <form id="form-no-param" method="get" action="${root}/notification/view">
+    <form id="form-no-param" method="get" action="${root}/notice/view">
      	<input type="hidden" name="pgno" value="${pgno}">
       	<input type="hidden" name="key" value="${key}">
       	<input type="hidden" name="word" value="${word}">
       <input type="hidden" id="id" name="id" value="">
     </form>
     <script>
-      let titles = document.querySelectorAll(".notification-title");
+      let titles = document.querySelectorAll(".notice-title");
       titles.forEach(function (title) {
         title.addEventListener("click", function () {
           document.querySelector("#id").value = this.getAttribute("data-no");
@@ -115,7 +115,7 @@
       
       document.querySelector("#btn-search").addEventListener("click", function () {
     	  let form = document.querySelector("#form-search");
-          form.setAttribute("action", "${root}/notification/list");
+          form.setAttribute("action", "${root}/notice/list");
           form.submit();
       });
       
@@ -125,7 +125,7 @@
        	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
        	  console.log(document.querySelector("#pgno").value);
           let form = document.querySelector("#form-param");
-          form.setAttribute("action", "${root}/notification/list");
+          form.setAttribute("action", "${root}/notice/list");
           form.submit();
         });
       });

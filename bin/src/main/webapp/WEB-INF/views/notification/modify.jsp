@@ -32,14 +32,14 @@
           	<input type="hidden" name="pgno" value="${pgno}">
 		    <input type="hidden" name="key" value="${key}">
 		   	<input type="hidden" name="word" value="${word}">
-            <input type="hidden" name="id" value="${notification.id}">
+            <input type="hidden" name="id" value="${notice.id}">
             <div class="mb-3">
               <label for="subject" class="form-label">제목 : </label>
-              <input type="text" class="form-control" id="title" name="title" value="${notification.title}" />
+              <input type="text" class="form-control" id="title" name="title" value="${notice.title}" />
             </div>
             <div class="mb-3">
               <label for="content" class="form-label">내용 : </label>
-              <textarea class="form-control" id="content" name="content" rows="7">${notification.content}</textarea>
+              <textarea class="form-control" id="content" name="content" rows="7">${notice.content}</textarea>
             </div>
             <div class="col-auto text-center">
               <button type="button" id="btn-modify" class="btn btn-outline-primary mb-3">
@@ -67,7 +67,7 @@
            return;
          } else {
            let form = document.querySelector("#form-modify");
-           form.setAttribute("action", "${root}/notification/modify");
+           form.setAttribute("action", "${root}/notice/modify");
            form.submit();
          }
        });
@@ -75,7 +75,7 @@
        document.querySelector("#btn-list").addEventListener("click", function () {
         	if(confirm("취소를 하시면 작성중인 글은 삭제됩니다.\n취소하시겠습니까?")) {
         		let form = document.querySelector("#form-param");
-           	form.setAttribute("action", "${root}/notification/list");
+           	form.setAttribute("action", "${root}/notice/list");
              form.submit();
        	}
        });

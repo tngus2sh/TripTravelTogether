@@ -116,8 +116,8 @@
     <!--                                                                      -->
     <!--   development         Is Jasper used in development mode? If true,   -->
     <!--                       the frequency at which JSPs are checked for    -->
-    <!--                       modification may be specified via the          -->
-    <!--                       modificationTestInterval parameter. [true]     -->
+    <!--                       modice may be specified via the          -->
+    <!--                       modiceTestInterval parameter. [true]     -->
     <!--                                                                      -->
     <!--   displaySourceFragment                                              -->
     <!--                       Should a source fragment be included in        -->
@@ -178,17 +178,17 @@
     <!--                       idle before it is unloaded. A value of zero    -->
     <!--                       or less indicates never unload. [-1]           -->
     <!--                                                                      -->
-    <!--   modificationTestInterval                                           -->
+    <!--   modiceTestInterval                                           -->
     <!--                       Causes a JSP (and its dependent files) to not  -->
-    <!--                       be checked for modification during the         -->
+    <!--                       be checked for modice during the         -->
     <!--                       specified time interval (in seconds) from the  -->
     <!--                       last time the JSP was checked for              -->
-    <!--                       modification. A value of 0 will cause the JSP  -->
+    <!--                       modice. A value of 0 will cause the JSP  -->
     <!--                       to be checked on every access.                 -->
     <!--                       Used in development mode only. [4]             -->
     <!--                                                                      -->
     <!--   recompileOnFail     If a JSP compilation fails should the          -->
-    <!--                       modificationTestInterval be ignored and the    -->
+    <!--                       modiceTestInterval be ignored and the    -->
     <!--                       next access trigger a re-compilation attempt?  -->
     <!--                       Used in development mode only and is disabled  -->
     <!--                       by default as compilation may be expensive and -->

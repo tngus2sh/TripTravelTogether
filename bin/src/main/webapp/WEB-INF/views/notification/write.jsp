@@ -73,7 +73,7 @@
         } else {
         	console.log(1);
           let form = document.querySelector("#form-register");
-          form.setAttribute("action", "${root}/notification/write");
+          form.setAttribute("action", "${root}/notice/write");
           form.submit();
         }
       });
@@ -81,7 +81,7 @@
       document.querySelector("#btn-list").addEventListener("click", function () {
       	if(confirm("취소를 하시면 작성한 글은 삭제됩니다.\n취소하시겠습니까?")) {
       		let form = document.querySelector("#form-param");
-         	form.setAttribute("action", "${root}/notification/list");
+         	form.setAttribute("action", "${root}/notice/list");
             form.submit();
      	}
       });

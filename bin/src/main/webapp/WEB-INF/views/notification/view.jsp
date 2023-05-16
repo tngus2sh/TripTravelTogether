@@ -15,10 +15,10 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/nav.jsp" %>
-	<c:if test="${notification eq null}">
+	<c:if test="${notice eq null}">
 		<script>
 		alert("글이 삭제되었거나 부적절한 URL 접근입니다.");
-		location.href = "${root}/notification/list";
+		location.href = "${root}/notice/list";
 		</script>
 	</c:if>
 	<div class="row justify-content-center">
@@ -29,7 +29,7 @@
         </div>
         <div class="col-lg-8 col-md-10 col-sm-12">
           <div class="row my-2">
-            <h2 class="text-secondary px-5">${notification.id}. ${notification.title}</h2>
+            <h2 class="text-secondary px-5">${notice.id}. ${notice.title}</h2>
           </div>
           <div class="row">
             <div class="col-md-8">
@@ -39,14 +39,14 @@
                   src="https://raw.githubusercontent.com/twbs/icons/main/icons/person-fill.svg"
                 />
                 <p>
-                  <span class="fw-bold">${notification.userId}</span> <br />
-                  <span class="text-secondary fw-light"> ${notification.createdAt} 조회 : ${notification.hit} </span>
+                  <span class="fw-bold">${notice.userId}</span> <br />
+                  <span class="text-secondary fw-light"> ${notice.createdAt} 조회 : ${notice.hit} </span>
                 </p>
               </div>
             </div>
             <div class="divider mb-3"></div>
             <div class="text-secondary">
-              ${notification.content}
+              ${notice.content}
             </div>
             <div class="divider mt-3 mb-3"></div>
             <div class="d-flex justify-content-end">
@@ -60,23 +60,23 @@
 	              <button type="button" id="btn-delete" class="btn btn-outline-danger mb-3 ms-1">
 	                글삭제
 	              </button>
-	              <form id="form-no-param" method="get" action="${root}/notification">
+	              <form id="form-no-param" method="get" action="${root}/notice">
 				      <input type="hidden" id="npgno" name="pgno" value="${pgno}">
 				      <input type="hidden" id="nkey" name="key" value="${key}">
 				      <input type="hidden" id="nword" name="word" value="${word}">
-				      <input type="hidden" id="id" name="id" value="${notification.id}">
+				      <input type="hidden" id="id" name="id" value="${notice.id}">
 				  </form>
 				  <script>
 		      		document.querySelector("#btn-mv-modify").addEventListener("click", function () {
 				    	let form = document.querySelector("#form-no-param");
-				   		form.setAttribute("action", "${root}/notification/modify");
+				   		form.setAttribute("action", "${root}/notice/modify");
 				    	form.submit();
 				  	});
 				      
 					document.querySelector("#btn-delete").addEventListener("click", function () {
 						if(confirm("정말 삭제하시겠습니까?")) {
 							let form = document.querySelector("#form-no-param");
-				      	  	form.setAttribute("action", "${root}/notification/delete");
+				      	  	form.setAttribute("action", "${root}/notice/delete");
 				          	form.submit();
 						}
 					});
@@ -94,7 +94,7 @@
 <script>
 	document.querySelector("#btn-list").addEventListener("click", function () {
 	  let form = document.querySelector("#form-param");
-	  form.setAttribute("action", "${root}/notification/list");
+	  form.setAttribute("action", "${root}/notice/list");
       form.submit();
   	});
 

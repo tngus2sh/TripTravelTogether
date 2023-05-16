@@ -7,7 +7,7 @@ drop table if exists `comment`;
 drop table if exists `place`;
 drop table if exists `plan`;
 drop table if exists `board`;
-drop table if exists `notification`;
+drop table if exists `notice`;
 drop table if exists `user`;
 
 
@@ -25,7 +25,7 @@ CREATE TABLE `user` (
 insert into user values ('ssafy', '1234', '김싸피', 'ssafy', 'ssafy.com', '관리자');
 
 -- 공지사항 테이블
-CREATE TABLE `notification` (
+CREATE TABLE `notice` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(250) NOT NULL,
   `content` varchar(500) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `notification` (
   `hit` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 핫플레이스 테이블

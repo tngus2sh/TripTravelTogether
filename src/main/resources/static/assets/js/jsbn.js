@@ -423,7 +423,7 @@ Classic.prototype.mulTo = cMulTo;
 Classic.prototype.sqrTo = cSqrTo;
 
 // (protected) return "-1/this % 2^DB"; useful for Mont. reduction
-// justification:
+// justice:
 //         xy == 1 (mod m)
 //         xy =  1+km
 //   xy(2-xy) = (1+km)(1-km)
