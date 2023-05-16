@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.trip.attraction.model.dto.AttractionInfoDto;
@@ -26,7 +27,7 @@ import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/attraction")
-@CrossOrigin("*")
+@CrossOrigin(origins = { "*" })
 @Api("attraction 컨트롤러 API")
 public class AttractionApiController {
 	
@@ -40,7 +41,7 @@ public class AttractionApiController {
 	}
 	
 	@ApiOperation(value = "시도 불러오기", notes = "시도 리스트를 반환한다.", response = List.class)
-	@GetMapping
+	@GetMapping("/sido")
 	public ResponseEntity<?> sidoList() throws SQLException {
 		logger.debug("sidoList call");
 		List<SidoDto> list = attractionService.listSido();
@@ -48,10 +49,9 @@ public class AttractionApiController {
 		return new ResponseEntity<List<SidoDto>>(list, HttpStatus.OK);
 	}
 	
-//	@GetMapping(value="/gungu/{sidoCode}")
 	@ApiOperation(value = "군구 불러오기", notes = "구군 리스트를 반환한다", response = List.class)
-	@GetMapping(value="/{sidoCode}")
-	public ResponseEntity<?> gunguList(@PathVariable("sidoCode") @ApiParam(value = "선택한 시도.", required = true)  int sidoCode) {
+	@GetMapping(value="/gugun")
+	public ResponseEntity<?> gunguList(@RequestParam("sido") @ApiParam(value = "선택한 시도.", required = true)  int sidoCode) {
 		logger.debug("gungu list, sidoCode : {}", sidoCode);
 		try {
 			List<GunguDto> list = attractionService.listGungu(sidoCode);
@@ -63,30 +63,30 @@ public class AttractionApiController {
 	}
 	
 //	@GetMapping(value = "/list/{sidoCode}/{gugunCode}/{contentTypeId}")
-	@ApiOperation(value = "관광지 검색", notes = "관광지 리스트를 불러온다", response = List.class)
-	@GetMapping(value = "/{sidoCode}/{gugunCode}/{contentTypeId}")
-	public ResponseEntity<?> attractionList(@PathVariable("sidoCode") @ApiParam(value = "선택한 시도.", required = true) int sidoCode, 
-			@PathVariable("gugunCode") @ApiParam(value = "구군 리스트.", required = true) int gugunCode, 
-			@PathVariable("contentTypeId") @ApiParam(value = "관광지 유형.", required = true) int contentTypeId) {
-		logger.debug("attractionList map : {} {} {}", sidoCode, gugunCode, contentTypeId);
-		Map<String, Object> map = new HashMap<>();
-		map.put("sidoCode", sidoCode);
-		map.put("gugunCode", gugunCode);
-		map.put("contentTypeId", contentTypeId);
-		try {
-			if(contentTypeId == 0) {
-				List<AttractionInfoDto> list = attractionService.listAttractionAll(map);
-				logger.debug("attractionList listAll : {}", list);
-				return new ResponseEntity<List<AttractionInfoDto>>(list, HttpStatus.OK);
-			} else {
-				List<AttractionInfoDto> list = attractionService.listAttraction(map);
-				logger.debug("attractionList list : {}", list);
-				return new ResponseEntity<List<AttractionInfoDto>>(list, HttpStatus.OK);
-			}
-		} catch (SQLException e) {
-			return exceptionHandling(e);
-		}
-	}
+//	@ApiOperation(value = "관광지 검색", notes = "관광지 리스트를 불러온다", response = List.class)
+//	@GetMapping(value = "/{sidoCode}/{gugunCode}/{contentTypeId}")
+//	public ResponseEntity<?> attractionList(@PathVariable("sidoCode") @ApiParam(value = "선택한 시도.", required = true) int sidoCode, 
+//			@PathVariable("gugunCode") @ApiParam(value = "구군 리스트.", required = true) int gugunCode, 
+//			@PathVariable("contentTypeId") @ApiParam(value = "관광지 유형.", required = true) int contentTypeId) {
+//		logger.debug("attractionList map : {} {} {}", sidoCode, gugunCode, contentTypeId);
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("sidoCode", sidoCode);
+//		map.put("gugunCode", gugunCode);
+//		map.put("contentTypeId", contentTypeId);
+//		try {
+//			if(contentTypeId == 0) {
+//				List<AttractionInfoDto> list = attractionService.listAttractionAll(map);
+//				logger.debug("attractionList listAll : {}", list);
+//				return new ResponseEntity<List<AttractionInfoDto>>(list, HttpStatus.OK);
+//			} else {
+//				List<AttractionInfoDto> list = attractionService.listAttraction(map);
+//				logger.debug("attractionList list : {}", list);
+//				return new ResponseEntity<List<AttractionInfoDto>>(list, HttpStatus.OK);
+//			}
+//		} catch (SQLException e) {
+//			return exceptionHandling(e);
+//		}
+//	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
