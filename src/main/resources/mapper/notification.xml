@@ -22,12 +22,11 @@
 	</sql>
 	
 	<select id="listNotice" parameterType="map" resultMap="notice">
-		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit, u.user_name user_name
+		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit, u.name user_name
 		from notice n, user u
-		where n.user_id = u.user_id
+		where n.user_id = u.id
 		<include refid="search"></include>
 		order by n.id desc
-		limit #{start}, #{listsize}
 	</select>
 	
 	<select id="getTotalNoticeCount" parameterType="map" resultType="int">

@@ -36,6 +36,11 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		return noticeMapper.listNotice(param);
 	}
+	
+	@Override
+	public List<NoticeDto> listNotice() throws Exception {
+		return noticeMapper.listNotice();
+	}
 
 	@Override
 	public NoticeDto viewNotice(int id) throws Exception {
@@ -48,18 +53,21 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void writeNotice(NoticeDto noticeDto) throws Exception {
-		noticeMapper.writeNotice(noticeDto);
+	public boolean writeNotice(NoticeDto noticeDto) throws Exception {
+		if(noticeDto.getTitle() == null || noticeDto.getContent() == null) {
+			throw new Exception();
+		}
+		return noticeMapper.writeNotice(noticeDto) == 1;
 	}
 
 	@Override
-	public void modifyNotice(NoticeDto noticeDto) throws Exception {
-		noticeMapper.modifyNotice(noticeDto);
+	public boolean modifyNotice(NoticeDto noticeDto) throws Exception {
+		return noticeMapper.modifyNotice(noticeDto) == 1;
 	}
 
 	@Override
-	public void deleteNotice(int id) throws Exception {
-		noticeMapper.deleteNotice(id);
+	public boolean deleteNotice(int id) throws Exception {
+		return noticeMapper.deleteNotice(id)== 1;
 	}
 
 	@Override

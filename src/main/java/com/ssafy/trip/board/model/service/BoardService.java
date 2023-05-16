@@ -9,10 +9,11 @@ import com.ssafy.trip.util.PageNavigation;
 public interface BoardService {
 	
 	List<BoardDto> listBoard(Map<String, String> map) throws Exception;
+	List<BoardDto> listBoard() throws Exception;
 	BoardDto viewBoard(int id) throws Exception;
 	void updateHit(int id) throws Exception;
-	void writeBoard(BoardDto boardDto) throws Exception;
-	void modifyBoard(BoardDto boardDto) throws Exception;
-	void deleteBoard(int id) throws Exception;
+	boolean writeBoard(BoardDto boardDto) throws Exception;
+	boolean modifyBoard(BoardDto boardDto) throws Exception;
+	boolean deleteBoard(int id) throws Exception;
 	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 }

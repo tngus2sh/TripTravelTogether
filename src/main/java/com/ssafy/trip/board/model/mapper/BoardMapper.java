@@ -12,10 +12,11 @@ import com.ssafy.trip.board.model.dto.BoardDto;
 public interface BoardMapper {
 	
 	List<BoardDto> listBoard(Map<String, Object> map) throws SQLException;
+	List<BoardDto> listBoard() throws SQLException;
 	BoardDto viewBoard(int id) throws SQLException;
 	void updateHit(int id) throws SQLException;
-	void writeBoard(BoardDto boardDto) throws SQLException;
-	void modifyBoard(BoardDto boardDto) throws SQLException;
-	void deleteBoard(int id) throws SQLException;
+	int writeBoard(BoardDto boardDto) throws SQLException;
+	int modifyBoard(BoardDto boardDto) throws SQLException;
+	int deleteBoard(int id) throws SQLException;
 	int getTotalBoardCount(Map<String, Object> param) throws SQLException;
 }

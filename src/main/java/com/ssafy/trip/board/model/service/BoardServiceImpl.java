@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,11 @@ public class BoardServiceImpl implements BoardService {
 		param.put("listsize", SizeConstant.LIST_SIZE);
 		
 		return boardMapper.listBoard(param);
+	}
+	
+	@Override
+	public List<BoardDto> listBoard() throws Exception {
+		return boardMapper.listBoard();
 	}
 
 	@Override
@@ -85,21 +91,25 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
+	public boolean writeBoard(BoardDto boardDto) throws Exception {
+		if(boardDto.getTitle() == null || boardDto.getContent() == null) {
+			throw new Exception();
+		}
+		return boardMapper.writeBoard(boardDto) == 1;
+	}
+
+
+	@Override
 	@Transactional
-	public void writeBoard(BoardDto boardDto) throws Exception {
-		boardMapper.writeBoard(boardDto);
+	public boolean modifyBoard(BoardDto boardDto) throws Exception {
+		return boardMapper.modifyBoard(boardDto) == 1;
 	}
 
 
 	@Override
-	public void modifyBoard(BoardDto boardDto) throws Exception {
-		boardMapper.modifyBoard(boardDto);
-	}
-
-
-	@Override
-	public void deleteBoard(int id) throws Exception {
-		boardMapper.deleteBoard(id);
+	@Transactional
+	public boolean deleteBoard(int id) throws Exception {
+		return boardMapper.deleteBoard(id) == 1;
 	}
 
 
