@@ -18,6 +18,9 @@ public class UserDto {
 	private String emailDomain;
 	@ApiModelProperty(value = "회원 등급")
 	private String grade;
+	@ApiModelProperty(value = "토큰")
+	private String token;
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -54,11 +57,15 @@ public class UserDto {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
 	@Override
 	public String toString() {
 		return "UserDto [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", emailId=" + emailId
-				+ ", emailDomain=" + emailDomain + ", grade=" + grade + "]";
+				+ ", emailDomain=" + emailDomain + ", grade=" + grade + ", token=" + token + "]";
 	}
-	
-	
 }

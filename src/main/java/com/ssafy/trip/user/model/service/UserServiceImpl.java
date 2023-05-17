@@ -4,16 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.trip.controller.UserAPIController;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.user.model.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	
 	@Autowired
 	private UserMapper userMapper;
 	

@@ -69,6 +69,7 @@ public class UserAPIController {
 		HttpStatus status = null;
 		try {
 			UserDto loginUser = userService.login(userDto);
+			logger.debug("loginUser : {}", loginUser);
 			if (loginUser != null) {
 				String accessToken = jwtService.createAccessToken("userId", loginUser.getUserId());
 				String refreshToken = jwtService.createRefreshToken("userId", loginUser.getUserId());

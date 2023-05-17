@@ -54,7 +54,13 @@
 		where user_id=#{userId}
 	</select>
 	
-	<select id="userInfo" parameterType="string" resultType="memberDto">
+	<select id="login" parameterType="userDto" resultType="userDto">
+		select *
+		from user
+		where user_id = #{userId} and user_pwd = #{userPwd}
+	</select>
+	
+	<select id="userInfo" parameterType="string" resultType="userDto">
 		select user_name, user_id, email_id, email_domain, grade
 		from user
 		where user_id = #{userId}
