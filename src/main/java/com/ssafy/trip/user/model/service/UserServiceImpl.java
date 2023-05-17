@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.trip.controller.UserAPIController;
+import com.ssafy.trip.controller.UserController;
 import com.ssafy.trip.user.model.dto.UserDto;
 import com.ssafy.trip.user.model.mapper.UserMapper;
 

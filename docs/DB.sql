@@ -23,7 +23,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-insert into user values ('ssafy', '1234', '김싸피', 'ssafy', 'ssafy.com', '관리자');
+insert into user values ('ssafy', '1234', '김싸피', 'ssafy', 'ssafy.com', '관리자', null);
 
 -- 공지사항 테이블
 CREATE TABLE `notice` (
