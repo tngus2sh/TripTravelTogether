@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.trip.board.model.dto.BoardDto;
+import com.ssafy.trip.board.model.dto.BoardParameterDto;
 import com.ssafy.trip.board.model.service.BoardService;
 import com.ssafy.trip.notice.model.dto.NoticeDto;
 import com.ssafy.trip.user.model.dto.UserDto;
@@ -57,9 +58,9 @@ public class BoardController {
 	
 	@ApiOperation(value="자유 게시판 목록 ", notes="자유 게시판 목록을 반환 햔다.", response=List.class)
 	@GetMapping
-	public ResponseEntity<?> list() throws Exception{
+	public ResponseEntity<?> list(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto) throws Exception{
 		logger.debug("board list call");
-		List<BoardDto> list = boardService.listBoard();
+		List<BoardDto> list = boardService.listBoard(boardParameterDto);
 		logger.debug("boardList {}", list);
 		return new ResponseEntity<List<BoardDto>>(list, HttpStatus.OK);
 	}

@@ -38,7 +38,7 @@
 	            <hr>
 	            <div class="row d-flex justify-content-center my-4">
 	            	<div class="col-10">
-	                	<input type="text" class="form-control" name="id" id="id" placeholder="아이디">
+	                	<input type="text" class="form-control" name="userId" id="userId" placeholder="아이디">
 					</div>
 	            </div>
 	            <div class="row d-flex justify-content-center my-4">
@@ -48,7 +48,7 @@
 	            </div>
 	            <div class="row d-flex justify-content-center login_pw my-4">
 	            	<div class="col-10">
-	                	<input type="password" class="form-control" name="password" id="password" placeholder="비밀번호">
+	                	<input type="password" class="form-control" name="userPwd" id="userPwd" placeholder="비밀번호">
 	            	</div>
 	            </div>
 	            <div class="row d-flex justify-content-center login_pw my-4">
@@ -58,7 +58,7 @@
 	            </div>
 	            <div class="row d-flex justify-content-center my-4">
 	            	<div class="col-10">
-	                	<input type="text" class="form-control" name="name" id="name" placeholder="이름">
+	                	<input type="text" class="form-control" name="userName" id="userName" placeholder="이름">
 					</div>
 	            </div>
 	            <div class="row d-flex justify-content-center my-4">
@@ -100,8 +100,8 @@
 		let isValidId = false;
 		
 		document.getElementById('signup-btn').addEventListener("click", function() {
-		  let id = document.getElementById('id').value;
-		  let pw = document.getElementById('password').value;
+		  let id = document.getElementById('userId').value;
+		  let pw = document.getElementById('userPwd').value;
 		  let pwCheck = document.getElementById('pwdcheck').value;
 		  let name = document.getElementById('name').value;
 		  let emailId = document.getElementById('emailId').value;

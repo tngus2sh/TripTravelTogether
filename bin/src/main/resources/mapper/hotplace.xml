@@ -35,9 +35,33 @@
 		limit 1
 	</select>
 	
+	
+	<select id="selectHotplaceList" resultMap="hotplace">
+		select *
+		from hotplace
+		order by num desc
+	</select>
+		
 	<insert id="insertHotplace" parameterType="hotplaceDto">
 		insert into hotplace (user_id, image, title, join_date, description, tag1, tag2, latitude, longitude, map_url)
 		values (#{userId}, #{image}, #{title}, #{joinDate}, #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
 	</insert>
 	
+	<select id="selectHotplace" parameterType="int" resultMap="hotplace">
+		select *
+		from hotplace
+		where num = #{hotplaceId}
+	</select>
+	
+	<update id="modifyHotplace" parameterType="hotplaceDto">
+		update hotplace
+		set image = #{image}, title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=${latitude}, longitude=${longitude}, map_url=#{mapUrl}
+		where user_id = #{userId} and num = ${num}
+	</update>
+	
+	<delete id="deleteHotplace" parameterType="int">
+		delete
+		from hotplace
+		where num=${num}
+	</delete>
 </mapper>

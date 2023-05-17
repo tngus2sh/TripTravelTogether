@@ -55,24 +55,12 @@
       			<th scope="col">#</th>
       			<th scope="col">관광지명</th>
       			<th scope="col">이미지</th>
-      			<th scope="col">주소</th>
-      			<th scope="col">길 찾기</th>
+      			<th scope="col">주소</th>		
     		</tr>
   		</thead>
- 	 	<tbody>
- 	 		<tr>
-      			<th scope="row">1</th>
-     			<td>Mark</td>
-      			<td>Otto</td>
-      			<td>@mdo</td>
-      			<td>ddd</td>
-    		</tr>
-			<c:forEach var="attraction" items="${list}">
-				<tr>
-					<th scope="row">1</th>
-					<td>${attraction.title}</td>
-				</tr>
-			</c:forEach>
+
+ 	 	<tbody id="attractionTable">
+ 	 		
   		</tbody>
 	</table>
 	<!-- 관광지 검색 결과 테이블 end -->
@@ -112,12 +100,16 @@
 		}
 	});
 	
-	console.log("list" + ${list});
 	
 	function makeArea(data) {
 		let positions = [];
 		console.log(data.length);
-		for(let i = 1; i < data.length; i++) {
+		let table = document.getElementById('attractionTable');
+		table.innerHTML = "";
+		for(let i = 0; i < data.length; i++) {
+			let title = data[i]["title"];
+			let addr = data[i]["addr1"];
+			let image = data[i]["first_image"];
 			markerInfo = {
 					title: data[i]["title"],
 					latlng: new kakao.maps.LatLng(data[i]["latitude"], data[i]["longitude"]),
@@ -128,8 +120,15 @@
 				};
 				positions.push(markerInfo);
 				console.log(markerInfo);
+			let row = `<tr>
+				<th scope="row">` + (i+1) + `</th>
+				<td>` + title + `</td>
+				<td><img src="` + image + `" width=100 height=100/></td>
+				<td>`+ addr + `</td>`;
+               table.innerHTML += row;
 			// 테이블 생성
 		}
+		
 		if(positions.length > 0)
 			displayMarker(positions);
 	}

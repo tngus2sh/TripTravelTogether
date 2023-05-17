@@ -37,6 +37,17 @@ document.querySelector("#hotplace-title").addEventListener("click", function() {
 	oepnWin = window.open("../hotplace/keyword", "keywordSearchForm", "width=" + popupWidth + ", height=" + popupHeight + ", left=" + popupX + ", top=" + popupY + ", scrollbars=yes");
 });
 
+document.querySelector("#hotplace-modify-title").addEventListener("click", function() {
+	window.name = "hotplaceInsertForm";
+	
+	let popupWidth = 1000;
+	let popupHeight = 700;
+	let popupX = (window.screen.width / 2) - (popupWidth / 2);
+	let popupY= (window.screen.height / 2) - (popupHeight / 2);
+	
+	oepnWin = window.open("../hotplace/keyword", "keywordSearchForm", "width=" + popupWidth + ", height=" + popupHeight + ", left=" + popupX + ", top=" + popupY + ", scrollbars=yes");
+});
+
 function makeMapUrl(title) {
 	let ps = new kakao.maps.services.Places(); // 장소 검색 객체 생성
 	

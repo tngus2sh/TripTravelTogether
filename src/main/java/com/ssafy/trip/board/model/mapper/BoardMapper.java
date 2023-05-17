@@ -7,12 +7,12 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.trip.board.model.dto.BoardDto;
+import com.ssafy.trip.board.model.dto.BoardParameterDto;
 
 @Mapper
 public interface BoardMapper {
 	
-	List<BoardDto> listBoard(Map<String, Object> map) throws SQLException;
-	List<BoardDto> listBoard() throws SQLException;
+	List<BoardDto> listBoard(BoardParameterDto boardParameterDto) throws SQLException;
 	BoardDto viewBoard(int id) throws SQLException;
 	void updateHit(int id) throws SQLException;
 	int writeBoard(BoardDto boardDto) throws SQLException;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.trip.board.model.dto.BoardDto;
+import com.ssafy.trip.board.model.dto.BoardParameterDto;
 import com.ssafy.trip.board.model.mapper.BoardMapper;
 import com.ssafy.trip.util.PageNavigation;
 import com.ssafy.trip.util.SizeConstant;
@@ -24,27 +25,12 @@ public class BoardServiceImpl implements BoardService {
 		super();
 		this.boardMapper = boardMapper;
 	}
-
-
-	@Override
-	public List<BoardDto> listBoard(Map<String, String> map) throws Exception {
-		Map<String, Object> param = new HashMap<String, Object>();
-		String key = map.get("key");
-		if("userid".equals(key))
-			key = "b.user_id";
-		param.put("key", key == null ? "" : key);
-		param.put("word", map.get("word") == null ? "" : map.get("word"));
-		int pgNo = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
-		int start = pgNo * SizeConstant.LIST_SIZE - SizeConstant.LIST_SIZE;
-		param.put("start", start);
-		param.put("listsize", SizeConstant.LIST_SIZE);
-		
-		return boardMapper.listBoard(param);
-	}
 	
 	@Override
-	public List<BoardDto> listBoard() throws Exception {
-		return boardMapper.listBoard();
+	public List<BoardDto> listBoard(BoardParameterDto boardParameterDto) throws Exception {
+		int start = boardParameterDto.getPg() == 0 ? 0 : (boardParameterDto.getPg() - 1) * boardParameterDto.getSpp();
+		boardParameterDto.setStart(start);
+		return boardMapper.listBoard(boardParameterDto);
 	}
 
 	@Override

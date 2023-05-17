@@ -27,7 +27,6 @@
 		where n.user_id = u.id
 		<include refid="search"></include>
 		order by n.id desc
-		limit #{start}, #{listsize}
 	</select>
 	
 	<select id="getTotalNoticeCount" parameterType="map" resultType="int">

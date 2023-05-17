@@ -60,6 +60,12 @@
 		order by id desc
 		limit #{start}, #{listsize}
 	</select>
+	
+	<select id="selectPlanList" resultMap="plan">
+		select *
+		from plan
+		order by id desc
+	</select>
 
 	<select id="selectPlanOne" parameterType="int" resultMap="plan">
 		select id, title, description, created_at, updated_at, start_date, end_date, user_id, hit
@@ -85,6 +91,19 @@
 		set hit = hit + 1
 		where id = #{planId}
 	</update>
+	
+	<update id="updatePlan" parameterType="planDto">
+		update plan
+		set title = #{title}, description = #{description}, start_date = #{startDate}, end_date = #{endDate}
+		where id = ${id}
+	</update>
+	
+	<update id="updatePlace" parameterType="placeDto">
+		update place
+		set name = #{name}, address = #{address}, lat = #{lat}, lng = #{lng}, image_url = #{imageUrl}
+		where plan_id = #{planId} 
+	</update>
+	
 	
 	<select id="getTotalArticleCount" parameterType="map" resultType="int">
 		select count(id)

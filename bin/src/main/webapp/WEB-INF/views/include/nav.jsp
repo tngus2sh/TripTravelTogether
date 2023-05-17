@@ -18,7 +18,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="service-list"
-        	<c:if test="${empty userinfo}">
+        	<c:if test="${empty userInfo}">
         	  style="visibility: hidden;"
         	</c:if>
         >
@@ -49,11 +49,11 @@
           </li>      
         </ul>
 
-		<c:if test="${not empty userinfo}">
+		<c:if test="${not empty userInfo}">
 		  <div class="navbar-nav mb-2 mb-lg-0">
 		    <div>
 		  	  <a class="nav-link active">
-                ${userinfo.name}님, 안녕하세요.
+                ${userInfo.userName}님, 안녕하세요.
               </a>
             </div>
             <div>
@@ -69,7 +69,7 @@
 		  </div>
 		</c:if>
 		
-		<c:if test="${empty userinfo}">
+		<c:if test="${empty userInfo}">
 		  <div class="navbar-nav mb-2 mb-lg-0">
 		    <div>
           	  <!-- <a class="nav-link active" id="signin-user" data-bs-toggle="modal" data-bs-target="#signupModal"> -->
@@ -117,7 +117,7 @@
                           class="form-control my-3 px-3 py-2"
                           id="view-id"
                           name="view-id"
-                          value="${userinfo.id}"
+                          value="${userInfo.userId}"
                           readonly
                         />
                       </div>
@@ -130,7 +130,7 @@
                           class="form-control my-3 px-3 py-2"
                           id="view-name"
                           name="view-name"
-                          value="${userinfo.name}"
+                          value="${userInfo.userName}"
                           readonly
                         />
                       </div>
@@ -143,7 +143,7 @@
                           class="form-control my-3 px-3 py-2"
                           id="view-grade"
                           name="view-grade"
-                          value="${userinfo.grade}"
+                          value="${userInfo.grade}"
                           readonly
                         />
                       </div>
@@ -156,7 +156,7 @@
                           class="form-control my-3 px-3 py-2"
                           id="view-email-id"
                           name="view-email-id"
-                          value="${userinfo.emailId}"
+                          value="${userInfo.emailId}"
                           readonly
                         />
                         <span>@</span>
@@ -165,7 +165,7 @@
                           class="form-control my-3 px-3 py-2"
                           id="view-email-domain"
                           name="view-email-domain"
-                          value="${userinfo.emailDomain}"
+                          value="${userInfo.emailDomain}"
                           readonly
                         />
                       </div>
@@ -217,7 +217,7 @@
                             class="form-control my-3 px-3 py-2"
                             id="update-id"
                             name="update-id"
-                            value="${userinfo.id}"
+                            value="${userInfo.userId}"
                             readonly
                           />
                         </div>
@@ -243,7 +243,7 @@
                             class="form-control my-3 px-3 py-2"
                             id="update-name"
                             name="update-name"
-                            value="${userinfo.name}"
+                            value="${userInfo.userName}"
                             readonly
                           />
                         </div>
@@ -256,7 +256,7 @@
 	                          class="form-control my-3 px-3 py-2"
 	                          id="update-grade"
 	                          name="update-grade"
-	                          value="${userinfo.grade}"
+	                          value="${userInfo.grade}"
 	                          readonly
 	                        />
 	                      </div>
@@ -269,7 +269,7 @@
 	                          class="form-control my-3 px-3 py-2"
 	                          id="update-email-id"
 	                          name="update-email-id"
-	                          value="${userinfo.emailId}"
+	                          value="${userInfo.emailId}"
 	                        />
 	                        <span>@</span>
 	                        <input
@@ -277,7 +277,7 @@
 	                          class="form-control my-3 px-3 py-2"
 	                          id="update-email-domain"
 	                          name="update-email-domain"
-	                          value="${userinfo.emailDomain}"
+	                          value="${userInfo.emailDomain}"
 	                        />
                         </div>
                       </div>

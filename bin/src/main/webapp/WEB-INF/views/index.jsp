@@ -23,7 +23,7 @@
           </h1>
           <p style="font-size: 1.5rem;">
             <b
-              <c:if test="${not empty userinfo}">
+              <c:if test="${not empty userInfo}">
     	  	    style="visibility: hidden;"
     		  </c:if>
     		>로그인 후 이용 가능합니다</b>
@@ -32,7 +32,7 @@
       </div>
     </section>
     <section id="service-list" class="service-list"
-    	<c:if test="${empty userinfo}">
+    	<c:if test="${empty userInfo}">
     	  style="visibility: hidden;"
     	</c:if>
     >
