@@ -1,5 +1,6 @@
 package com.ssafy.trip.user.model.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -69,8 +70,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto userInfo(String userid) throws Exception {
-		return sqlSession.getMapper(UserMapper.class).userInfo(userid);
+	public UserDto userInfo(String userId) throws Exception {
+		return sqlSession.getMapper(UserMapper.class).userInfo(userId);
+	}
+
+	@Override
+	public void saveRefreshToken(String userId, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("token", refreshToken);
+		sqlSession.getMapper(UserMapper.class).saveRefreshToken(map);
+	}
+
+	@Override
+	public Object getRefreshToken(String userId) throws Exception {
+		return sqlSession.getMapper(UserMapper.class).getRefreshToken(userId);
+	}
+
+	@Override
+	public void deleRefreshToken(String userId) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("token", null);
+		sqlSession.getMapper(UserMapper.class).deleteRefreshToken(map);
 	}
 
 }

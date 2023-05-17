@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.trip.user.model.dto.UserDto;
@@ -72,9 +70,12 @@ public class UserAPIController {
 		try {
 			UserDto loginUser = userService.login(userDto);
 			if (loginUser != null) {
-				String token = jwtService.create("userid", loginUser.getUserId(), "access-token");
-				logger.debug("로그인 토큰정보 : {}", token);
-				resultMap.put("access-token", token);
+				String accessToken = jwtService.createAccessToken("userId", loginUser.getUserId());
+				String refreshToken = jwtService.createRefreshToken("userId", loginUser.getUserId());
+				logger.debug("로그인 accessToken 토큰정보 : {}", accessToken);
+				logger.debug("로그인 refreshToken 토큰정보 : {}", refreshToken);
+				resultMap.put("access-token", accessToken);
+				resultMap.put("access-token", refreshToken);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			} else {
@@ -97,7 +98,7 @@ public class UserAPIController {
 		logger.debug("userid: {}", userId);
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-		if (jwtService.isUsable(request.getHeader("access-token"))) {
+		if (jwtService.checkToken(request.getHeader("access-token"))) { // header에서 access-token 추출
 			logger.info("사용 가능한 토큰");
 			try {
 				// 로그인 사용자 정보
@@ -116,6 +117,46 @@ public class UserAPIController {
 			status = HttpStatus.ACCEPTED;
 		}
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
+	}
+	
+	@ApiOperation(value = "로그아웃", notes = "회원 정보를 담은 Token을 제거한다.", response = Map.class)
+	@GetMapping("/logout/{userId}")
+	public ResponseEntity<?> removeToken(@PathVariable("userId") String userId) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		try {
+			userService.deleRefreshToken(userId);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			logger.error("로그아웃 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@ApiOperation(value = "Access Token 재발급", notes = "만료된 access token을 재발급받는다.", response = Map.class)
+	@PostMapping("/refresh")
+	public ResponseEntity<?> refreshToken(@RequestBody UserDto userDto, HttpServletRequest request) throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		String token = request.getHeader("refresh-token");
+		logger.debug("token : {}, userDto : {}", token, userDto);
+		if (jwtService.checkToken(token)) { // 리프레시 토큰이 남아있는 상태
+			if (token.equals(userService.getRefreshToken(userDto.getUserId()))) { // 근데 데이터베이스에 있는 값과 같다면 이 사람은 로그인 한 사람
+				String accessToken = jwtService.createAccessToken("userId", userDto.getUserId());
+				logger.debug("token : {}", accessToken);
+				logger.debug("정상적으로 액세스토큰 재발급!!");
+				resultMap.put("access-token", accessToken);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			}
+		} else {
+			logger.debug("리프레쉬토큰도 사용불가");
+			status = HttpStatus.UNAUTHORIZED;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
 	@ApiOperation(value = "회원정보 수정", notes = "회원 정보 수정 후 결과 메세지를 반환한다.", response = Map.class)
@@ -149,7 +190,6 @@ public class UserAPIController {
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
 	
-	
 	@ApiOperation(value = "비밀번호 찾기", notes = "아이디에 해당되는 이메일로 임시 비밀번호를 발급하고, 결과 메세지를 반환한다.", response = Map.class)
 	@PostMapping("/find")
 	@Transactional
@@ -178,7 +218,8 @@ public class UserAPIController {
 			simpleMessage.setFrom(from);
 			simpleMessage.setTo(to);
 			simpleMessage.setSubject(" [TTT] 비밀번호 발급 ");			
-			simpleMessage.setText(" 임시 비밀번호 : " + tempPw);
+			simpleMessage.setText(" 임시 비밀번호 : " + tempPw + "\n"
+					+ "*로그인 후 비밀번호 변경 필수*");
 			javaMailSender.send(simpleMessage);
 			
 			resultMap.put("message", SUCCESS);

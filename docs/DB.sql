@@ -19,6 +19,7 @@ CREATE TABLE `user` (
   `email_id` varchar(20) DEFAULT NULL,
   `email_domain` varchar(20) DEFAULT NULL,
   `grade` varchar(20) DEFAULT '일반회원',
+  `token` VARCHAR(1000) NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
