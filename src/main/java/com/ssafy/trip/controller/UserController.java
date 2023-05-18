@@ -163,17 +163,23 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "회원정보 수정", notes = "회원 정보 수정 후 결과 메세지를 반환한다.", response = Map.class)
-	@PutMapping("/info/{userId}")
+	@PutMapping("/info")
 	public ResponseEntity<?> modifyUser(
 			@RequestBody @ApiParam(value = "수정할 회원 정보", required = true) UserDto userDto
-			) throws Exception {
+			) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
-		userService.modifyUser(userDto);
+		try {
+			userService.modifyUser(userDto);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			e.getMessage();
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
 		
-		resultMap.put("message", SUCCESS);
-		status = HttpStatus.ACCEPTED;
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
