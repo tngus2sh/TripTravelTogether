@@ -32,7 +32,7 @@
 	
 	<update id="modifyUser" parameterType="userDto">
 		update user 
-		set user_pwd = #{userPwd}, email_id = #{emailId}, email_domain = #{emailDomain}
+		set email_id = #{emailId}, email_domain = #{emailDomain}
 		where user_id = #{userId}
 	</update>
 
