@@ -54,7 +54,7 @@ public class UserController {
 	@Value("${spring.mail.username}")
 	private String from;
 	
-	@ApiOperation(value = "아이디 저장", response = Map.class)
+	@ApiOperation(value = "아이디 찾기", response = Map.class)
 	@GetMapping("/{userId}")
 	public ResponseEntity<String> idCheck(
 			@PathVariable("userId") @ApiParam(value = "사용자 아이디") String userId
@@ -182,14 +182,20 @@ public class UserController {
 	@Transactional
 	public ResponseEntity<Map<String, Object>> join(
 			@RequestBody @ApiParam(value = "가입할 회원 정보", required = true) UserDto userDto
-			) throws Exception {
+			) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
-		userService.joinUser(userDto);
+		try {
+			userService.joinUser(userDto);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			e.getMessage();
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
 		
-		resultMap.put("message", SUCCESS);
-		status = HttpStatus.ACCEPTED;
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
 	
