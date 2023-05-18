@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.trip.board.model.dto.BoardParameterDto;
 import com.ssafy.trip.plan.model.dto.PlaceDto;
 import com.ssafy.trip.plan.model.dto.PlaceDtoList;
 import com.ssafy.trip.plan.model.dto.PlanDto;
@@ -47,7 +47,9 @@ public class PlanAPIController {
 	
 	@ApiOperation(value = "여행계획 목록", notes = "여행 계획 목록을 반환한다", response = List.class)
 	@GetMapping
-	public ResponseEntity<?> listPlan() throws Exception{
+	public ResponseEntity<List<PlanDto>> listPlan(
+			@ApiParam(value = "여행게획 목록을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto
+			) throws Exception{
 		List<PlanDto> list = planService.getPlanList();
 		return new ResponseEntity<List<PlanDto>>(list, HttpStatus.OK);
 	}
