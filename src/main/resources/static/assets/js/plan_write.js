@@ -125,16 +125,16 @@ function placesSearchCB(data, status, pagination) {
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
     // LatLngBounds 객체에 좌표를 추가합니다
     var bounds = new kakao.maps.LatLngBounds();
-    
+
     for (var i = 0; i < data.length; i++) {
-        // 이미지 정보 불러오기
-        var keyword = data[i].place_name;
-        areaUrl += keyword + "&_type=json";
-        
-        var place = data[i];
-        fetch(areaUrl, {method: "GET" })
-        .then((response) => response.json())
-        .then((data) => makeOption(data));
+      // 이미지 정보 불러오기
+      var keyword = data[i].place_name;
+      areaUrl += keyword + "&_type=json";
+
+      var place = data[i];
+      fetch(areaUrl, {method: "GET"})
+          .then((response) => response.json())
+          .then((data) => makeOption(data));
     }
 
     for (var i = 0; i < data.length; i++) {

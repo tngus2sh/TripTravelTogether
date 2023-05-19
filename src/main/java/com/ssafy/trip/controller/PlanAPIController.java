@@ -63,10 +63,6 @@ public class PlanAPIController {
 			) throws Exception {
 
 		Map<String, Object> resultMap = new HashMap<>();
-		// 사용자 id를 plan에 넣어주기
-		UserDto userDto = new UserDto(); // jwt로 수정
-		userDto.setUserId("ssafy");
-		request.getPlanDto().setUserId(userDto.getUserId());
 		
 		logger.debug("planDto : {}", request.getPlanDto());
 		logger.debug("placeDtoList: {}", request.getPlaceDtoList());
