@@ -44,7 +44,7 @@
 		
 	<insert id="insertHotplace" parameterType="hotplaceDto">
 		insert into hotplace (user_id, image, title, join_date, description, tag1, tag2, latitude, longitude, map_url)
-		values (#{userId}, #{image}, #{title}, #{joinDate}, #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
+		values (#{userId}, #{image}, #{title}, now(), #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
 	</insert>
 	
 	<select id="selectHotplace" parameterType="int" resultMap="hotplace">
