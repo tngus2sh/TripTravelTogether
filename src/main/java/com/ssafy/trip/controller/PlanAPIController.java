@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,7 @@ import com.ssafy.trip.board.model.dto.BoardParameterDto;
 import com.ssafy.trip.plan.model.dto.PlaceDto;
 import com.ssafy.trip.plan.model.dto.PlaceDtoList;
 import com.ssafy.trip.plan.model.dto.PlanDto;
+import com.ssafy.trip.plan.model.dto.RegisterPlanRequest;
 import com.ssafy.trip.plan.model.service.PlanService;
 import com.ssafy.trip.user.model.dto.UserDto;
 
@@ -57,22 +59,25 @@ public class PlanAPIController {
 	@ApiOperation(value = "여행계획 작성", notes = "여행계획과 관광지를 데이터베이스에 넣는다.")
 	@PostMapping
 	public ResponseEntity<Map<String, Object>> registPlan(
-			@ModelAttribute @ApiParam(value = "여행계획", required = true) PlanDto planDto, 
-			@ModelAttribute @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
+			@RequestBody RegisterPlanRequest request
 			) throws Exception {
+
 		Map<String, Object> resultMap = new HashMap<>();
 		// 사용자 id를 plan에 넣어주기
 		UserDto userDto = new UserDto(); // jwt로 수정
 		userDto.setUserId("ssafy");
-		planDto.setUserId(userDto.getUserId());
+		request.getPlanDto().setUserId(userDto.getUserId());
 		
-		planService.registPlan(planDto);
+		logger.debug("planDto : {}", request.getPlanDto());
+		logger.debug("placeDtoList: {}", request.getPlaceDtoList());
+		
+		planService.registPlan(request.getPlanDto());
 		Map<String, Object> map = new HashMap<>();
-		map.put("userId", planDto.getUserId());
-		map.put("title", planDto.getTitle());
+		map.put("userId", request.getPlanDto().getUserId());
+		map.put("title", request.getPlanDto().getTitle());
 		int planId = planService.getPlanId(map);
 		
-		List<PlaceDto> list = placeDtoList.getPlaceList();
+		List<PlaceDto> list = request.getPlaceDtoList();
 		logger.debug("test {}", list);
 		for (PlaceDto placeDto : list) {
 			logger.debug("placeDto : {}", placeDto);
@@ -103,13 +108,12 @@ public class PlanAPIController {
 	@ApiOperation(value = "여행 계획 수정", notes = "해당하는 id의 여행 계획을 수정한다")
 	@PutMapping
 	public ResponseEntity<?> modifyPlan(
-			@ModelAttribute @ApiParam(value = "여행계획", required = true) PlanDto planDto,
-			@ModelAttribute @ApiParam(value = "여행할 관광지 리스트", required = true) PlaceDtoList placeDtoList
+			@RequestBody RegisterPlanRequest request
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-		planService.modifyPlan(planDto);
+		planService.modifyPlan(request.getPlanDto());
 		
-		List<PlaceDto> list = placeDtoList.getPlaceList();
+		List<PlaceDto> list = request.getPlaceDtoList();
 		logger.debug("test {}", list);
 		for (PlaceDto placeDto : list) {
 			logger.debug("placeDto : {}", placeDto);

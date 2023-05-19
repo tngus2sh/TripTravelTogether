@@ -71,7 +71,7 @@
 				</form>
 			</div>
 		</aside>
-	</div>
+	</div> 
 	<div class="divider mb-5"></div>
 	</main>
   <%@ include file="/WEB-INF/views/include/footer.jsp" %>
