@@ -78,7 +78,7 @@ public class HotPlaceAPIController {
 			@RequestParam("userId") String userId,
 			@RequestParam("title") String title,
 			@RequestParam("joinDate") String joinDate,
-			@RequestParam("desc") String desc,
+			@RequestParam("description") String description,
 			@RequestParam("tag1") String tag1,
 			@RequestParam("tag2") String tag2,
 			@RequestParam("latitude") double latitude,
@@ -88,7 +88,7 @@ public class HotPlaceAPIController {
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 
-		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, desc, tag1, tag2, latitude, longitude, mapUrl);
+		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, description, tag1, tag2, latitude, longitude, mapUrl);
 		logger.debug("post hotplace called: {} , {}", hotplaceDto, file);
 
 		// FileUpload
