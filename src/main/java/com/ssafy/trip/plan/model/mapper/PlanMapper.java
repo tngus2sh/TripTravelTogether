@@ -21,6 +21,9 @@ public interface PlanMapper {
 	/** 여행 계획 삭제 */
 	public void deletePlan(int id) throws SQLException;
 
+	/** 여행지 삭제 */
+	public void deletePlace(int planId) throws SQLException;
+
 	/** 여행 계획 리스트 출력 */
 	public List<PlanDto> selectPlan(Map<String, Object> param) throws SQLException;
 	
@@ -42,11 +45,7 @@ public interface PlanMapper {
 	
 	/** 여행 계획 수정 */
 	public void updatePlan(PlanDto planDto) throws SQLException;
-	
-	/** 여행지 수정 */
-	public void updatePlace(PlaceDto placeDto) throws SQLException;
 
-	
 	public int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 	
 	public int getTotalPlaceCount(int planId) throws SQLException;

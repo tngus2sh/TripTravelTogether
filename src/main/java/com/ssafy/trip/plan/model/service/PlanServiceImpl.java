@@ -31,40 +31,15 @@ public class PlanServiceImpl implements PlanService {
 	private static long minSum;
 
 	@Override
-	public int insertPlan(PlanDto planDto) throws SQLException {
-		return planMapper.insertPlan(planDto);
-	}
-
-	@Override
-	public int insertPlace(PlaceDto placeDto) throws SQLException {
-		return planMapper.insertPlace(placeDto);
-	}
-
-	@Override
 	public void deletePlan(int id) throws Exception {
 		planMapper.deletePlan(id);
 	}
 
 	@Override
-	public List<PlanDto> listPlan(Map<String, String> map) throws SQLException {
-		Map<String, Object> param = new HashMap<String, Object>();
-		String key = map.get("key");
-		if("userid".equals(key))
-			key = "b.user_id";
-		param.put("key", key.isEmpty() ? "" : key);
-		param.put("word", (map.get("word")).isEmpty() ? "" : map.get("word"));
-		int pgno = Integer.parseInt(map.get("pgno"));
-		int start = pgno * SizeConstant.LIST_SIZE - SizeConstant.LIST_SIZE;
-		param.put("start", start);
-		param.put("listsize", SizeConstant.LIST_SIZE);
-		
-		return planMapper.selectPlan(param);
+	public void deletePlace(int planId) throws Exception {
+		planMapper.deletePlace(planId);
 	}
 
-	@Override
-	public PlanDto listPlanOne(int planId) throws SQLException {
-		return planMapper.selectPlanOne(planId);
-	}
 
 	@Override
 	public List<PlaceDto> getPlace(int planId) throws SQLException {
@@ -223,12 +198,6 @@ public class PlanServiceImpl implements PlanService {
 	public void modifyPlan(PlanDto planDto) throws Exception {
 		planMapper.updatePlan(planDto);
 	}
-
-	@Override
-	public void modifyPlace(PlaceDto placeDto) throws Exception {
-		planMapper.updatePlace(placeDto);
-	}
-
 	
 	public static void recur(int cnt, int n) {
 		if (cnt == n) {

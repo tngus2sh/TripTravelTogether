@@ -41,6 +41,12 @@
 		from plan
 		where id = ${id}
 	</delete>
+
+	<delete id="deletePlace" parameterType="int">
+		delete
+		from place
+		where plan_id = #{planId}
+	</delete>
 	
 	<sql id="search">
 		<if test="word != null and word != ''">
@@ -74,7 +80,7 @@
 	</select>
 	
 	<select id="selectPlace" parameterType="int" resultMap="place">
-		select id, name, address, lat, lng, image_url
+		select *
 		from place
 		where plan_id = #{planId}
 		order by id
@@ -96,12 +102,6 @@
 		update plan
 		set title = #{title}, description = #{description}, start_date = #{startDate}, end_date = #{endDate}
 		where id = ${id}
-	</update>
-	
-	<update id="updatePlace" parameterType="placeDto">
-		update place
-		set name = #{name}, address = #{address}, lat = #{lat}, lng = #{lng}, image_url = #{imageUrl}
-		where plan_id = #{planId} 
 	</update>
 	
 	
