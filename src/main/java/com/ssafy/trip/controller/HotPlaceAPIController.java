@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.ssafy.trip.hotplace.model.dto.RegisterHotPlaceRequest;
+import com.ssafy.trip.plan.model.dto.RegisterPlanRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,10 +73,13 @@ public class HotPlaceAPIController {
 	@ApiOperation(value = "핫플레이스 글 작성", notes = "사진과 함께 핫플레이스 글 내용을 데이터베이스에 넣는다.")
 	@PostMapping
 	public ResponseEntity<?> hotplaceWrite(
-			@RequestPart("file") MultipartFile file
+			@RequestBody RegisterHotPlaceRequest request
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
-		
+
+		HotplaceDto hotplaceDto = request.getHotplaceDto();
+		MultipartFile file = request.getFile();
+
 		logger.debug("post hotplace called: {} , {}", file);
 		System.out.println(file);
 		
