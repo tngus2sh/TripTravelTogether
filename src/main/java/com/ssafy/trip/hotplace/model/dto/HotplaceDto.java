@@ -14,8 +14,21 @@ public class HotplaceDto {
 	private double latitude;
 	private double longitude;
 	private String mapUrl;
-	
-	
+
+	public HotplaceDto() {}
+
+	public HotplaceDto(String userId, String title, String joinDate, String description, String tag1, String tag2, double latitude, double longitude, String mapUrl) {
+		this.userId = userId;
+		this.title = title;
+		this.joinDate = joinDate;
+		this.description = description;
+		this.tag1 = tag1;
+		this.tag2 = tag2;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.mapUrl = mapUrl;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

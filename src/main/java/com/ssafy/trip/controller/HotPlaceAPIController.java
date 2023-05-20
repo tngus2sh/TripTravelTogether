@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,19 +73,24 @@ public class HotPlaceAPIController {
 	
 	@ApiOperation(value = "핫플레이스 글 작성", notes = "사진과 함께 핫플레이스 글 내용을 데이터베이스에 넣는다.")
 	@PostMapping
+	@Transactional
 	public ResponseEntity<?> hotplaceWrite(
-			@RequestBody RegisterHotPlaceRequest request
+			@RequestParam("userId") String userId,
+			@RequestParam("title") String title,
+			@RequestParam("joinDate") String joinDate,
+			@RequestParam("desc") String desc,
+			@RequestParam("tag1") String tag1,
+			@RequestParam("tag2") String tag2,
+			@RequestParam("latitude") double latitude,
+			@RequestParam("longitude") double longitude,
+			@RequestParam("mapUrl") String mapUrl,
+			@RequestParam("image") MultipartFile file
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 
-		HotplaceDto hotplaceDto = request.getHotplaceDto();
-		MultipartFile file = request.getFile();
+		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, desc, tag1, tag2, latitude, longitude, mapUrl);
+		logger.debug("post hotplace called: {} , {}", hotplaceDto, file);
 
-		logger.debug("post hotplace called: {} , {}", file);
-		System.out.println(file);
-		
-		// hotplaceDto에 user-id 넣기
-		
 		// FileUpload
 		if (!file.isEmpty()) {
 			String saveFolder= uploadPath;
@@ -99,10 +105,10 @@ public class HotPlaceAPIController {
 						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
 				// 파일 저장하기
 				file.transferTo(new File(folder, saveFileName));
-				//hotplaceDto.setImage(saveFileName);
+				hotplaceDto.setImage(saveFileName);
 			}
 			
-//			hotplaceService.registHotplace(hotplaceDto);
+			hotplaceService.registHotplace(hotplaceDto);
 		}
 		
 		resultMap.put("message", SUCCESS);
