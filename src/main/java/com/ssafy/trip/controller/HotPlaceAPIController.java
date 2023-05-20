@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/hotplace")
 @Api("핫플레이스 컨트롤러 API")
+@CrossOrigin("*")
 public class HotPlaceAPIController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HotPlaceAPIController.class);
@@ -69,10 +71,12 @@ public class HotPlaceAPIController {
 	@ApiOperation(value = "핫플레이스 글 작성", notes = "사진과 함께 핫플레이스 글 내용을 데이터베이스에 넣는다.")
 	@PostMapping
 	public ResponseEntity<?> hotplaceWrite(
-			@ApiParam(value = "글 내용(이미지, 해시태그, 상세 글).", required = true) HotplaceDto hotplaceDto,
-			@ApiParam(value = "이미지 파일.", required = true) MultipartFile file
+			@RequestPart("file") MultipartFile file
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
+		
+		logger.debug("post hotplace called: {} , {}", file);
+		System.out.println(file);
 		
 		// hotplaceDto에 user-id 넣기
 		
@@ -90,10 +94,10 @@ public class HotPlaceAPIController {
 						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
 				// 파일 저장하기
 				file.transferTo(new File(folder, saveFileName));
-				hotplaceDto.setImage(saveFileName);
+				//hotplaceDto.setImage(saveFileName);
 			}
 			
-			hotplaceService.registHotplace(hotplaceDto);
+//			hotplaceService.registHotplace(hotplaceDto);
 		}
 		
 		resultMap.put("message", SUCCESS);
