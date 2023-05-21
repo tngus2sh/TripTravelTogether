@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ssafy.trip.board.model.dto.BoardDto;
 import com.ssafy.trip.hotplace.model.dto.HotplaceDto;
 import com.ssafy.trip.hotplace.model.service.HotplaceService;
 import com.ssafy.trip.user.model.service.JwtServiceImpl;
@@ -44,6 +45,7 @@ public class HotPlaceAPIController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HotPlaceAPIController.class);
 	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
 	
 	@Value("${file.path}/hotplace/image")
 	private String uploadPath;
@@ -96,10 +98,12 @@ public class HotPlaceAPIController {
 			String saveFolder= uploadPath;
 			logger.debug("저장 폴더 : {}", saveFolder);
 			File folder = new File(saveFolder);
+
 			if (!folder.exists()) {
 				folder.mkdirs();
 			}
 			String originalFileName = file.getOriginalFilename();
+			System.out.println(originalFileName);
 			if (!originalFileName.isEmpty()) {
 				String saveFileName = UUID.randomUUID().toString()
 						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
@@ -126,13 +130,26 @@ public class HotPlaceAPIController {
 	
 	@ApiOperation(value = "핫플레이스 글 수정", notes = "작성자란을 제외한 수정되어 있는 핫플레이스 글 내용을 데이터베이스에 넣는다.")
 	@PutMapping
-	public ResponseEntity<?> hotplaceModify(
-			@ApiParam(value = "수정된 글 내용(이미지, 해시태그, 상세 글).", required = true) HotplaceDto hotplaceDto,
-			@ApiParam(value = "수정된 이미지 파일.", required = true) MultipartFile file
+	public ResponseEntity<?> hotplaceModify1(
+			@RequestParam("userId") String userId,
+			@RequestParam("title") String title,
+			@RequestParam("num") int num,
+			@RequestParam("joinDate") String joinDate,
+			@RequestParam("description") String description,
+			@RequestParam("tag1") String tag1,
+			@RequestParam("tag2") String tag2,
+			@RequestParam("latitude") double latitude,
+			@RequestParam("longitude") double longitude,
+			@RequestParam("mapUrl") String mapUrl,
+			@RequestParam(value = "image", required=false) MultipartFile file
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		if (!file.isEmpty()) {
+		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, description, tag1, tag2, latitude, longitude, mapUrl);
+		logger.debug("post hotplace called: {} , {}", hotplaceDto, file);
+		hotplaceDto.setNum(num);
+		
+		if (file != null && !file.isEmpty()) {
 			String saveFolder = uploadPath;
 			logger.debug("저장 폴더 : {}", saveFolder);
 			File folder = new File(saveFolder);
@@ -147,7 +164,21 @@ public class HotPlaceAPIController {
 				hotplaceDto.setImage(saveFileName);
 			}
 		}
-		hotplaceService.modifyHotplace(hotplaceDto);
+		else {
+			logger.debug("파일 없음");
+		}
+		hotplaceService.modifyHotplace1(hotplaceDto);
+		resultMap.put("message", SUCCESS);
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/{hotplaceId}")
+	public ResponseEntity<?> hotplaceModify2(@RequestBody HotplaceDto hotplaceDto) throws Exception{
+		logger.debug("modify hotplace : {}", hotplaceDto);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		hotplaceService.modifyHotplace2(hotplaceDto);
 		resultMap.put("message", SUCCESS);
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}

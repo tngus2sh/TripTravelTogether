@@ -53,9 +53,15 @@
 		where num = #{hotplaceId}
 	</select>
 	
-	<update id="modifyHotplace" parameterType="hotplaceDto">
+	<update id="modifyHotplace1" parameterType="hotplaceDto">
 		update hotplace
 		set image = #{image}, title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=${latitude}, longitude=${longitude}, map_url=#{mapUrl}
+		where user_id = #{userId} and num = ${num}
+	</update>
+	
+	<update id="modifyHotplace2" parameterType="hotplaceDto">
+		update hotplace
+		set title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=${latitude}, longitude=${longitude}, map_url=#{mapUrl}
 		where user_id = #{userId} and num = ${num}
 	</update>
 	

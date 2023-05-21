@@ -107,9 +107,16 @@ public class HotplaceServiceImpl implements HotplaceService {
 	 * 핫플레이스 수정하기
 	 */
 	@Override
-	public void modifyHotplace(HotplaceDto hotplaceDto) throws Exception {
-		hotplaceMapper.modifyHotplace(hotplaceDto);
+	public void modifyHotplace1(HotplaceDto hotplaceDto) throws Exception {
+		hotplaceMapper.modifyHotplace1(hotplaceDto);
 	}
+	
+	@Override
+	public void modifyHotplace2(HotplaceDto hotplaceDto) throws Exception {
+		hotplaceMapper.modifyHotplace2(hotplaceDto);
+		
+	}
+	
 
 	/**
 	 * id에 해당하는 핫플레이스 삭제하기
@@ -117,7 +124,6 @@ public class HotplaceServiceImpl implements HotplaceService {
 	@Override
 	public void deleteHotplace(int hotplaceId) throws Exception {
 		hotplaceMapper.deleteHotplace(hotplaceId);
-	}
-	
+	}	
 	
 }

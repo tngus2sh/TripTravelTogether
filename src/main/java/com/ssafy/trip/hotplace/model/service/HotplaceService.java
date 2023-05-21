@@ -20,6 +20,7 @@ public interface HotplaceService {
 	List<HotplaceDto> getHotplaceList() throws Exception;
 	void registHotplace(HotplaceDto hotplaceDto) throws Exception;
 	HotplaceDto getHotplace(int hotplaceId) throws Exception;
-	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
+	void modifyHotplace1(HotplaceDto hotplaceDto) throws Exception;
+	void modifyHotplace2(HotplaceDto hotplaceDto) throws Exception;
 	void deleteHotplace(int hotplaceId) throws Exception;
 }

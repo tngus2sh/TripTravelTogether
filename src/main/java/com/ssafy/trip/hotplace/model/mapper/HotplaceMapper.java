@@ -21,6 +21,7 @@ public interface HotplaceMapper {
 	List<HotplaceDto> selectHotplaceList() throws Exception;
 	void insertHotplace(HotplaceDto hotplaceDto) throws Exception;
 	HotplaceDto selectHotplace(int hotplaceId) throws Exception;
-	void modifyHotplace(HotplaceDto hotplaceDto) throws Exception;
+	void modifyHotplace1(HotplaceDto hotplaceDto) throws Exception;
+	void modifyHotplace2(HotplaceDto hotplaceDto) throws Exception;
 	void deleteHotplace(int num) throws Exception;
 }	
