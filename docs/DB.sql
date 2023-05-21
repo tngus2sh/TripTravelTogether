@@ -14,7 +14,7 @@ drop table if exists `user`;
 -- 유저 테이블
 CREATE TABLE `user` (
   `user_id` varchar(20) NOT NULL,
-  `user_pwd` varchar(20) NOT NULL,
+  `user_pwd` varchar(1000) NOT NULL,
   `user_name` varchar(20) NOT NULL,
   `email_id` varchar(20) DEFAULT NULL,
   `email_domain` varchar(20) DEFAULT NULL,
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `hotplace` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+ALTER TABLE `hotplace` add `image_url` BLOB not null;
 
 
 --  여행 계획 테이블

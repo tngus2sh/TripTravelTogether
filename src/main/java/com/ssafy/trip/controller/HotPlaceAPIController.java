@@ -87,13 +87,14 @@ public class HotPlaceAPIController {
 			@RequestParam("longitude") double longitude,
 			@RequestParam("mapUrl") String mapUrl,
 			@RequestParam("image") MultipartFile file,
-			@RequestParam("imageData") MultipartFile fileData
+			@RequestParam("imageUrl") byte[] imageUrl
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 
 		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, description, tag1, tag2, latitude, longitude, mapUrl);
-		logger.debug("post hotplace called: {} , {}", hotplaceDto, file);
-
+		logger.debug("post hotplace called: {} , {}, {}", hotplaceDto, file, imageUrl);
+		
+		
 		// FileUpload
 		if (!file.isEmpty()) {
 			String saveFolder= uploadPath;
@@ -112,7 +113,7 @@ public class HotPlaceAPIController {
 				file.transferTo(new File(folder, saveFileName));
 				hotplaceDto.setImage(saveFileName);
 			}
-			
+			hotplaceDto.setImageUrl(imageUrl);
 			hotplaceService.registHotplace(hotplaceDto);
 		}
 		
@@ -129,6 +130,7 @@ public class HotPlaceAPIController {
 		return new ResponseEntity<HotplaceDto>(hotplaceDto, HttpStatus.OK);
 	}
 	
+	// 이미지 받은 경우
 	@ApiOperation(value = "핫플레이스 글 수정", notes = "작성자란을 제외한 수정되어 있는 핫플레이스 글 내용을 데이터베이스에 넣는다.")
 	@PutMapping
 	public ResponseEntity<?> hotplaceModify1(
@@ -142,13 +144,15 @@ public class HotPlaceAPIController {
 			@RequestParam("latitude") double latitude,
 			@RequestParam("longitude") double longitude,
 			@RequestParam("mapUrl") String mapUrl,
-			@RequestParam(value = "image", required=false) MultipartFile file
+			@RequestParam("image") MultipartFile file,
+			@RequestParam("imageUrl") byte[] imageUrl
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, description, tag1, tag2, latitude, longitude, mapUrl);
 		logger.debug("post hotplace called: {} , {}", hotplaceDto, file);
 		hotplaceDto.setNum(num);
+		hotplaceDto.setImageUrl(imageUrl);
 		
 		if (file != null && !file.isEmpty()) {
 			String saveFolder = uploadPath;
@@ -173,6 +177,7 @@ public class HotPlaceAPIController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
 	
+	// 이미지 받지 않은 경우
 	@PutMapping(value = "/{hotplaceId}")
 	public ResponseEntity<?> hotplaceModify2(@RequestBody HotplaceDto hotplaceDto) throws Exception{
 		logger.debug("modify hotplace : {}", hotplaceDto);

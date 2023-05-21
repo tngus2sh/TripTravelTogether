@@ -15,7 +15,7 @@ public class HotplaceDto {
 	private double latitude;
 	private double longitude;
 	private String mapUrl;
-	private byte[] imageData;
+	private byte[] imageUrl;
 
 	public HotplaceDto() {}
 
@@ -97,19 +97,21 @@ public class HotplaceDto {
 	public void setMapUrl(String mapUrl) {
 		this.mapUrl = mapUrl;
 	}
-	public byte[] getImageData() {
-		return imageData;
+
+	public byte[] getImageUrl() {
+		return imageUrl;
 	}
-	public void setImageData(byte[] imageData) {
-		this.imageData = imageData;
+
+	public void setImageUrl(byte[] imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override
 	public String toString() {
 		return "HotplaceDto [userId=" + userId + ", num=" + num + ", image=" + image + ", title=" + title
 				+ ", joinDate=" + joinDate + ", description=" + description + ", tag1=" + tag1 + ", tag2=" + tag2
-				+ ", latitude=" + latitude + ", longitude=" + longitude + ", mapUrl=" + mapUrl + ", imageData="
-				+ Arrays.toString(imageData) + "]";
+				+ ", latitude=" + latitude + ", longitude=" + longitude + ", mapUrl=" + mapUrl + ", imageUrl="
+				+ Arrays.toString(imageUrl) + "]";
 	}
 
 }

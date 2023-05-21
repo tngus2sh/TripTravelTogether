@@ -211,6 +211,8 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
+		logger.debug("join called : {}", userDto);
+		
 		try {
 			userService.joinUser(userDto);
 			resultMap.put("message", SUCCESS);
@@ -220,6 +222,7 @@ public class UserController {
 			resultMap.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		logger.debug("회원 가입 완료");
 		
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
