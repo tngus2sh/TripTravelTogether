@@ -153,6 +153,7 @@ public class HotPlaceAPIController {
 		logger.debug("post hotplace called: {} , {}", hotplaceDto, file);
 		hotplaceDto.setNum(num);
 		hotplaceDto.setImageUrl(imageUrl);
+		logger.debug("imageUrl: {}", imageUrl);
 		
 		if (file != null && !file.isEmpty()) {
 			String saveFolder = uploadPath;
