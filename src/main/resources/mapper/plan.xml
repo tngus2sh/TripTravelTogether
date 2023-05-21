@@ -118,5 +118,23 @@
 		from place
 		where plan_id = #{planId}
 	</select>
+
+	<select id="getGoodPlanNum" parameterType="map" resultType="int">
+		select count(plan_id)
+		from good_plan
+		where user_id = #{userId} and plan_id = ${planId}
+	</select>
+
+	<insert id="insertGoodPlan" parameterType="goodPlanDto">
+		insert
+		into good_plan (user_id, plan_id, created_at)
+		values (#{userId}, #{planId}, now())
+	</insert>
+
+	<delete id="deleteGoodPlan" parameterType="map" >
+		delete
+		from good_plan
+		where user_id = #{userId} and plan_id = ${planId}
+	</delete>
 	
 </mapper>

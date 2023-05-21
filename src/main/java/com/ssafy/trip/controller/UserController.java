@@ -128,7 +128,7 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		try {
-			userService.deleRefreshToken(userId);
+			userService.deleteRefreshToken(userId);
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.ACCEPTED;
 		} catch (Exception e) {
@@ -145,7 +145,7 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		try {
-			userService.deleRefreshToken(userId);
+			userService.deleteRefreshToken(userId);
 			userService.deleteUser(userId);
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.ACCEPTED;

@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import com.ssafy.trip.plan.model.dto.PlaceDto;
 import com.ssafy.trip.plan.model.dto.PlaceDtoList;
 import com.ssafy.trip.plan.model.dto.PlanDto;
 import com.ssafy.trip.util.PageNavigation;
+import org.apache.ibatis.jdbc.SQL;
 
 public interface PlanService {
 
@@ -53,4 +55,13 @@ public interface PlanService {
 
 	/** 조회수 증가 */
 	public void updateHit(int planId) throws SQLException;
+
+	/** 여행 계획 좋아요 수 가져오기 */
+	public int getGoodPlanNum(Map<String, Object> map) throws SQLException;
+
+	/** 여행 계획 좋아요 넣기 */
+	public void registGoodPlan(GoodPlanDto goodPlanDto) throws SQLException;
+
+	/** 여행 계획 좋아요 삭제 */
+	public void deleteGoodPlan(Map<String, Object> map) throws SQLException;
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.trip.plan.model.dto.PlaceDto;
@@ -49,5 +50,14 @@ public interface PlanMapper {
 	public int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 	
 	public int getTotalPlaceCount(int planId) throws SQLException;
+
+	/** 여행 계획 좋아요 수 가져오기 */
+	public int getGoodPlanNum(Map<String, Object> map) throws SQLException;
+
+	/** 여행 계획 좋아요 넣기 */
+	public void insertGoodPlan(GoodPlanDto goodPlanDto) throws SQLException;
+
+	/** 여행 계획 좋아요 삭제 */
+	public void deleteGoodPlan(Map<String, Object> map) throws SQLException;
 	
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.trip.plan.model.dto.PlaceDto;
@@ -55,6 +56,7 @@ public class PlanServiceImpl implements PlanService {
 	public void updateHit(int planId) throws SQLException {
 		planMapper.updateHit(planId);
 	}
+
 
 	/** 알고리즘 적용 - 완전탐색 (순열) */
 	public List<PlaceDto> selectFastDistancePlace(int planId) throws SQLException {
@@ -228,5 +230,20 @@ public class PlanServiceImpl implements PlanService {
 				resPick[i] = pick[i];
 			}
 		}
+	}
+
+	@Override
+	public int getGoodPlanNum(Map<String, Object> map) throws SQLException {
+		return planMapper.getGoodPlanNum(map);
+	}
+
+	@Override
+	public void registGoodPlan(GoodPlanDto goodPlanDto) throws SQLException {
+		planMapper.insertGoodPlan(goodPlanDto);
+	}
+
+	@Override
+	public void deleteGoodPlan(Map<String, Object> map) throws SQLException {
+		planMapper.deleteGoodPlan(map);
 	}
 }
