@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private SqlSession sqlSession;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public UserServiceImpl(UserMapper userMapper) {
 		super();
@@ -38,16 +43,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void joinUser(UserDto userDto) throws Exception {
+		// 비밀번호 인코딩 후 회원가입
+		userDto.setUserPwd(passwordEncoder.encode(userDto.getUserPwd()));
 		userMapper.joinUser(userDto);
 	}
 
 	@Override
-	public UserDto loginUser(Map<String, String> map) throws Exception {
-		return userMapper.loginUser(map);
-	}
-
-	@Override
 	public void modifyUser(UserDto userDto) throws Exception {
+		// dto 비밀번호가 null값이 아니라면 인코딩해서 새로 저장
+		if (userDto.getUserPwd() != null) userDto.setUserPwd(passwordEncoder.encode(userDto.getUserPwd()));
 		userMapper.modifyUser(userDto);
 	}
 
@@ -71,12 +75,31 @@ public class UserServiceImpl implements UserService {
 		if (userDto.getUserId() == null || userDto.getUserPwd() == null) {
 			return null;
 		}
-		return sqlSession.getMapper(UserMapper.class).login(userDto);
+//		return sqlSession.getMapper(UserMapper.class).login(userDto);
+		// userInfo에서 가져온 비밀번호(암호화됨)와 지금 입력받은 비밀번호가 맞는지 확인
+		UserDto checkUser = userMapper.userTotalInfo(userDto.getUserId());
+		if (checkUser != null) {
+			String encodePwd = checkUser.getUserPwd();
+			if (passwordEncoder.matches(userDto.getUserPwd(), encodePwd)) {
+				// 암호화된 비밀번호로 pw 정보 변경 후 로그인
+				userDto.setUserPwd(encodePwd);
+				return userMapper.login(userDto);
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public UserDto userInfo(String userId) throws Exception {
 		return sqlSession.getMapper(UserMapper.class).userInfo(userId);
+	}
+
+	@Override
+	public UserDto userTotalInfo(String userId) throws Exception {
+		return sqlSession.getMapper(UserMapper.class).userTotalInfo(userId);
 	}
 
 	@Override

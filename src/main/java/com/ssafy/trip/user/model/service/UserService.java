@@ -8,7 +8,6 @@ public interface UserService {
 	
 	int idCheck(String id) throws Exception;
 	void joinUser(UserDto userDto) throws Exception;
-	UserDto loginUser(Map<String, String> map) throws Exception;
 	void modifyUser(UserDto userDto) throws Exception;
 	void modifyUserPw(Map<String, String> map) throws Exception;
 	void deleteUser(String id) throws Exception;
@@ -17,6 +16,7 @@ public interface UserService {
 	
 	// new
 	UserDto login(UserDto userDto) throws Exception;
+	UserDto userTotalInfo(String userId) throws Exception;
 	UserDto userInfo(String userId) throws Exception;
 	void saveRefreshToken(String userId, String refreshToken) throws Exception;
 	Object getRefreshToken(String userId) throws Exception;

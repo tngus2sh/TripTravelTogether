@@ -23,13 +23,7 @@
 		insert into user (user_id, user_pwd, user_name, email_id, email_domain)
 		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain})
 	</insert>
-	
-	<select id="loginUser" parameterType="map" resultMap="user">
-		select user_id, user_pwd, user_name, email_id, email_domain, grade
-		from user
-		where user_id=#{userId} and user_pwd=#{userPwd}
-	</select>
-	
+
 	<update id="modifyUser" parameterType="userDto">
 		update user 
 		set email_id = #{emailId}, email_domain = #{emailDomain}
@@ -58,6 +52,12 @@
 		select *
 		from user
 		where user_id = #{userId} and user_pwd = #{userPwd}
+	</select>
+
+	<select id="userTotalInfo" parameterType="string" resultMap="user">
+		select *
+		from user
+		where user_id = #{userId}
 	</select>
 	
 	<select id="userInfo" parameterType="string" resultMap="user">

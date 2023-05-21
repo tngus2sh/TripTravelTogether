@@ -12,7 +12,6 @@ public interface UserMapper {
 	
 	int idCheck(String userId) throws SQLException;
 	void joinUser(UserDto userDto) throws SQLException;
-	UserDto loginUser(Map<String, String> map) throws SQLException;
 	void modifyUser(UserDto userDto) throws SQLException;
 	void modifyUserPw(Map<String, String> map) throws SQLException;
 	void deleteUser(String userId) throws SQLException;
@@ -22,6 +21,7 @@ public interface UserMapper {
 	// new
 	public UserDto login(UserDto userDto) throws SQLException;
 	public UserDto userInfo(String userId) throws SQLException;
+	public UserDto userTotalInfo(String userId) throws SQLException;
 	public void saveRefreshToken(Map<String, String> map) throws SQLException;
 	public Object getRefreshToken(String userId) throws SQLException;
 	public void deleteRefreshToken(Map<String, String> map) throws SQLException;
