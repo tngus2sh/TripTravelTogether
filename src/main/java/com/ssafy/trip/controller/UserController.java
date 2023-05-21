@@ -228,36 +228,46 @@ public class UserController {
 	@Transactional
 	public ResponseEntity<Map<String, Object>> sendMail(
 			@RequestBody @ApiParam(value = "찾을 아이디와 이메일", required = true) Map<String, String> map
-			) throws Exception {
+			) {
 		logger.debug("sendmail parameter : {}", map);
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
-		String userId = map.get("search-id");
-		String emailId = map.get("search-email-id");
-		String emailDomain = map.get("search-email-domain");
+		String userId = map.get("userId");
+		String emailId = map.get("emailId");
+		String emailDomain = map.get("emailDomain");
 		String to = emailId + "@" + emailDomain;
-		
-		String password = userService.getPassword(userId);
-		
-		if(password != null) {
-			String tempPw = new TempKey().getKey(10, false); // 임시 비밀번호 발급
-			Map<String, String> userMap = new HashMap<>();
-			userMap.put("id", userId);
-			userMap.put("password", tempPw);
-			userService.modifyUserPw(userMap);
-			
-			SimpleMailMessage simpleMessage = new SimpleMailMessage();
-			simpleMessage.setFrom(from);
-			simpleMessage.setTo(to);
-			simpleMessage.setSubject(" [TTT] 비밀번호 발급 ");			
-			simpleMessage.setText(" 임시 비밀번호 : " + tempPw + "\n"
-					+ "*로그인 후 비밀번호 변경 필수*");
-			javaMailSender.send(simpleMessage);
-			
-			resultMap.put("message", SUCCESS);
-			status = HttpStatus.ACCEPTED;
-		} else {
+
+		logger.debug("userid : {}", userId);
+		int password = -1;
+		try {
+			password = userService.getPassword(map);
+
+			logger.debug("password {}", password);
+
+			if(password > 0) {
+				String tempPw = new TempKey().getKey(10, false); // 임시 비밀번호 발급
+				Map<String, String> userMap = new HashMap<>();
+				userMap.put("userId", userId);
+				userMap.put("userPwd", tempPw);
+				userService.modifyUserPw(userMap);
+
+				SimpleMailMessage simpleMessage = new SimpleMailMessage();
+				simpleMessage.setFrom(from);
+				simpleMessage.setTo(to);
+				simpleMessage.setSubject(" [TTT] 비밀번호 발급 ");
+				simpleMessage.setText(" 임시 비밀번호 : " + tempPw + "\n"
+						+ "*로그인 후 비밀번호 변경 필수*");
+//				javaMailSender.send(simpleMessage);
+
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			e.getMessage();
 			resultMap.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}

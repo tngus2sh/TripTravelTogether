@@ -12,7 +12,7 @@
 		<result column="grade" property="grade"/>
 		<result column="token" property="token"/>
 	</resultMap>
-	
+
 	<select id="idCheck" parameterType="string" resultType="int">
 		select count(user_id)
 		from user
@@ -48,10 +48,10 @@
 		where user_id = #{userId}
 	</delete>
 	
-	<select id="getPassword" parameterType="string" resultType="string">
-		select user_pwd
+	<select id="getPassword" parameterType="map" resultType="int">
+		select count(user_pwd)
 		from user
-		where user_id=#{userId}
+		where user_id=#{userId} and email_id=#{emailId} and email_domain=#{emailDomain}
 	</select>
 	
 	<select id="login" parameterType="userDto" resultMap="user">
