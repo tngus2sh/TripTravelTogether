@@ -86,7 +86,8 @@ public class HotPlaceAPIController {
 			@RequestParam("latitude") double latitude,
 			@RequestParam("longitude") double longitude,
 			@RequestParam("mapUrl") String mapUrl,
-			@RequestParam("image") MultipartFile file
+			@RequestParam("image") MultipartFile file,
+			@RequestParam("imageData") MultipartFile fileData
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 

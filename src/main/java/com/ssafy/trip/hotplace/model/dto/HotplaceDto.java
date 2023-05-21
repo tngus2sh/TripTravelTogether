@@ -1,5 +1,6 @@
 package com.ssafy.trip.hotplace.model.dto;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class HotplaceDto {
@@ -14,6 +15,7 @@ public class HotplaceDto {
 	private double latitude;
 	private double longitude;
 	private String mapUrl;
+	private byte[] imageData;
 
 	public HotplaceDto() {}
 
@@ -95,11 +97,19 @@ public class HotplaceDto {
 	public void setMapUrl(String mapUrl) {
 		this.mapUrl = mapUrl;
 	}
+	public byte[] getImageData() {
+		return imageData;
+	}
+	public void setImageData(byte[] imageData) {
+		this.imageData = imageData;
+	}
+
 	@Override
 	public String toString() {
 		return "HotplaceDto [userId=" + userId + ", num=" + num + ", image=" + image + ", title=" + title
 				+ ", joinDate=" + joinDate + ", description=" + description + ", tag1=" + tag1 + ", tag2=" + tag2
-				+ ", latitude=" + latitude + ", longitude=" + longitude + ", mapUrl=" + mapUrl + "]";
+				+ ", latitude=" + latitude + ", longitude=" + longitude + ", mapUrl=" + mapUrl + ", imageData="
+				+ Arrays.toString(imageData) + "]";
 	}
-	
+
 }

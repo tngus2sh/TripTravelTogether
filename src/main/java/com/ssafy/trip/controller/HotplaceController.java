@@ -120,7 +120,7 @@ public class HotplaceController {
 			}
 		}
 
-		hotplaceService.modifyHotplace(hotplaceDto);
+		hotplaceService.modifyHotplace1(hotplaceDto);
 		
 		redirectAttributes.addAttribute("pgno", "1");
 		return "redirect:/hotplace/list";

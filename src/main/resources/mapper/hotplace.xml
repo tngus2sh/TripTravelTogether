@@ -15,6 +15,7 @@
 		<result column="latitude" property="latitude"/>
 		<result column="longitude" property="longitude"/>
 		<result column="map_url" property="mapUrl"/>
+		<result property="imageData" column="image_data" jdbcType="BLOB"/>
 	</resultMap>
 	
 	<select id="listHotplace" parameterType="map" resultMap="hotplace">
