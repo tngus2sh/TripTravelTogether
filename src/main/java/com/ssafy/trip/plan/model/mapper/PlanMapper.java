@@ -54,6 +54,9 @@ public interface PlanMapper {
 	/** 여행 계획 좋아요 수 가져오기 */
 	public int getGoodPlanNum(Map<String, Object> map) throws SQLException;
 
+	/** 여행 계획 좋아요 가져오기 */
+	public List<Map<String, Object>> getGoodPlan(String userId) throws SQLException;
+
 	/** 여행 계획 좋아요 넣기 */
 	public void insertGoodPlan(GoodPlanDto goodPlanDto) throws SQLException;
 

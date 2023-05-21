@@ -10,7 +10,6 @@ import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.trip.plan.model.dto.PlaceDto;
-import com.ssafy.trip.plan.model.dto.PlaceDtoList;
 import com.ssafy.trip.plan.model.dto.PlanDto;
 import com.ssafy.trip.plan.model.mapper.PlanMapper;
 import com.ssafy.trip.util.PageNavigation;
@@ -235,6 +234,11 @@ public class PlanServiceImpl implements PlanService {
 	@Override
 	public int getGoodPlanNum(Map<String, Object> map) throws SQLException {
 		return planMapper.getGoodPlanNum(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getGoodPlan(String userId) throws SQLException {
+		return planMapper.getGoodPlan(userId);
 	}
 
 	@Override

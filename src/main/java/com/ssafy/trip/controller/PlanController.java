@@ -1,6 +1,7 @@
 package com.ssafy.trip.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -241,6 +242,31 @@ public class PlanController {
 		}
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	@ApiOperation(value = "사용자의 여행 계획 목록 불러오기", notes = "사용자의 좋아요한 여행 계획 목록 반환.")
+	@GetMapping("/good/{userId}")
+	public ResponseEntity<List<Map<String , Object>>> getGoodPlan (
+			@PathVariable @ApiParam(value = "사용자 id") String userId
+	) {
+
+		logger.debug("getGoodPlan params : {} {}", userId);
+		List<Map<String , Object>> map = new ArrayList<>();
+		HttpStatus status = null;
+
+		try {
+			map = planService.getGoodPlan(userId);
+			if (map != null) {
+				status = HttpStatus.ACCEPTED;
+			} else {
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (SQLException e) {
+			e.getMessage();
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<List<Map<String , Object>>>(map, status);
 	}
 
 	@ApiOperation(value = "등록된 좋아요 여행 계획 삭제", notes = "사용자가 해당 여행계획의 좋아요를 취소하면 삭제한다.")

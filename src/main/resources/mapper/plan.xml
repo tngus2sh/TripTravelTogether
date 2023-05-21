@@ -125,6 +125,15 @@
 		where user_id = #{userId} and plan_id = ${planId}
 	</select>
 
+	<select id="getGoodPlan" parameterType="string" resultType="map">
+		select p.id, p.title, p.created_at, p.start_date, p.end_date, p.user_id, p.hit, gp.created_at as gp_created_at
+		from plan p
+		left join good_plan gp
+		on p.id = gp.plan_id
+		where gp.user_id = #{userId}
+		order by gp.created_at desc;
+	</select>
+
 	<insert id="insertGoodPlan" parameterType="goodPlanDto">
 		insert
 		into good_plan (user_id, plan_id, created_at)
