@@ -122,6 +122,7 @@ public class PlanController {
 			planMap.put("fastPlaces", fastDistanceList);
 			planMap.put("message", SUCCESS);
 			status = HttpStatus.ACCEPTED;
+			logger.debug("plan result {} " + planDto);
 		} catch (Exception e) {
 			e.getMessage();
 			planMap.put("message", FAIL);
