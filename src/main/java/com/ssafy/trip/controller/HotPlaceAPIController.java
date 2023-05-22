@@ -65,7 +65,7 @@ public class HotPlaceAPIController {
 	}
 	
 	@ApiOperation(value = "핫플레이스 목록", notes = "핫플레이스 글 목록을 반환한다.", response = List.class)
-	@GetMapping
+	@GetMapping("/list")
 	public ResponseEntity<?> hotplaceList() throws Exception {
 		logger.debug("hotplaceList call");
 		List<HotplaceDto> list = hotplaceService.getHotplaceList();

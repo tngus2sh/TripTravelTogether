@@ -23,7 +23,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	 * WebMvcConfigurer : Web MVC 구성을 위한 인터페이스. 해당 클래스는 이 인터페이스를 구현하고 있으므로
 	 * 웹 애플리케이션의 구성을 수정할 수 있는 메서드를 제공
 	 */
-	private final List<String> patterns = Arrays.asList("/board/**", "/hotplace/**", "/notice/**", "/plan/**");
+	private final List<String> patterns = Arrays.asList("/board/**", "/hotplace/**", "/notice/**", "/plan/**", "/user/logout", "/user/modify", "/user/resign", "/user/find");
 	private final List<String> excludePatterns = Arrays.asList("/board/list", "/hotplace/list", "/notice/list", "/plan/list");
 	
 	private JwtInterceptor jwtInterceptor;
@@ -58,6 +58,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 					HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
 					HttpMethod.PATCH.name())
 //			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
+			.exposedHeaders("X-ACCESS-TOKEN")
 			.maxAge(1800);
 	}
 	

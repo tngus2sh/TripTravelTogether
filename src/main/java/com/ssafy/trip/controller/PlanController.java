@@ -50,7 +50,7 @@ public class PlanController {
 	}
 	
 	@ApiOperation(value = "여행계획 목록", notes = "여행 계획 목록을 반환한다", response = List.class)
-	@GetMapping
+	@GetMapping("/list")
 	public ResponseEntity<List<PlanDto>> listPlan(
 			@ApiParam(value = "여행게획 목록을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto
 			) {

@@ -57,7 +57,7 @@ public class BoardController {
 	
 	
 	@ApiOperation(value="자유 게시판 목록 ", notes="자유 게시판 목록을 반환 햔다.", response=List.class)
-	@GetMapping
+	@GetMapping("/list")
 	public ResponseEntity<?> list(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto) throws Exception{
 		logger.debug("board list call");
 		List<BoardDto> list = boardService.listBoard(boardParameterDto);
