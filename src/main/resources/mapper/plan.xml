@@ -138,7 +138,7 @@
 		where user_id = #{userId} and plan_id = ${planId}
 	</select>
 
-	<select id="getGoodPlan" parameterType="string" resultType="planJoinGoodDto">
+	<select id="getGoodPlan" parameterType="string" resultMap="planJoinGood">
 		select p.id, p.title, p.description, p.created_at, p.start_date, p.end_date, p.user_id, p.hit, gp.created_at as gp_created_at
 		from plan p
 		left join good_plan gp
