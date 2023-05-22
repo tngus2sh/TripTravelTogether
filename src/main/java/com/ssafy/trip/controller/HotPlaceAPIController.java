@@ -94,7 +94,7 @@ public class HotPlaceAPIController {
 		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, description, tag1, tag2, latitude, longitude, mapUrl);
 		logger.debug("post hotplace called: {} , {}, {}", hotplaceDto, file, imageUrl);
 		
-		
+		hotplaceDto.setImageUrl(imageUrl);
 		
 		// FileUpload
 		if (!file.isEmpty()) {
