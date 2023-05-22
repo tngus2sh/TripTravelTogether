@@ -25,7 +25,7 @@
 		<result column="user_id" property="userId"/>
 		<result column="hit" property="hit"/>
 	</resultMap>
-	
+
 	<resultMap type="planJoinGoodDto" id="planJoinGood">
 		<result column="id" property="id"/>
 		<result column="title" property="title"/>
@@ -80,9 +80,10 @@
 		limit #{start}, #{listsize}
 	</select>
 	
-	<select id="selectPlanList" resultMap="plan">
-		select *
+	<select id="selectPlanList" parameterType="map" resultMap="plan">
+		select id, title, description, created_at, updated_at, start_date, end_date, user_id, hit
 		from plan
+		<include refid="search"></include>
 		order by id desc
 	</select>
 

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.board.model.dto.BoardParameterDto;
 import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import com.ssafy.trip.plan.model.dto.PlaceDto;
 import com.ssafy.trip.plan.model.dto.PlanDto;
@@ -21,7 +22,7 @@ public interface PlanService {
 
 	// api
 	/** 여행 경로 리스트 출력 */
-	List<PlanDto> getPlanList() throws Exception;
+	List<PlanDto> getPlanList(BoardParameterDto boardParameterDto) throws Exception;
 	/** 여행 계획 추가 */
 	void registPlan(PlanDto planDto) throws Exception;
 

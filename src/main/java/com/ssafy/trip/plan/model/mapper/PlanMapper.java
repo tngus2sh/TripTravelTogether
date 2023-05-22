@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.board.model.dto.BoardParameterDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.trip.plan.model.dto.GoodPlanDto;
@@ -30,7 +31,7 @@ public interface PlanMapper {
 	public List<PlanDto> selectPlan(Map<String, Object> param) throws SQLException;
 	
 	/** 여행 계획 리스트 출력 */
-	public List<PlanDto> selectPlanList() throws SQLException;
+	public List<PlanDto> selectPlanList(BoardParameterDto boardParameterDto) throws SQLException;
 
 	/** 글 번호에 맞는 여행 계획 출력 */
 	public PlanDto selectPlanOne(int planId) throws SQLException;

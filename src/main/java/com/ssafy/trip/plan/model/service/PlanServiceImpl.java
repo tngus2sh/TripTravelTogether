@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.board.model.dto.BoardParameterDto;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.trip.plan.model.dto.GoodPlanDto;
@@ -131,8 +132,10 @@ public class PlanServiceImpl implements PlanService {
 	 * 여행 경로 목록 출력
 	 */
 	@Override
-	public List<PlanDto> getPlanList() throws Exception {
-		return planMapper.selectPlanList();
+	public List<PlanDto> getPlanList(BoardParameterDto boardParameterDto) throws Exception {
+		int start = boardParameterDto.getPg() == 0 ? 0 : (boardParameterDto.getPg() - 1) * boardParameterDto.getSpp();
+		boardParameterDto.setStart(start);
+		return planMapper.selectPlanList(boardParameterDto);
 	}
 
 	/**

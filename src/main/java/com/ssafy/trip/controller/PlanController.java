@@ -60,7 +60,7 @@ public class PlanController {
 		HttpStatus status = null;
 		List<PlanDto> list = null;
 		try {
-			list = planService.getPlanList();
+			list = planService.getPlanList(boardParameterDto);
 			status = HttpStatus.ACCEPTED;
 		} catch (Exception e) {
 			e.getMessage();
