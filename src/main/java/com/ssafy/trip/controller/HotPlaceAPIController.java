@@ -95,6 +95,7 @@ public class HotPlaceAPIController {
 		logger.debug("post hotplace called: {} , {}, {}", hotplaceDto, file, imageUrl);
 		
 		
+		
 		// FileUpload
 		if (!file.isEmpty()) {
 			String saveFolder= uploadPath;
@@ -113,7 +114,7 @@ public class HotPlaceAPIController {
 				file.transferTo(new File(folder, saveFileName));
 				hotplaceDto.setImage(saveFileName);
 			}
-			hotplaceDto.setImageUrl(imageUrl);
+
 			hotplaceService.registHotplace(hotplaceDto);
 		}
 		
