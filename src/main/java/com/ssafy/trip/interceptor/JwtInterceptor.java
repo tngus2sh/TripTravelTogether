@@ -6,11 +6,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.ssafy.trip.exception.UnAuthorizedException;
 import com.ssafy.trip.user.model.service.JwtService;
 
+@Component
 public class JwtInterceptor implements HandlerInterceptor {
 	public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class);
 
