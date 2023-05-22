@@ -53,7 +53,7 @@ public class NoticeController {
 	
 	
 	@ApiOperation(value="공지사항 목록 ", notes="공지 사항 글 목록을 반환 햔다.", response=List.class)
-	@GetMapping
+	@GetMapping("/list")
 	public ResponseEntity<?> list() throws Exception {
 		logger.debug("notice list call");
 		List<NoticeDto> list = noticeService.listNotice();

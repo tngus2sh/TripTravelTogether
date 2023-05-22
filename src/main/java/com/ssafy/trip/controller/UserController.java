@@ -76,10 +76,11 @@ public class UserController {
 			if (loginUser != null) {
 				String accessToken = jwtService.createAccessToken("userId", loginUser.getUserId());
 				String refreshToken = jwtService.createRefreshToken("userId", loginUser.getUserId());
+				userService.saveRefreshToken(userDto.getUserId(), refreshToken);
 				logger.debug("로그인 accessToken 토큰정보 : {}", accessToken);
 				logger.debug("로그인 refreshToken 토큰정보 : {}", refreshToken);
 				resultMap.put("access-token", accessToken);
-				resultMap.put("access-token", refreshToken);
+				resultMap.put("refresh-token", refreshToken);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			} else {
@@ -182,7 +183,7 @@ public class UserController {
 	}
 	
 	@ApiOperation(value = "회원정보 수정", notes = "회원 정보 수정 후 결과 메세지를 반환한다.", response = Map.class)
-	@PutMapping("/info")
+	@PutMapping("/modify")
 	public ResponseEntity<?> modifyUser(
 			@RequestBody @ApiParam(value = "수정할 회원 정보", required = true) UserDto userDto
 			) {
