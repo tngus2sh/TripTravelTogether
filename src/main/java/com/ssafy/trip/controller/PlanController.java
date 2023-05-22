@@ -1,12 +1,12 @@
 package com.ssafy.trip.controller;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.trip.board.model.dto.BoardParameterDto;
+import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import com.ssafy.trip.plan.model.dto.PlaceDto;
 import com.ssafy.trip.plan.model.dto.PlanDto;
+import com.ssafy.trip.plan.model.dto.PlanJoinGoodDto;
 import com.ssafy.trip.plan.model.dto.RegisterPlanRequest;
 import com.ssafy.trip.plan.model.service.PlanService;
 
@@ -247,16 +250,17 @@ public class PlanController {
 
 	@ApiOperation(value = "사용자의 여행 계획 목록 불러오기", notes = "사용자의 좋아요한 여행 계획 목록 반환.")
 	@GetMapping("/good/{userId}")
-	public ResponseEntity<List<Map<String , Object>>> getGoodPlan (
+	public ResponseEntity<List<PlanJoinGoodDto>> getGoodPlan (
 			@PathVariable @ApiParam(value = "사용자 id") String userId
 	) {
 
 		logger.debug("getGoodPlan params : {} {}", userId);
-		List<Map<String , Object>> map = new ArrayList<>();
+		List<PlanJoinGoodDto> map = new ArrayList<>();
 		HttpStatus status = null;
 
 		try {
 			map = planService.getGoodPlan(userId);
+			logger.debug("good plan map {}" , map);
 			if (map != null) {
 				status = HttpStatus.ACCEPTED;
 			} else {
@@ -267,7 +271,7 @@ public class PlanController {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 
-		return new ResponseEntity<List<Map<String , Object>>>(map, status);
+		return new ResponseEntity<List<PlanJoinGoodDto>>(map, status);
 	}
 
 	@ApiOperation(value = "등록된 좋아요 여행 계획 삭제", notes = "사용자가 해당 여행계획의 좋아요를 취소하면 삭제한다.")

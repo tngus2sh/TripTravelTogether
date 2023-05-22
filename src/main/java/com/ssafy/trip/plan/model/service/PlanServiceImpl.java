@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.trip.plan.model.dto.GoodPlanDto;
 import com.ssafy.trip.plan.model.dto.PlaceDto;
 import com.ssafy.trip.plan.model.dto.PlanDto;
+import com.ssafy.trip.plan.model.dto.PlanJoinGoodDto;
 import com.ssafy.trip.plan.model.mapper.PlanMapper;
 import com.ssafy.trip.util.PageNavigation;
 import com.ssafy.trip.util.SizeConstant;
@@ -237,7 +238,7 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getGoodPlan(String userId) throws SQLException {
+	public List<PlanJoinGoodDto> getGoodPlan(String userId) throws SQLException {
 		return planMapper.getGoodPlan(userId);
 	}
 

@@ -26,6 +26,19 @@
 		<result column="hit" property="hit"/>
 	</resultMap>
 	
+	<resultMap type="planJoinGoodDto" id="planJoinGood">
+		<result column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="description" property="description"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="updated_at" property="updatedAt"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<result column="user_id" property="userId"/>
+		<result column="hit" property="hit"/>
+		<result column="gp_created_at" property="gpCreatedAt"/>
+	</resultMap>
+	
 	<insert id="insertPlan" parameterType="planDto">
 		insert into plan(title, description, created_at, updated_at, start_date, end_date, user_id, hit)
 		value(#{title}, #{description}, now(), now(), #{startDate}, #{endDate}, #{userId}, ${hit})
@@ -125,8 +138,8 @@
 		where user_id = #{userId} and plan_id = ${planId}
 	</select>
 
-	<select id="getGoodPlan" parameterType="string" resultType="map">
-		select p.id, p.title, p.created_at, p.start_date, p.end_date, p.user_id, p.hit, gp.created_at as gp_created_at
+	<select id="getGoodPlan" parameterType="string" resultType="planJoinGoodDto">
+		select p.id, p.title, p.description, p.created_at, p.start_date, p.end_date, p.user_id, p.hit, gp.created_at as gp_created_at
 		from plan p
 		left join good_plan gp
 		on p.id = gp.plan_id
