@@ -1,17 +1,21 @@
 package com.ssafy.trip.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,6 +51,12 @@ public class BoardController {
 	
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+	
+	@Value("${file.path}/hotplace/image")
+	private String uploadPath;
+	
+	@Value("${file.imgPath}")
+	private String uploadImgPath;
 	
 	private BoardService boardService;
 
@@ -79,27 +90,86 @@ public class BoardController {
 	
 	@ApiOperation(value="자유 게시판 글 작성", notes ="새로운 게시글 작성한다.")
 	@PostMapping
-	public ResponseEntity<?> write(@RequestBody BoardDto boardDto) throws Exception{
-		logger.debug("write board call : {}", boardDto);
+	@Transactional
+	public ResponseEntity<?> write(
+			@RequestParam("title") String title,
+			@RequestParam("content") String content,
+			@RequestParam("userId") String userId,
+			@RequestParam("userName") String userName,
+			@RequestParam(value = "image", required = false) MultipartFile file
+			) throws Exception{
+		logger.debug("write board call : {} {} {} {} {}", title, content, userId, userName, file);
 		
+		BoardDto boardDto = new BoardDto(title, content, userId, userName);
+		
+		// FileUpload
+		if(file != null && !file.isEmpty()) {
+			String saveFolder = uploadPath;
+			logger.debug("저장 폴더 : {}", saveFolder);
+			File folder = new File(saveFolder);
+			
+			if(!folder.exists()) {
+				folder.mkdirs();
+			}
+			String originalFileName = file.getOriginalFilename();
+			System.out.println(originalFileName);
+			if(!originalFileName.isEmpty()) {
+				String saveFileName = UUID.randomUUID().toString()
+						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
+				// 파일 저장하기
+				file.transferTo(new File(folder, saveFileName));
+				boardDto.setImage(saveFileName);
+			}
+			
+			boardService.writeBoard(boardDto);
+		}
+			
 		if(boardService.writeBoard(boardDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+		
 	}
 
 
 	
 	@ApiOperation(value ="자유 게시판 글 수정", notes="해당 id의 글 수정")
 	@PutMapping
-	public ResponseEntity<?> modify(@RequestBody BoardDto boardDto) throws Exception{
-		logger.debug("modify board : {}", boardDto);
+	public ResponseEntity<?> modify(
+			@RequestParam("title") String title,
+			@RequestParam("id") int id, 
+			@RequestParam("content") String content,
+			@RequestParam("userId") String userId,
+			@RequestParam("userName") String userName,
+			@RequestParam(value = "image", required = false) MultipartFile file
+			) throws Exception{
+		logger.debug("modify board : {} {} {} {} {}", title, content, userId, userName, file);
+		
+		BoardDto boardDto = new BoardDto(title, content, userId, userName);
+		boardDto.setId(id);
+		
+		if(file != null && !file.isEmpty()) {
+			String saveFolder = uploadPath;
+			logger.debug("저장 폴더 : {}", saveFolder);
+			File folder = new File(saveFolder);
+			if (!folder.exists()) {
+				folder.mkdirs();
+			}
+			String originalFileName = file.getOriginalFilename();
+			if (!originalFileName.isEmpty()) {
+				String saveFileName = UUID.randomUUID().toString()
+						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
+				file.transferTo(new File(folder, saveFileName));
+				boardDto.setImage(saveFileName);
+			}
+		}
 		
 		if(boardService.modifyBoard(boardDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
+	
 	
 	
 	@ApiOperation(value ="자유 게시판 글 삭제", notes="해당 id의 게시판 글 삭제")

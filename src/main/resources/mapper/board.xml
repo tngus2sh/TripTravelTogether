@@ -11,6 +11,7 @@
 		<result column="user_id" property="userId"/>
 		<result column="user_name" property="userName"/>		
 		<result column="hit" property="hit"/>
+		<result column="image" property="image"/>
 	</resultMap>
 	
 	<sql id="search">
@@ -25,7 +26,7 @@
 	</sql>
 	
 	<select id="listBoard" parameterType="map" resultMap="board">
-		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, u.user_name user_name
+		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, b.image, u.user_name user_name
 		from board b, user u
 		where b.user_id = u.user_id
 		<include refid="search"></include>
@@ -33,7 +34,7 @@
 	</select>
 	
 	<select id="listBoardTen" parameterType="map" resultMap="board">
-		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, u.user_name user_name
+		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, b.image, u.user_name user_name
 		from board b, user u
 		where b.user_id = u.user_id
 		<include refid="search"></include>
@@ -47,7 +48,7 @@
 	</select>
 	
 	<select id="viewBoard" resultMap="board">
-		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, u.user_name user_name
+		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, b.image, u.user_name user_name
 		from board b, user u
 		where id = #{id} and b.user_id = u.user_id
 	</select>
@@ -59,8 +60,8 @@
 	</update>
 	
 	<insert id="writeBoard" parameterType="boardDto">
-		insert into board(title, content, created_at, user_id, hit)
-		values(#{title}, #{content}, now(), #{userId}, 0);
+		insert into board(title, content, created_at, user_id, hit, image)
+		values(#{title}, #{content}, now(), #{userId}, 0, #{image});
 		<selectKey resultType="int" keyProperty="id" order="AFTER">
 			select last_insert_id()
 		</selectKey>
@@ -68,7 +69,7 @@
 	
 	<update id="modifyBoard" parameterType="boardDto">
 		update board
-		set title = #{title}, content = #{content}
+		set title = #{title}, content = #{content}, image = #{image}
 		where id = #{id}
 	</update>
 	

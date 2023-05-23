@@ -9,6 +9,15 @@ public class BoardDto {
 	private String userId;
 	private String userName;
 	private int hit;
+	private String image;
+	
+	public BoardDto(String title, String content, String userId, String userName) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.userId = userId;
+		this.userName = userName;
+	}
 	
 	public int getId() {
 		return id;
@@ -52,11 +61,17 @@ public class BoardDto {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	@Override
 	public String toString() {
 		return "BoardDto [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
-				+ ", userId=" + userId + ", userName=" + userName + ", hit=" + hit + "]";
+				+ ", userId=" + userId + ", userName=" + userName + ", hit=" + hit + ", image=" + image + "]";
 	}
+	
 	
 }
