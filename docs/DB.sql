@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `hotplace` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-ALTER TABLE `hotplace` add `image_url` BLOB not null;
+alter table hotplace drop image_url;
 
 
 --  여행 계획 테이블

@@ -86,16 +86,14 @@ public class HotPlaceAPIController {
 			@RequestParam("latitude") double latitude,
 			@RequestParam("longitude") double longitude,
 			@RequestParam("mapUrl") String mapUrl,
-			@RequestParam("image") MultipartFile file,
-			@RequestParam("imageUrl") byte[] imageUrl
+			@RequestParam("image") MultipartFile file
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 
 		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, description, tag1, tag2, latitude, longitude, mapUrl);
-		logger.debug("post hotplace called: {} , {}, {}", hotplaceDto, file, imageUrl);
+		logger.debug("post hotplace called: {} , {}, {}", hotplaceDto, file);
 		
-		hotplaceDto.setImageUrl(imageUrl);
-		
+			
 		// FileUpload
 		if (!file.isEmpty()) {
 			String saveFolder= uploadPath;
@@ -145,16 +143,13 @@ public class HotPlaceAPIController {
 			@RequestParam("latitude") double latitude,
 			@RequestParam("longitude") double longitude,
 			@RequestParam("mapUrl") String mapUrl,
-			@RequestParam("image") MultipartFile file,
-			@RequestParam("imageUrl") byte[] imageUrl
+			@RequestParam("image") MultipartFile file
 			) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		HotplaceDto hotplaceDto = new HotplaceDto(userId, title, joinDate, description, tag1, tag2, latitude, longitude, mapUrl);
 		logger.debug("post hotplace called: {} , {}", hotplaceDto, file);
 		hotplaceDto.setNum(num);
-		hotplaceDto.setImageUrl(imageUrl);
-		logger.debug("imageUrl: {}", imageUrl);
 		
 		if (file != null && !file.isEmpty()) {
 			String saveFolder = uploadPath;

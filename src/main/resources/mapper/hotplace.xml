@@ -15,7 +15,6 @@
 		<result column="latitude" property="latitude"/>
 		<result column="longitude" property="longitude"/>
 		<result column="map_url" property="mapUrl"/>
-		<result column="image_url" property="imageUrl" jdbcType="BLOB"/>
 	</resultMap>
 	
 	<select id="listHotplace" parameterType="map" resultMap="hotplace">
@@ -44,8 +43,8 @@
 	</select>
 		
 	<insert id="insertHotplace" parameterType="hotplaceDto">
-		insert into hotplace (user_id, image, title, join_date, description, tag1, tag2, latitude, longitude, map_url, image_url)
-		values (#{userId}, #{image}, #{title}, now(), #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl}, #{imageUrl, jdbcType=BLOB})
+		insert into hotplace (user_id, image, title, join_date, description, tag1, tag2, latitude, longitude, map_url)
+		values (#{userId}, #{image}, #{title}, now(), #{description}, #{tag1}, #{tag2}, #{latitude}, #{longitude}, #{mapUrl})
 	</insert>
 	
 	<select id="selectHotplace" parameterType="int" resultMap="hotplace">
@@ -56,7 +55,7 @@
 	
 	<update id="modifyHotplace1" parameterType="hotplaceDto">
 		update hotplace
-		set image = #{image}, title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=${latitude}, longitude=${longitude}, map_url=#{mapUrl}, image_url=#{imageUrl, jdbcType=BLOB}
+		set image = #{image}, title = #{title}, join_date = #{joinDate}, description = #{description}, tag1 = #{tag1}, tag2=#{tag2}, latitude=${latitude}, longitude=${longitude}, map_url=#{mapUrl}}
 		where user_id = #{userId} and num = ${num}
 	</update>
 	
