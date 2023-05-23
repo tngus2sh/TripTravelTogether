@@ -263,18 +263,18 @@ public class HotPlaceAPIController {
 	}
 
 	@ApiOperation(value = "사용자의 핫플레이스 목록 불러오기", notes = "사용자의 좋아요한 핫플레이스 목록 반환.")
-	@GetMapping("/good/{userId}")
-	public ResponseEntity<List<HotplaceJoinGoodDto>> getGoodPlan (
+	@GetMapping("/good/list/{userId}")
+	public ResponseEntity<List<HotplaceJoinGoodDto>> getGoodHotplace (
 			@PathVariable @ApiParam(value = "사용자 id") String userId
 	) {
 
-		logger.debug("getGoodPlan params : {} {}", userId);
+		logger.debug("getGoodHotplace params : {} {}", userId);
 		List<HotplaceJoinGoodDto> map = new ArrayList<>();
 		HttpStatus status = null;
 
 		try {
 			map = hotplaceService.getGoodHotplace(userId);
-			logger.debug("good plan map {}" , map);
+			logger.debug("good hotplace map {}" , map);
 			if (map != null) {
 				status = HttpStatus.ACCEPTED;
 			} else {
