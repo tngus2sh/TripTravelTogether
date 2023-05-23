@@ -32,6 +32,15 @@
 		order by b.id desc
 	</select>
 	
+	<select id="listBoardTen" parameterType="map" resultMap="board">
+		select b.id, b.title, b.content, b.created_at, b.user_id, b.hit, u.user_name user_name
+		from board b, user u
+		where b.user_id = u.user_id
+		<include refid="search"></include>
+		order by b.hit `desc`
+		limit 10
+	</select>
+	
 	<select id="getTotalBoardCount" parameterType="map" resultType="int">
 		select count(id)
 		from board

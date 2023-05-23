@@ -35,11 +35,17 @@
 		limit 1
 	</select>
 	
-	
 	<select id="selectHotplaceList" resultMap="hotplace">
 		select *
 		from hotplace
 		order by num desc
+	</select>
+	
+	<select id="selectHotplaceListTen" resultMap="hotplace">
+		select *
+		from hotplace
+		order by num desc
+		limit 10
 	</select>
 		
 	<insert id="insertHotplace" parameterType="hotplaceDto">

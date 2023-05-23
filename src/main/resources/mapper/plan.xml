@@ -86,6 +86,14 @@
 		<include refid="search"></include>
 		order by id desc
 	</select>
+	
+	<select id="selectPlanListTen" parameterType="map" resultMap="plan">
+		select id, title, description, created_at, updated_at, start_date, end_date, user_id, hit
+		from plan
+		<include refid="search"></include>
+		order by hit desc
+		limit 10;
+	</select>
 
 	<select id="selectPlanOne" parameterType="int" resultMap="plan">
 		select id, title, description, created_at, updated_at, start_date, end_date, user_id, hit

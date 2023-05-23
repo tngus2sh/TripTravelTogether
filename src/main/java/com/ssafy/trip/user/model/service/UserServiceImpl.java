@@ -56,7 +56,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void modifyUserPw(Map<String, String> map) throws Exception {
+	public void modifyUserPw(Map<String, String> map) throws Exception {		
+		map.put("userPwd", passwordEncoder.encode(map.get("userPwd")));
 		userMapper.modifyUserPw(map);
 	}
 	

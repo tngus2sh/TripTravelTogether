@@ -260,10 +260,10 @@ public class UserController {
 				SimpleMailMessage simpleMessage = new SimpleMailMessage();
 				simpleMessage.setFrom(from);
 				simpleMessage.setTo(to);
-				simpleMessage.setSubject(" [TTT] 비밀번호 발급 ");
+				simpleMessage.setSubject(" [ALETEO] 비밀번호 발급 ");
 				simpleMessage.setText(" 임시 비밀번호 : " + tempPw + "\n"
 						+ "*로그인 후 비밀번호 변경 필수*");
-//				javaMailSender.send(simpleMessage);
+				javaMailSender.send(simpleMessage);
 
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
@@ -276,6 +276,42 @@ public class UserController {
 			resultMap.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+
+		return new ResponseEntity<Map<String,Object>>(resultMap, status);
+	}
+		
+		@ApiOperation(value = "이메일 인증", notes = "회원가입을 위한 이메일 인증번호를 발송 후, 결과 메세지를 반환한다.", response = Map.class)
+		@PostMapping("/email")
+		@Transactional
+		public ResponseEntity<Map<String, Object>> sendAdminMail(
+				@RequestBody @ApiParam(value = "인증번호 받을 이메일", required = true) Map<String, String> map
+				) {
+			logger.debug("sendmail parameter : {}", map);
+			Map<String, Object> resultMap = new HashMap<>();
+			HttpStatus status = null;
+			
+			String emailId = map.get("emailId");
+			String emailDomain = map.get("emailDomain");
+			String to = emailId + "@" + emailDomain;
+
+			try {
+				String tempKey = new TempKey().getKey(5, false); // 인증번호 발급
+
+				SimpleMailMessage simpleMessage = new SimpleMailMessage();
+				simpleMessage.setFrom(from);
+				simpleMessage.setTo(to);
+				simpleMessage.setSubject(" [ALETEO] 인증번호 발급 ");
+				simpleMessage.setText(" 인증번호 : " + tempKey );
+				javaMailSender.send(simpleMessage);
+
+				resultMap.put("message", SUCCESS);
+				resultMap.put("adminKey", tempKey);
+				status = HttpStatus.ACCEPTED;
+			} catch (Exception e) {
+				e.getMessage();
+				resultMap.put("message", FAIL);
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
 
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}

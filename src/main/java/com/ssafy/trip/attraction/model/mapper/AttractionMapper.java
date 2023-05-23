@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.trip.attraction.model.dto.AttractionDetailDto;
 import com.ssafy.trip.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.trip.attraction.model.dto.GunguDto;
 import com.ssafy.trip.attraction.model.dto.SidoDto;
@@ -22,5 +21,4 @@ public interface AttractionMapper {
     List<AttractionInfoDto> listAttractionAll(Map<String, Object> map) throws SQLException;
     // int sidoCode, int gugunCode, int contentTypeId
     List<AttractionInfoDto> listAttraction(Map<String, Object> map) throws SQLException;
-    List<AttractionDetailDto> getAttractionDetail() throws SQLException;
 }
