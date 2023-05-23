@@ -1,9 +1,7 @@
 package com.ssafy.trip.controller;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.trip.attraction.model.dto.AttractionInfoDto;
+import com.ssafy.trip.attraction.model.dto.AttractionDetailDto;
 import com.ssafy.trip.attraction.model.dto.GunguDto;
 import com.ssafy.trip.attraction.model.dto.SidoDto;
 import com.ssafy.trip.attraction.model.service.AttractionService;
@@ -60,6 +57,13 @@ public class AttractionController {
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}
+	}
+	
+	@GetMapping(value = "/list")
+	@ApiOperation(value = "전체 관광지 내용 출력", notes = "관광지 리스트 반환")
+	public ResponseEntity<List<AttractionDetailDto>> getAttractionDetail() throws SQLException {
+		List<AttractionDetailDto> list = attractionService.getAttractionDetail();
+		return new ResponseEntity<List<AttractionDetailDto>>(list, HttpStatus.OK);
 	}
 	
 //	@GetMapping(value = "/list/{sidoCode}/{gugunCode}/{contentTypeId}")
