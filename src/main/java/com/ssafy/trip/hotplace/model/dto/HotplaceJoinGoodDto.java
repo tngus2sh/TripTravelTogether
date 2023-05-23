@@ -2,6 +2,7 @@ package com.ssafy.trip.hotplace.model.dto;
 
 public class HotplaceJoinGoodDto {
     private int id;
+    private String userId;
     private String image;
     private String title;
     private String joinDate;
@@ -19,6 +20,14 @@ public class HotplaceJoinGoodDto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getImage() {
@@ -105,6 +114,7 @@ public class HotplaceJoinGoodDto {
     public String toString() {
         final StringBuffer sb = new StringBuffer("HotplaceJoinGoodDto{");
         sb.append("id=").append(id);
+        sb.append(", userId='").append(userId).append('\'');
         sb.append(", image='").append(image).append('\'');
         sb.append(", title='").append(title).append('\'');
         sb.append(", joinDate='").append(joinDate).append('\'');

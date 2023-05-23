@@ -101,9 +101,9 @@
 
 	<select id="getGoodHotplace" parameterType="string" resultMap="hotplaceJoinGood">
 		select p.num as id, p.image, p.title, p.description, p.join_date, p.user_id, p.tag1, p.tag2, p.latitude, p.longitude, p.map_url, gh.created_at as gh_created_at
-		from plan p
+		from hotplace p
 				 left join good_hotplace gh
-						   on p.id = gh.plan_id
+						   on p.num = gh.hotplace_id
 		where gh.user_id = #{userId}
 		order by gh.created_at desc;
 	</select>
