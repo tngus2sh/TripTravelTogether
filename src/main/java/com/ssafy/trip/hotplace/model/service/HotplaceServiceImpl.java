@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.hotplace.model.dto.GoodHotplaceDto;
+import com.ssafy.trip.hotplace.model.dto.HotplaceJoinGoodDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -124,6 +126,26 @@ public class HotplaceServiceImpl implements HotplaceService {
 	@Override
 	public void deleteHotplace(int hotplaceId) throws Exception {
 		hotplaceMapper.deleteHotplace(hotplaceId);
-	}	
-	
+	}
+
+	@Override
+	public int getGoodHotplaceNum(Map<String, Object> map) throws Exception {
+		return hotplaceMapper.getGoodHotplaceNum(map);
+	}
+
+	@Override
+	public List<HotplaceJoinGoodDto> getGoodHotplace(String userId) throws Exception {
+		return hotplaceMapper.getGoodHotplace(userId);
+	}
+
+	@Override
+	public void registGoodHotplace(GoodHotplaceDto goodHotplaceDto) throws Exception {
+		hotplaceMapper.insertGoodHotplace(goodHotplaceDto);
+	}
+
+	@Override
+	public void deleteGoodHotplace(Map<String, Object> map) throws Exception {
+		hotplaceMapper.deleteGoodHotplace(map);
+	}
+
 }

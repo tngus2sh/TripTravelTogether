@@ -1,12 +1,14 @@
 package com.ssafy.trip.controller;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.sql.SQLException;
+import java.util.*;
 
+import com.ssafy.trip.hotplace.model.dto.GoodHotplaceDto;
+import com.ssafy.trip.hotplace.model.dto.HotplaceJoinGoodDto;
 import com.ssafy.trip.hotplace.model.dto.RegisterHotPlaceRequest;
+import com.ssafy.trip.plan.model.dto.GoodPlanDto;
+import com.ssafy.trip.plan.model.dto.PlanJoinGoodDto;
 import com.ssafy.trip.plan.model.dto.RegisterPlanRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -195,5 +197,122 @@ public class HotPlaceAPIController {
 		hotplaceService.deleteHotplace(hotplaceId);
 		resultMap.put("message", SUCCESS);
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
+
+	// 좋아요 등록
+	@ApiOperation(value = "여행 계획 좋아요 추가", notes = "사용자가 좋아요 누른 해당 여행 계획 id를 넣는다.")
+	@PostMapping("/good")
+	@Transactional
+	public ResponseEntity<Map<String, Object>> registGoodHotplace (
+			@RequestBody @ApiParam(value = "저장할 userId 와 hotplaceId", required = true)
+			GoodHotplaceDto goodHotplaceDto
+	) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			Map<String , Object> param = new HashMap<>();
+			param.put("userId", goodHotplaceDto.getUserId());
+			param.put("hotplaceId", goodHotplaceDto.getHotplaceId());
+			int cnt = hotplaceService.getGoodHotplaceNum(param);
+
+			if (cnt == 0)
+				hotplaceService.registGoodHotplace(goodHotplaceDto);
+
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			e.getMessage();
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String , Object>>(resultMap, status);
+	}
+
+	@ApiOperation(value = "사용자에게 해당 여행 계획이 있는지 확인", notes = "사용자가 해당 여행계획에 좋아요를 눌렀는지 확인한다.")
+	@GetMapping("/good/{userId}/{hotplaceId}")
+	public ResponseEntity<Map<String , Object>> getGoodHotplaceNum (
+			@PathVariable @ApiParam(value = "사용자 id") String userId,
+			@PathVariable @ApiParam(value = "핫플레이스 id") int hotplaceId
+	) {
+
+		logger.debug("getGoodPlan Num params : {} {}", userId, hotplaceId);
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("userId", userId);
+		param.put("hotplaceId", hotplaceId);
+		try {
+			int count = hotplaceService.getGoodHotplaceNum(param);
+			if (count > 0) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			e.getMessage();
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+
+	@ApiOperation(value = "사용자의 핫플레이스 목록 불러오기", notes = "사용자의 좋아요한 핫플레이스 목록 반환.")
+	@GetMapping("/good/{userId}")
+	public ResponseEntity<List<HotplaceJoinGoodDto>> getGoodPlan (
+			@PathVariable @ApiParam(value = "사용자 id") String userId
+	) {
+
+		logger.debug("getGoodPlan params : {} {}", userId);
+		List<HotplaceJoinGoodDto> map = new ArrayList<>();
+		HttpStatus status = null;
+
+		try {
+			map = hotplaceService.getGoodHotplace(userId);
+			logger.debug("good plan map {}" , map);
+			if (map != null) {
+				status = HttpStatus.ACCEPTED;
+			} else {
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			e.getMessage();
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<List<HotplaceJoinGoodDto>>(map, status);
+	}
+
+	@ApiOperation(value = "등록된 좋아요 핫플레이스 삭제", notes = "사용자가 해당 핫플레이스의 좋아요를 취소하면 삭제한다.")
+	@DeleteMapping("/good/{userId}/{hotplaceId}")
+	@Transactional
+	public ResponseEntity<Map<String , Object>> deleteGoodHotplace (
+			@PathVariable @ApiParam(value = "사용자 id", required = true) String userId,
+			@PathVariable @ApiParam(value = "핫플레이스 id", required = true) int hotplaceId
+	) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		logger.debug("deleteGoodPlan param : {} {}", userId, hotplaceId);
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("userId", userId);
+		param.put("hotplaceId", hotplaceId);
+		try {
+			hotplaceService.deleteGoodHotplace(param);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.ACCEPTED;
+		} catch (Exception e) {
+			e.getMessage();
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String , Object>>(resultMap, status);
 	}
 }

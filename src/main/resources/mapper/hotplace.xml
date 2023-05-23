@@ -16,6 +16,22 @@
 		<result column="longitude" property="longitude"/>
 		<result column="map_url" property="mapUrl"/>
 	</resultMap>
+
+	<resultMap id="hotplaceJoinGood" type="hotplaceJoinGoodDto">
+		<result column="id" property="id"/>
+		<result column="image" property="image"/>
+		<result column="title" property="title"/>
+		<result column="description" property="description"/>
+		<result column="join_date" property="joinDate"/>
+		<result column="user_id" property="userId"/>
+		<result column="tag1" property="tag1"/>
+		<result column="tag2" property="tag2"/>
+		<result column="latitude" property="latitude"/>
+		<result column="longitude" property="longitude"/>
+		<result column="map_url" property="mapUrl"/>
+		<result column="gh_created_at" property="ghCreatedAt"/>
+	</resultMap>
+
 	
 	<select id="listHotplace" parameterType="map" resultMap="hotplace">
 		select *
@@ -75,5 +91,32 @@
 		delete
 		from hotplace
 		where num=${num}
+	</delete>
+
+	<select id="getGoodHotplaceNum" parameterType="map" resultType="int">
+		select count(hotplace_id)
+		from good_hotplace
+		where user_id = #{userId} and hotplace_id = ${hotplaceId}
+	</select>
+
+	<select id="getGoodHotplace" parameterType="string" resultMap="hotplaceJoinGood">
+		select p.num as id, p.image, p.title, p.description, p.join_date, p.user_id, p.tag1, p.tag2, p.latitude, p.longitude, p.map_url, gh.created_at as gh_created_at
+		from plan p
+				 left join good_hotplace gh
+						   on p.id = gh.plan_id
+		where gh.user_id = #{userId}
+		order by gh.created_at desc;
+	</select>
+
+	<insert id="insertGoodHotplace" parameterType="goodHotplaceDto">
+		insert
+		into good_hotplace (user_id, hotplace_id, created_at)
+		values (#{userId}, #{hotplaceId}, now())
+	</insert>
+
+	<delete id="deleteGoodHotplace" parameterType="map" >
+		delete
+		from good_hotplace
+		where user_id = #{userId} and hotplace_id = ${hotplaceId}
 	</delete>
 </mapper>
