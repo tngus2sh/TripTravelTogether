@@ -9,6 +9,7 @@ public class NoticeDto {
 	private String userId;
 	private String userName;
 	private int hit;
+	private int pin;
 	
 	public int getId() {
 		return id;
@@ -52,11 +53,15 @@ public class NoticeDto {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
+	public int getPin() {
+		return pin;
+	}
+	public void setPin(int pin) {
+		this.pin = pin;
+	}
 	@Override
 	public String toString() {
 		return "NoticeDto [id=" + id + ", title=" + title + ", content=" + content + ", createdAt=" + createdAt
-				+ ", userId=" + userId + ", userName=" + userName + ", hit=" + hit + "]";
+				+ ", userId=" + userId + ", userName=" + userName + ", hit=" + hit + ", pin=" + pin + "]";
 	}
-	
 }

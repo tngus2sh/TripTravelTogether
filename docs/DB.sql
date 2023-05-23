@@ -34,6 +34,7 @@ CREATE TABLE `notice` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` varchar(20) NOT NULL,
   `hit` int NOT NULL DEFAULT '0',
+  `pin` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE

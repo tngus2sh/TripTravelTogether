@@ -11,6 +11,7 @@
 		<result column="user_id" property="userId"/>
 		<result column="user_name" property="userName"/>
 		<result column="hit" property="hit"/>
+		<result column="pin" property="pin"/>
 	</resultMap>
 	
 	<sql id="search">
@@ -22,11 +23,11 @@
 	</sql>
 	
 	<select id="listNotice" parameterType="map" resultMap="notice">
-		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit, u.name user_name
+		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit, u.user_name user_name, n.pin
 		from notice n, user u
-		where n.user_id = u.id
+		where n.user_id = u.user_id
 		<include refid="search"></include>
-		order by n.id desc
+		order by n.pin desc, n.id desc
 	</select>
 	
 	<select id="getTotalNoticeCount" parameterType="map" resultType="int">
@@ -35,9 +36,9 @@
 	</select>
 	
 	<select id="viewNotice" resultMap="notice">
-		select *
-		from notice
-		where id = #{id}
+		select n.id, n.title, n.content, n.created_at, n.user_id, n.hit, u.user_name user_name, n.pin
+		from notice n, user u
+		where id = #{id} and n.user_id = u.user_id
 	</select>
 	
 	<update id="updateHit" parameterType="int">
@@ -47,8 +48,8 @@
 	</update>
 	
 	<insert id="writeNotice" parameterType="noticeDto">
-		insert into notice(title, content, created_at, user_id, hit)
-		values(#{title}, #{content}, now(), #{userId}, 0)
+		insert into notice(title, content, created_at, user_id, hit, pin)
+		values(#{title}, #{content}, now(), #{userId}, 0, #{pin})
 		<selectKey resultType="int" keyProperty="id" order="AFTER">
 			select last_insert_id()
 		</selectKey>
@@ -56,7 +57,7 @@
 	
 	<update id="modifyNotice" parameterType="noticeDto">
 		update notice
-		set title = #{title}, content = #{content}
+		set title = #{title}, content = #{content}, pin=#{pin}
 		where id = #{id}
 	</update>
 	
