@@ -1,10 +1,12 @@
 package com.ssafy.trip.hotplace.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import com.ssafy.trip.hotplace.model.dto.GoodHotplaceDto;
 import com.ssafy.trip.hotplace.model.dto.HotplaceJoinGoodDto;
+import com.ssafy.trip.hotplace.model.dto.TopTenHotplaceDto;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ssafy.trip.hotplace.model.dto.HotplaceDto;
@@ -29,4 +31,6 @@ public interface HotplaceService {
 	List<HotplaceJoinGoodDto> getGoodHotplace(String userId) throws Exception;
 	void registGoodHotplace(GoodHotplaceDto goodHotplaceDto) throws Exception;
 	void deleteGoodHotplace(Map<String , Object> map) throws Exception;
+	/** 제일 많이 저장된 장소 TOP TEN */
+	List<TopTenHotplaceDto> getTopTenHot() throws SQLException;
 }

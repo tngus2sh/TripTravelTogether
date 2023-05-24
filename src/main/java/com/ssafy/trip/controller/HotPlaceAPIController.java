@@ -4,10 +4,9 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.*;
 
-import com.ssafy.trip.hotplace.model.dto.GoodHotplaceDto;
-import com.ssafy.trip.hotplace.model.dto.HotplaceJoinGoodDto;
-import com.ssafy.trip.hotplace.model.dto.RegisterHotPlaceRequest;
+import com.ssafy.trip.hotplace.model.dto.*;
 import com.ssafy.trip.plan.model.dto.GoodPlanDto;
+import com.ssafy.trip.plan.model.dto.PlaceDto;
 import com.ssafy.trip.plan.model.dto.PlanJoinGoodDto;
 import com.ssafy.trip.plan.model.dto.RegisterPlanRequest;
 import org.slf4j.Logger;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.trip.board.model.dto.BoardDto;
-import com.ssafy.trip.hotplace.model.dto.HotplaceDto;
 import com.ssafy.trip.hotplace.model.service.HotplaceService;
 import com.ssafy.trip.user.model.service.JwtServiceImpl;
 
@@ -314,5 +312,26 @@ public class HotPlaceAPIController {
 		}
 
 		return new ResponseEntity<Map<String , Object>>(resultMap, status);
+	}
+	@ApiOperation(value = "핫플레이스 top ten", notes = "hotplace top ten return.")
+	@GetMapping("/top")
+	public ResponseEntity<List<TopTenHotplaceDto>> getTopTenPlace () {
+
+		List<TopTenHotplaceDto> map = new ArrayList<>();
+		HttpStatus status = null;
+
+		try {
+			map = hotplaceService.getTopTenHot();
+			logger.debug("top ten place {}" , map);
+			if (map != null) {
+				status = HttpStatus.ACCEPTED;
+			} else {
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (SQLException e) {
+			e.getMessage();
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<List<TopTenHotplaceDto>>(map, status);
 	}
 }

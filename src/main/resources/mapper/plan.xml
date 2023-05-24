@@ -173,7 +173,7 @@
 	</delete>
 	
 	<select id="getTopTenPlace" resultMap="topTenPlanPlace">
-		select count(name) place_cnt, place_id, any_value(name) name, any_value(`address`) address, any_value(`lat`) `lat`, any_value(`lng`) `lng`
+		select count(name) place_cnt, place_id, any_value(name) name, any_value(`address`) address, any_value(`lat`) `lat`, any_value(`lng`) `lng`, any_value(`image_url`) image_url
 		from place
 		group by place_id
 		limit 10

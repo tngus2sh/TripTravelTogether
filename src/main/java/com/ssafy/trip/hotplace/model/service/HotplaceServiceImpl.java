@@ -1,11 +1,13 @@
 package com.ssafy.trip.hotplace.model.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.ssafy.trip.hotplace.model.dto.GoodHotplaceDto;
 import com.ssafy.trip.hotplace.model.dto.HotplaceJoinGoodDto;
+import com.ssafy.trip.hotplace.model.dto.TopTenHotplaceDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -146,6 +148,11 @@ public class HotplaceServiceImpl implements HotplaceService {
 	@Override
 	public void deleteGoodHotplace(Map<String, Object> map) throws Exception {
 		hotplaceMapper.deleteGoodHotplace(map);
+	}
+
+	@Override
+	public List<TopTenHotplaceDto> getTopTenHot() throws SQLException {
+		return hotplaceMapper.getTopTenHot();
 	}
 
 }

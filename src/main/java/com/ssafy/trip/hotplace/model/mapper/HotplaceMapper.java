@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.ssafy.trip.hotplace.model.dto.GoodHotplaceDto;
 import com.ssafy.trip.hotplace.model.dto.HotplaceJoinGoodDto;
+import com.ssafy.trip.hotplace.model.dto.TopTenHotplaceDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.trip.hotplace.model.dto.HotplaceDto;
@@ -32,4 +33,6 @@ public interface HotplaceMapper {
 	List<HotplaceJoinGoodDto> getGoodHotplace(String userId) throws SQLException;
 	void insertGoodHotplace(GoodHotplaceDto goodHotplaceDto) throws SQLException;
 	void deleteGoodHotplace(Map<String, Object> map) throws SQLException;
+	/** 제일 많이 저장된 장소 TOP TEN */
+	List<TopTenHotplaceDto> getTopTenHot() throws SQLException;
 }	
