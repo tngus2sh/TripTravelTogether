@@ -39,6 +39,10 @@
 		<result column="gp_created_at" property="gpCreatedAt"/>
 	</resultMap>
 	
+	<resultMap type="topTenPlanPlaceDto" id="topTenPlanPlace" extends="place">
+		<result column="place_cnt" property="placeCnt"/>
+	</resultMap>
+	
 	<insert id="insertPlan" parameterType="planDto">
 		insert into plan(title, description, created_at, updated_at, start_date, end_date, user_id, hit)
 		value(#{title}, #{description}, now(), now(), #{startDate}, #{endDate}, #{userId}, ${hit})
@@ -167,5 +171,12 @@
 		from good_plan
 		where user_id = #{userId} and plan_id = ${planId}
 	</delete>
+	
+	<select id="getTopTenPlace" resultMap="topTenPlanPlace">
+		select count(name) place_cnt, place_id, any_value(name) name, any_value(`address`) address, any_value(`lat`) `lat`, any_value(`lng`) `lng`
+		from place
+		group by place_id
+		limit 10
+	</select>
 	
 </mapper>

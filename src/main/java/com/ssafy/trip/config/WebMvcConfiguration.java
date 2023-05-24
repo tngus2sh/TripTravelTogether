@@ -24,7 +24,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	 * 웹 애플리케이션의 구성을 수정할 수 있는 메서드를 제공
 	 */
 	private final List<String> patterns = Arrays.asList("/board/**", "/hotplace/**", "/notice/**", "/plan/**", "/user/logout", "/user/modify", "/user/resign");
-	private final List<String> excludePatterns = Arrays.asList("/board/list", "/hotplace/list", "/notice/list", "/plan/list", "/user/find", "user/email");
+	private final List<String> excludePatterns = Arrays.asList("/board/list", "/hotplace/list", "/notice/list", "/plan/list", "/plan/top", "/user/find", "user/email");
 	
 	private JwtInterceptor jwtInterceptor;
 	

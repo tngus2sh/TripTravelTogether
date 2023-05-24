@@ -254,4 +254,9 @@ public class PlanServiceImpl implements PlanService {
 	public void deleteGoodPlan(Map<String, Object> map) throws SQLException {
 		planMapper.deleteGoodPlan(map);
 	}
+
+	@Override
+	public List<PlaceDto> getTopTenPlace() throws SQLException {
+		return planMapper.getTopTenPlace();
+	}
 }

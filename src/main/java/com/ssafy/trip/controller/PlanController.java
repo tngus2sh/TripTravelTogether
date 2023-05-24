@@ -301,4 +301,27 @@ public class PlanController {
 
 		return new ResponseEntity<Map<String , Object>>(resultMap, status);
 	}
+
+	@ApiOperation(value = "사용자의 여행 계획 목록 불러오기", notes = "사용자의 좋아요한 여행 계획 목록 반환.")
+	@GetMapping("/top")
+	public ResponseEntity<List<PlaceDto>> getTopTenPlace () {
+
+		List<PlaceDto> map = new ArrayList<>();
+		HttpStatus status = null;
+
+		try {
+			map = planService.getTopTenPlace();
+			logger.debug("top ten place {}" , map);
+			if (map != null) {
+				status = HttpStatus.ACCEPTED;
+			} else {
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (SQLException e) {
+			e.getMessage();
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<List<PlaceDto>>(map, status);
+	}
 }

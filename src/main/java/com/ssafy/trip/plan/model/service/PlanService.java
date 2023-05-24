@@ -67,4 +67,7 @@ public interface PlanService {
 
 	/** 여행 계획 좋아요 삭제 */
 	public void deleteGoodPlan(Map<String, Object> map) throws SQLException;
+
+	/** 제일 많이 저장된 장소 TOP TEN */
+	public List<PlaceDto> getTopTenPlace() throws SQLException;
 }
