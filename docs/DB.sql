@@ -131,7 +131,7 @@ create table `good_hotplace` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 공지사항 테이블
+-- 자유게시판 테이블
 CREATE TABLE `board` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(250) NOT NULL,
@@ -139,6 +139,7 @@ CREATE TABLE `board` (
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `user_id` VARCHAR(20) NOT NULL,
     `hit` INT NOT NULL DEFAULT 0,
+    `image` VARCHAR(300) NULL,
     PRIMARY KEY(`id`),
     FOREIGN KEY(`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
