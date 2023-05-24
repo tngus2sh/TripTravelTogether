@@ -83,5 +83,11 @@
 		set token = #{token, jdbcType=VARCHAR}
 		where user_id = #{userId}
 	</update>
+	
+	<select id="findId" parameterType="map" resultType="string">
+		select concat(substring(user_id, 1, LENGTH(user_id) - 2), '**') as user_id 
+		from user
+		where user_name = #{userName} and email_id = #{emailId} and email_domain = #{emailDomain}
+	</select>
 
 </mapper>

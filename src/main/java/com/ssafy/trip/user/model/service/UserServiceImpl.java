@@ -124,4 +124,9 @@ public class UserServiceImpl implements UserService {
 		sqlSession.getMapper(UserMapper.class).deleteRefreshToken(map);
 	}
 
+	@Override
+	public String findId(Map<String, String> nameEmail) throws Exception {
+		return sqlSession.getMapper(UserMapper.class).findId(nameEmail);
+	}
+
 }

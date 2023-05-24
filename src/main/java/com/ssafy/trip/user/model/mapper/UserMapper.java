@@ -25,4 +25,5 @@ public interface UserMapper {
 	public void saveRefreshToken(Map<String, String> map) throws SQLException;
 	public Object getRefreshToken(String userId) throws SQLException;
 	public void deleteRefreshToken(Map<String, String> map) throws SQLException;
+	public String findId(Map<String, String> nameEmail) throws SQLException;
 }

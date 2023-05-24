@@ -21,4 +21,5 @@ public interface UserService {
 	void saveRefreshToken(String userId, String refreshToken) throws Exception;
 	Object getRefreshToken(String userId) throws Exception;
 	void deleteRefreshToken(String userId) throws Exception;
+	String findId(Map<String, String> nameEmail) throws Exception;
 }

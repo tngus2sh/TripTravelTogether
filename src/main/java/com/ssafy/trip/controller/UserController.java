@@ -255,6 +255,31 @@ public class UserController {
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
 	
+	@ApiOperation(value = "아이디 찾기", notes = "받은 이름과 이메일을 통해 아이디를 찾는다.")
+	@PostMapping("/id")
+	public ResponseEntity<Map<String, Object>> findId(
+			@RequestBody @ApiParam(value = "아이디 찾을 이름과 이메일", required = true) Map<String, String> nameEmail
+			) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		try {
+			String userId = userService.findId(nameEmail);
+			if (userId != null) {
+				resultMap.put("userId", userId);
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			logger.error("아이디 찾기 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String,Object>>(resultMap, status);
+	}
+	
 	@ApiOperation(value = "비밀번호 찾기", notes = "아이디에 해당되는 이메일로 임시 비밀번호를 발급하고, 결과 메세지를 반환한다.", response = Map.class)
 	@PostMapping("/find")
 	@Transactional
