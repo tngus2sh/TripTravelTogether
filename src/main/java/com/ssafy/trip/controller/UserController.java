@@ -108,6 +108,7 @@ public class UserController {
 			try {
 				// 로그인 사용자 정보
 				UserDto userDto = userService.userInfo(userId);
+				logger.debug("userDto : {}", userDto);
 				resultMap.put("userInfo", userDto);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
@@ -225,6 +226,32 @@ public class UserController {
 		}
 		logger.debug("회원 가입 완료");
 		
+		return new ResponseEntity<Map<String,Object>>(resultMap, status);
+	}
+	
+	@ApiOperation(value = "비밀번호 일치 여부", notes = "받은 비밀번호가 일치한지 판단하고 결과를 반환한다.")
+	@PostMapping("/confirm")
+	public ResponseEntity<Map<String, Object>> confirmPw(
+			@RequestBody @ApiParam(value = "일치여부 판단할 아이디, 비밀번호", required = true) UserDto userDto
+			) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		UserDto loginUser = null;
+		try {
+			loginUser = userService.login(userDto);
+			logger.debug("loginUser : {}", loginUser);
+			if (loginUser != null) {
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
+			} else {
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}			
+		} catch (Exception e) {
+			logger.error("로그인 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
 	
