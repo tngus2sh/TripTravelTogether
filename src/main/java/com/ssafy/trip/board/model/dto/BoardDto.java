@@ -11,6 +11,8 @@ public class BoardDto {
 	private int hit;
 	private String image;
 	
+	public BoardDto() {}
+	
 	public BoardDto(String title, String content, String userId, String userName) {
 		super();
 		this.title = title;

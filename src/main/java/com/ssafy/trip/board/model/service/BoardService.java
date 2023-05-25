@@ -13,7 +13,8 @@ public interface BoardService {
 	BoardDto viewBoard(int id) throws Exception;
 	void updateHit(int id) throws Exception;
 	boolean writeBoard(BoardDto boardDto) throws Exception;
-	boolean modifyBoard(BoardDto boardDto) throws Exception;
+	boolean modifyBoard1(BoardDto boardDto) throws Exception;
+	boolean modifyBoard2(BoardDto boardDto) throws Exception;
 	boolean deleteBoard(int id) throws Exception;
 	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 }

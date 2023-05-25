@@ -131,17 +131,17 @@ public class BoardController {
 	}
 
 
-	
+	// 이미지를 변경하는 경우
 	@ApiOperation(value ="자유 게시판 글 수정", notes="해당 id의 글 수정")
 	@PutMapping
 	@Transactional
-	public ResponseEntity<?> modify(
+	public ResponseEntity<?> modify1(
 			@RequestParam("title") String title,
 			@RequestParam("id") int id, 
 			@RequestParam("content") String content,
 			@RequestParam("userId") String userId,
 			@RequestParam("userName") String userName,
-			@RequestParam(value = "image", required = false) MultipartFile file
+			@RequestParam("image") MultipartFile file
 			) throws Exception{
 		logger.debug("modify board : {} {} {} {} {}", title, content, userId, userName, file);
 		
@@ -164,12 +164,26 @@ public class BoardController {
 			}
 		}
 		
-		if(boardService.modifyBoard(boardDto)) {
+		if(boardService.modifyBoard1(boardDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 	
+	
+	// 이미지를 받지 않는 경우
+	@ApiOperation(value ="자유 게시판 글 수정", notes="해당 id의 글 수정")
+	@PutMapping(value = "/{boardId}")
+	@Transactional
+	public ResponseEntity<?> modify2(@RequestBody BoardDto boardDto) throws Exception {
+		System.out.println("come in");
+		logger.debug("modify board {}", boardDto);
+		
+		if(boardService.modifyBoard2(boardDto)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
 	
 	
 	@ApiOperation(value ="자유 게시판 글 삭제", notes="해당 id의 게시판 글 삭제")

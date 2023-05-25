@@ -67,9 +67,15 @@
 		</selectKey>
 	</insert>
 	
-	<update id="modifyBoard" parameterType="boardDto">
+	<update id="modifyBoard1" parameterType="boardDto">
 		update board
 		set title = #{title}, content = #{content}, image = #{image}
+		where id = #{id}
+	</update>
+	
+	<update id="modifyBoard2" parameterType="boardDto">
+		update board
+		set title = #{title}, content = #{content}
 		where id = #{id}
 	</update>
 	

@@ -87,15 +87,18 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional
-	public boolean modifyBoard(BoardDto boardDto) throws Exception {
-		return boardMapper.modifyBoard(boardDto) == 1;
-	}
-
-
-	@Override
-	@Transactional
 	public boolean deleteBoard(int id) throws Exception {
 		return boardMapper.deleteBoard(id) == 1;
+	}
+
+	@Override
+	public boolean modifyBoard1(BoardDto boardDto) throws Exception {
+		return boardMapper.modifyBoard1(boardDto) == 1;
+	}
+
+	@Override
+	public boolean modifyBoard2(BoardDto boardDto) throws Exception {
+		return boardMapper.modifyBoard2(boardDto) == 1;
 	}
 
 
