@@ -121,7 +121,6 @@ public class BoardController {
 				boardDto.setImage(saveFileName);
 			}
 			
-			boardService.writeBoard(boardDto);
 		}
 			
 		if(boardService.writeBoard(boardDto)) {
@@ -135,6 +134,7 @@ public class BoardController {
 	
 	@ApiOperation(value ="자유 게시판 글 수정", notes="해당 id의 글 수정")
 	@PutMapping
+	@Transactional
 	public ResponseEntity<?> modify(
 			@RequestParam("title") String title,
 			@RequestParam("id") int id, 
