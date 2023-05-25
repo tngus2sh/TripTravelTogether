@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.attraction.model.dto.AttractionDetailInfoDto;
 import com.ssafy.trip.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.trip.attraction.model.dto.GunguDto;
 import com.ssafy.trip.attraction.model.dto.SidoDto;
@@ -16,4 +17,5 @@ public interface AttractionService {
     int getGunguCode(Map<String, Object> map) throws SQLException;
     List<AttractionInfoDto> listAttractionAll(Map<String, Object> map) throws SQLException;
     List<AttractionInfoDto> listAttraction(Map<String, Object> map) throws SQLException;
+    AttractionDetailInfoDto getAttractionDetail(String title) throws SQLException;
 }

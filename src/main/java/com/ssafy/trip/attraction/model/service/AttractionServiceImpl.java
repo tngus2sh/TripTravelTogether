@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ssafy.trip.attraction.model.dto.AttractionDetailInfoDto;
 import com.ssafy.trip.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.trip.attraction.model.dto.GunguDto;
 import com.ssafy.trip.attraction.model.dto.SidoDto;
@@ -49,5 +50,10 @@ public class AttractionServiceImpl implements AttractionService {
 	@Override
 	public List<AttractionInfoDto> listAttraction(Map<String, Object> map) throws SQLException {
 		return attractionMapper.listAttraction(map);
+	}
+
+	@Override
+	public AttractionDetailInfoDto getAttractionDetail(String title) throws SQLException {
+		return attractionMapper.getAttractionDetail(title);
 	}
 }

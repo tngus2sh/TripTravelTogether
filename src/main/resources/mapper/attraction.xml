@@ -21,6 +21,10 @@
 		<result column="mlevel" property="mlevel"/>
 	</resultMap>
 	
+	<resultMap type="attractionDetailInfoDto" id="attractionDetail" extends="attraction">
+		<result column="overview" property="overview"/>
+	</resultMap>
+	
 	<resultMap type="sidoDto" id="sido">
 		<result column="sido_code" property="sidoCode"/>
 		<result column="sido_name" property="sidoName"/>
@@ -65,6 +69,14 @@
 		select *
 		from attraction_info
 		where sido_code=${sidoCode} and gugun_code=${gugunCode} and content_type_id=${contentTypeId}
+	</select>
+	
+	<select id="getAttractionDetail" parameterType="string" resultMap="attractionDetail">
+		SELECT any_value(i.title) title, any_value(i.content_id) content_id, any_value(i.content_type_id) content_type_id, any_value(i.addr1) addr1, any_value(i.zipcode) zipcode, any_value(i.first_image) first_image, any_value(i.tel) tel, any_value(i.sido_code) sido_code, any_value(i.gugun_code) gugun_code, 
+		(SELECT overview FROM attraction_description WHERE content_id = (SELECT content_id FROM attraction_info WHERE title = #{title})) AS overview
+		FROM attraction_info i
+		LEFT OUTER JOIN attraction_description d ON i.content_id = d.content_id
+		WHERE i.title = #{title};
 	</select>
 	
 </mapper>

@@ -9,10 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.trip.attraction.model.dto.AttractionDetailInfoDto;
 import com.ssafy.trip.attraction.model.dto.GunguDto;
 import com.ssafy.trip.attraction.model.dto.SidoDto;
 import com.ssafy.trip.attraction.model.service.AttractionService;
@@ -55,6 +57,20 @@ public class AttractionController {
 			return new ResponseEntity<List<GunguDto>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);
+		}
+	}
+	
+	@ApiOperation(value = "관광지 상세 정보 가져오기", notes = "관광지 상세 내용을 가져온다")
+	@GetMapping(value="/detail/{title}")
+	public ResponseEntity<?> getAttractionDetail(@PathVariable("title") @ApiParam(value = "선택한 관광지 이름.", required = true)  String title) {
+		logger.debug("get AttractionDetail : {}", title);
+		try {
+			AttractionDetailInfoDto attr = attractionService.getAttractionDetail(title);
+			logger.debug("gungu list : {}", attr);
+			return new ResponseEntity<AttractionDetailInfoDto>(attr, HttpStatus.OK);
+		} catch (Exception e) {
+			e.getMessage();
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
