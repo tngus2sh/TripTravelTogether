@@ -1,6 +1,6 @@
 # 프로젝트 구성
 ## ERD(테이블 구조도)
-![image](/uploads/302ee41b5f7b2de5f406d029760f4f5c/image.png)
+![image](https://github.com/tngus2sh/aleteo-server/assets/101691649/00e0440d-8ec7-4950-8699-458fd9b256b5))
 
 ## UseCase Diagram(요구사항 정의서)
-![image](/uploads/12c3194a5a1cdf97666bbd24b1086438/image.png)
+<img width="451" alt="image" src="https://github.com/tngus2sh/aleteo-server/assets/101691649/d54c4b87-9eb3-46d4-ad0b-09de86062902">
